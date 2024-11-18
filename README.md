@@ -1,2 +1,1 @@
-Trello
-[Link](https://trello.com/b/IIIbnnqu/elso-merfoldkonov-dec)
+[Trello link](https://trello.com/b/IIIbnnqu/elso-merfoldkonov-dec)
