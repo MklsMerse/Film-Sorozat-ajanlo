@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FilmFókusz</title>
+  <link rel="stylesheet" href="film.css" >
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="logo.jpg" type="image/jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Film Fókusz</div>
+      <div class="nav-links">
+        <div class="dropdown">
+          <a href="#" class="dropdown-link" style="text-decoration: none;">Filmek</a>
+          <div class="dropdown-content">
+            <a href="#">Sci-Fi <i class="fas fa-rocket"></i></a>
+            <a href="#">Akció <i class="fas fa-bomb"></i></a>
+            <a href="#">Romantikus <i class="fas fa-heart"></i></a>
+            <a href="#">Dráma <i class="fas fa-theater-masks"></i></a>
+            <a href="#">Vígjáték <i class="fas fa-smile"></i></a> 
+            <a href="#">Horror  <i class="fas fa-ghost"></i></a> 
+            <a href="#">Thriller <i class="fas fa-exclamation-triangle"></i></a> 
+            <a href="#">Kaland <i class="fas fa-mountain"></i></a> 
+            <a href="#">Dokumentumfilm <i class="fas fa-book"></i></a> 
+            <a href="#">Animáció <i class="fas fa-paint-brush"></i></a> 
+          </div>
+        </div>
+        <div class="dropdown">
+          <a href="#" class="dropdown-link" style="text-decoration: none;">Sorozatok</a>
+          <div class="dropdown-content">
+            <a href="#">Sci-Fi <i class="fas fa-rocket"></i></a>
+            <a href="#">Akció <i class="fas fa-bomb"></i></a>
+            <a href="#">Romantikus <i class="fas fa-heart"></i></a>
+            <a href="#">Dráma <i class="fas fa-theater-masks"></i></a>
+            <a href="#">Vígjáték <i class="fas fa-smile"></i></a> 
+            <a href="#">Horror  <i class="fas fa-ghost"></i></a> 
+            <a href="#">Thriller <i class="fas fa-exclamation-triangle"></i></a> 
+            <a href="#">Kaland <i class="fas fa-mountain"></i></a> 
+            
+            <a href="#">Animáció <i class="fas fa-paint-brush"></i></a> 
+          </div>
+        </div>
+        <a href="#watched" style="text-decoration: none;">Megnézett műsoraid</a>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="nav-search-input" placeholder="Keresés...">
+        <button id="nav-search-btn" style="font-family: comic sans sm, cursive;">Keresés <i class="fa-solid fa-magnifying-glass"></i></button>
+        
+        <div class="auth-dropdown">
+          <a href="#" class="auth-link"><i class="fa-solid fa-bars"></i></a>
+          <div class="auth-dropdown-content">
+            <a href="#" id="login-btn">Belépés <i class="fas fa-user"></i></a>
+            <a href="#" id="register-btn">Regisztráció <i class="fas fa-user-plus"></i></a>
+          </div>
+        </div>
+      
+        <div id="modal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="modal-form">
+              <!-- A formok dinamikusan lesznek cserélve -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+  
+  
+  <div id="background" class="background-blur"></div>
+  <main>
+    <section id="movies">
+      <h2>Ajánlott Filmek</h2>
+      <div class="card-container" id="movie-list"></div>
+    </section>
+
+    <section id="series">
+      <h2>Ajánlott Sorozatok</h2>
+      <div class="card-container" id="series-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-left">
+        <h4>Kapcsolat</h4>
+        <p>Email: filmfokuszkando@gmail.com</p>
+        <p>Telefon: +36 70 420 6921</p>
+      </div>
+      <div class="footer-center">
+        <h4>Gyors linkek</h4>
+        <ul>
+          <li><a href="#movies">Filmek</a></li>
+          <li><a href="#series">Sorozatok</a></li>
+          <li><a href="#about">Rólunk</a></li>
+        </ul>
+      </div>
+      <div class="footer-social">
+        <h4>Kövess minket</h4>
+        <div class="social-media">
+          <a href="https://www.facebook.com/" class="social-icon" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a>
+          <a href="https://www.instagram.com/" class="social-icon" target="_blank"><i class="fa-brands fa-facebook"></i> Instagram</a>
+          <a href="https://www.tiktok.com/" class="social-icon" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Filmek és Sorozatok. Minden jog fenntartva.</p>
+    </div>
+  </footer>
+  
+  
+  <div id="about-section" class="hidden"></div>
+
+  <script src="film.js"></script>
+</body>
+</html>
