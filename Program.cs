@@ -6,7 +6,7 @@ using System.Net.Mail;
 namespace FilmFokuszBackEnd
 {
     public class Program
-    {
+    { 
         public static int SaltLength = 64;
 
         public static Dictionary<string, User> LoggedInUsers = new Dictionary<string, User>();
