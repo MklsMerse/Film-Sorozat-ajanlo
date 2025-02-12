@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmFokuszBackEnd", "FilmFokuszBackEnd\FilmFokuszBackEnd.csproj", "{8D882945-54CF-4AD3-BD23-E9C5FA431E06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FilmFokuszBackEnd", "FilmFokuszBackEnd.csproj", "{8D882945-54CF-4AD3-BD23-E9C5FA431E06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
