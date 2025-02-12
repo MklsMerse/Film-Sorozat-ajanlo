@@ -1,0 +1,6 @@
+@FilmFokuszBackEnd_HostAddress = http://localhost:5104
+
+GET {{FilmFokuszBackEnd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
