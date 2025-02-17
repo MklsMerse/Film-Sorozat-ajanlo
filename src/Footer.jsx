@@ -14,7 +14,7 @@ export const Footer = () => {
         <ul>
           <li><a href="#movies">Filmek</a></li>
           <li><a href="#series">Sorozatok</a></li>
-          <li><a href="#about">Rólunk</a></li>
+          <li><a href="/about">Rólunk</a></li>
         </ul>
       </div>
       <div className="footer-social">
