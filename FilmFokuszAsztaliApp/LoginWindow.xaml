@@ -5,22 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilmFokuszAsztaliApp"
         mc:Ignorable="d"
-        Title="Bejelentkezés" Height="200" Width="300">
+        Title="Bejelentkezés" Height="200" Width="300" Background="#F4FDFF">
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="5"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="3" ShadowDepth="10"/>
+                </Setter.Value>
+            </Setter>
         </Style>
+        
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5,0,5,5"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
         </Style>
+        
         <Style TargetType="PasswordBox">
             <Setter Property="Margin" Value="5,0,5,5"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
         </Style>
+
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#FF5A5F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="3"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Grid>
@@ -29,7 +74,7 @@
             <TextBox Name="tbxLoginName"/>
             <Label>Jelszó:</Label>
             <PasswordBox Name="tbxPassword"/>
-        </StackPanel>
+    
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Button x:Name="btnLogin"
@@ -38,6 +83,7 @@
             <Button x:Name="btnCancel"
                     Content="Mégse"
                     Click="btnCancel_Click"/>
+        </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

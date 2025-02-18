@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\miklosm\\Desktop\\GitHub\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj": {}
+    "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\miklosm\\Desktop\\GitHub\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj": {
+    "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\miklosm\\Desktop\\GitHub\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj",
+        "projectUniqueName": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj",
         "projectName": "FilmFokuszAsztaliApp",
-        "projectPath": "C:\\Users\\miklosm\\Desktop\\GitHub\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj",
+        "projectPath": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj",
         "packagesPath": "C:\\Users\\miklosm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\miklosm\\Desktop\\GitHub\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\obj\\",
+        "outputPath": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -50,7 +50,7 @@ namespace FilmFokuszAsztaliApp
 
         public static HttpClient sharedClient = new HttpClient()
         {
-            BaseAddress = new Uri("http://localhost:5000")
+            BaseAddress = new Uri("http://localhost:5104")
         };
         public MainWindow()
         {
@@ -71,6 +71,32 @@ namespace FilmFokuszAsztaliApp
             {
                 MessageBox.Show("Sikertelen bejelentkezés!");
             }
+        }
+
+        private void OpenUserListWindow_Click(object sender, RoutedEventArgs e)
+        {
+            UserListWindow userListWindow = new UserListWindow();
+            userListWindow.client = sharedClient;
+            userListWindow.token = uId;
+            userListWindow.ShowDialog();
+        }
+
+        private void OpenUserRegisterWindow_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(uId))
+            {
+                MessageBox.Show("Először jelentkezz be!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            UserRegisterWindow registerWindow = new UserRegisterWindow(sharedClient, uId);
+            registerWindow.ShowDialog();
+        }
+
+        private void OpenUserEditWindow_Click(object sender, RoutedEventArgs e)
+        {
+            UserEditWindow userEditWindow = new UserEditWindow(sharedClient, uId);
+            userEditWindow.ShowDialog();
         }
     }
 }

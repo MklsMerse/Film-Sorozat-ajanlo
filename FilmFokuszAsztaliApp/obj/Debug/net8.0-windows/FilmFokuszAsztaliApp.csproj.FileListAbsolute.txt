@@ -20,3 +20,32 @@ C:\Users\miklosm\source\repos\FilmFokuszAsztaliApp\FilmFokuszAsztaliApp\obj\Debu
 C:\Users\miklosm\source\repos\FilmFokuszAsztaliApp\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.pdb
 C:\Users\miklosm\source\repos\FilmFokuszAsztaliApp\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.genruntimeconfig.cache
 C:\Users\miklosm\source\repos\FilmFokuszAsztaliApp\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\ref\FilmFokuszAsztaliApp.dll
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\bin\Debug\net8.0-windows\FilmFokuszAsztaliApp.exe
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\bin\Debug\net8.0-windows\FilmFokuszAsztaliApp.deps.json
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\bin\Debug\net8.0-windows\FilmFokuszAsztaliApp.runtimeconfig.json
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\bin\Debug\net8.0-windows\FilmFokuszAsztaliApp.dll
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\bin\Debug\net8.0-windows\FilmFokuszAsztaliApp.pdb
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\UserListWindow.baml
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\LoginWindow.g.cs
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\MainWindow.g.cs
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\UserListWindow.g.cs
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\App.g.cs
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp_MarkupCompile.cache
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp_MarkupCompile.lref
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\LoginWindow.baml
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\MainWindow.baml
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.g.resources
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.AssemblyInfoInputs.cache
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.AssemblyInfo.cs
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.csproj.CoreCompileInputs.cache
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.sourcelink.json
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.dll
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\refint\FilmFokuszAsztaliApp.dll
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.pdb
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\FilmFokuszAsztaliApp.genruntimeconfig.cache
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\ref\FilmFokuszAsztaliApp.dll
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\UserRegisterWindow.g.cs
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\UserRegisterWindow.baml
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\UserEditWindow.g.cs
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\UserEditWindow.baml

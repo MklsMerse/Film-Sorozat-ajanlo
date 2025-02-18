@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\miklosm\Desktop\Git\Film-Sorozat-ajanlo\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\obj\Debug\net8.0-windows\
 FilmFokuszAsztaliApp
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\miklosm\Desktop\Git\Film-Sorozat-ajanlo\FilmFokuszAsztaliApp\App.xaml
-2-216653475
+C:\Users\szita\OneDrive\Asztali gép\szar\FilmFokuszAsztaliApp\App.xaml
+51520336296
 
-71835357725
-198-1431420039
-LoginWindow.xaml;MainWindow.xaml;
+12268702073
+198-1509178875
+LoginWindow.xaml;MainWindow.xaml;UserEditWindow.xaml;UserListWindow.xaml;UserRegisterWindow.xaml;
 
-True
+False
 

@@ -1,0 +1,64 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FB2AA633-827E-4B67-AFBA-01F563C1C5C4}|FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj|c:\\users\\miklosm\\source\\repos\\mklsmerse\\film-sorozat-ajanlo\\filmfokuszasztaliapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{FB2AA633-827E-4B67-AFBA-01F563C1C5C4}|FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj|solutionrelative:filmfokuszasztaliapp\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FB2AA633-827E-4B67-AFBA-01F563C1C5C4}|FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj|c:\\users\\miklosm\\source\\repos\\mklsmerse\\film-sorozat-ajanlo\\filmfokuszasztaliapp\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{FB2AA633-827E-4B67-AFBA-01F563C1C5C4}|FilmFokuszAsztaliApp\\FilmFokuszAsztaliApp.csproj|solutionrelative:filmfokuszasztaliapp\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "FilmFokuszAsztaliApp\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\MainWindow.xaml",
+              "RelativeToolTip": "FilmFokuszAsztaliApp\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-18T10:57:03.062Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "FilmFokuszAsztaliApp\\LoginWindow.xaml",
+              "ToolTip": "C:\\Users\\miklosm\\source\\repos\\MklsMerse\\Film-Sorozat-ajanlo\\FilmFokuszAsztaliApp\\LoginWindow.xaml",
+              "RelativeToolTip": "FilmFokuszAsztaliApp\\LoginWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-18T10:56:58.264Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

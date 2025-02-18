@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FilmFokuszAsztaliApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+88f2fadb2bdcca000244880c2aed23a2805f641c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+35a9470679d759d44c9a937cc04d03f3ba49aedf")]
 [assembly: System.Reflection.AssemblyProductAttribute("FilmFokuszAsztaliApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FilmFokuszAsztaliApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

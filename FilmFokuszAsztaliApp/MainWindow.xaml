@@ -5,7 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FilmFokuszAsztaliApp"
         mc:Ignorable="d"
-        Title="FilmFokusz" Height="450" Width="800">
+        Title="FilmFókusz" Height="450" Width="800" Background="#F4FDFF" Foreground="#0C0F0A">
+
+
+    <Window.Resources>
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="#FF5A5F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+
+        <Style TargetType="MenuItem">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="cursive"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="3" ShadowDepth="7"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -14,13 +40,13 @@
         <Menu>
             <MenuItem Header="Bejelentkezés" 
                       Click="OpenLoginWindow_Click"
-                      Name="mItemBejelentkezes"/>
+                      Name="mItemBejelentkezes" Margin="45,7,15,5"/>
             <MenuItem Header="Felhasználók" 
                       IsEnabled="False"
-                      Name="mItemFelhasznalok"/>
-            <MenuItem Header="Felhasználók listázása"/>
-            <MenuItem Header="Felhasználó rögzítése"/>
-            <MenuItem Header="Felhasználó módosítása"/>
+                      Name="mItemFelhasznalok" Margin="15,7,15,5"/>
+            <MenuItem Header="Felhasználók listázása" Click="OpenUserListWindow_Click" Name="mItemListazas" Margin="15,7,15,5"/>
+            <MenuItem Header="Felhasználó rögzítése" Click="OpenUserRegisterWindow_Click" Name="mItemRogzites" Margin="15,7,15,5"/>
+            <MenuItem Header="Felhasználó módosítása" Click="OpenUserEditWindow_Click" Name="mItemModositas" Margin="10,7,15,5"/>
         </Menu>
     </Grid>
 </Window>
