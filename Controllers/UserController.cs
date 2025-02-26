@@ -12,8 +12,7 @@ namespace FilmFokuszBackEnd.Controllers
     public class UserController : ControllerBase
     {
         [HttpGet("/EmailName{token}")]
-
-        public async Task<IActionResult> GetEmailName(string token)
+        public async Task<IActionResult> GetUserData(string token)
         {
             if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
             {
@@ -21,7 +20,19 @@ namespace FilmFokuszBackEnd.Controllers
                 {
                     using (var cx = new FilmfokuszContext())
                     {
-                        return Ok(await cx.Users.Select(f => new EmailNameDTO { Email = f.Email, Name = f.Name }).ToListAsync());
+                        var users = await cx.Users.Select(u => new
+                        {
+                            u.Id,
+                            u.LoginNev,
+                            u.Hash,
+                            u.Salt,
+                            u.Name,
+                            u.PermissionId,
+                            u.Active,
+                            u.Email,
+                            u.ProfilePicturePath
+                        }).ToListAsync();
+                        return Ok(users);
                     }
                 }
                 catch (Exception ex)
@@ -34,34 +45,10 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
-            [HttpPost("{token}")]
 
-            public async Task<IActionResult> Post(string token, User user)
-            {
-                if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
-                {
-                    try
-                    {
-                        using (var cx = new FilmfokuszContext())
-                        {
-                        cx.Users.Add(user);
-                        cx.SaveChanges();
-                            return Ok("");
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        return BadRequest(ex.InnerException?.Message);
-                    }
-                }
-                else
-                {
-                    return BadRequest("Nincs jogod hozzá!");
-                }
-            }
-        [HttpPut("{token}")]
 
-        public async Task<IActionResult> Put(string token, User user)
+        [HttpPost("{token}")]
+        public async Task<IActionResult> Post(string token, [FromBody] User user)
         {
             if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
             {
@@ -69,14 +56,58 @@ namespace FilmFokuszBackEnd.Controllers
                 {
                     using (var cx = new FilmfokuszContext())
                     {
-                        cx.Users.Update(user);
-                        cx.SaveChanges();
+                        cx.Users.Add(user);
+                        await cx.SaveChangesAsync();
+                        return Ok("Felhasználó hozzáadva.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.InnerException?.Message ?? ex.Message);
+                }
+            }
+            else
+            {
+                return BadRequest("Nincs jogod hozzá!");
+            }
+        }
+
+
+        [HttpPut("{token}")]
+        public async Task<IActionResult> Put(string token, [FromBody] User updatedUser)
+        {
+            // Ellenőrizzük, hogy létezik-e a token, és a PermissionId == 9 jogosultság rendben van-e
+            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            {
+                try
+                {
+                    using (var cx = new FilmfokuszContext())
+                    {
+                        // Megkeressük a meglévő felhasználót az adatbázisban az Id alapján
+                        var existingUser = await cx.Users.FindAsync(updatedUser.Id);
+                        if (existingUser == null)
+                        {
+                            return NotFound("A megadott felhasználó nem található.");
+                        }
+
+                        // Frissítjük a mezőket a bejövő adatok alapján
+                        existingUser.LoginNev = updatedUser.LoginNev;
+                        existingUser.Hash = updatedUser.Hash;
+                        existingUser.Salt = updatedUser.Salt;
+                        existingUser.Name = updatedUser.Name;
+                        existingUser.PermissionId = updatedUser.PermissionId;
+                        existingUser.Active = updatedUser.Active;
+                        existingUser.Email = updatedUser.Email;
+                        existingUser.ProfilePicturePath = updatedUser.ProfilePicturePath;
+
+                        // Elmentjük a változtatásokat
+                        await cx.SaveChangesAsync();
                         return Ok("A felhasználó adatai módosítva.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex.InnerException?.Message);
+                    return BadRequest(ex.InnerException?.Message ?? ex.Message);
                 }
             }
             else
@@ -84,9 +115,9 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
-        [HttpDelete("{token},{id}")]
 
-        public IActionResult Delete(string token, int id)
+        [HttpDelete("{token}/{id}")]
+        public async Task<IActionResult> Delete(string token, int id)
         {
             if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
             {
@@ -94,14 +125,19 @@ namespace FilmFokuszBackEnd.Controllers
                 {
                     using (var cx = new FilmfokuszContext())
                     {
-                        cx.Users.Remove(new User {  Id=id });
-                        cx.SaveChanges();
+                        var user = await cx.Users.FindAsync(id);
+                        if (user == null)
+                        {
+                            return NotFound("A megadott felhasználó nem található.");
+                        }
+                        cx.Users.Remove(user);
+                        await cx.SaveChangesAsync();
                         return Ok("A felhasználó adatai törölve.");
                     }
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex.InnerException?.Message);
+                    return BadRequest(ex.InnerException?.Message ?? ex.Message);
                 }
             }
             else
@@ -109,5 +145,6 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
+
     }
 }

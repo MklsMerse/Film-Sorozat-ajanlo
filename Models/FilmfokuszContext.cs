@@ -15,13 +15,15 @@ public partial class FilmfokuszContext : DbContext
     {
     }
 
+    public virtual DbSet<FilmVelemenyek> FilmVelemenyeks { get; set; }
+
     public virtual DbSet<Filmek> Filmeks { get; set; }
+
+    public virtual DbSet<SorozatVelemenyek> SorozatVelemenyeks { get; set; }
 
     public virtual DbSet<Sorozatok> Sorozatoks { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
-
-    public virtual DbSet<Velemenyek> Velemenyeks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -29,6 +31,48 @@ public partial class FilmfokuszContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<FilmVelemenyek>(entity =>
+        {
+            entity.HasKey(e => e.VelemenyId).HasName("PRIMARY");
+
+            entity.ToTable("film_velemenyek");
+
+            entity.HasIndex(e => e.FelhasznaloId, "felhasznalo_id");
+
+            entity.HasIndex(e => new { e.FelhasznaloId, e.FilmId }, "felhasznalo_id_2").IsUnique();
+
+            entity.HasIndex(e => e.FilmId, "film_id");
+
+            entity.Property(e => e.VelemenyId)
+                .HasColumnType("int(11)")
+                .HasColumnName("velemeny_id");
+            entity.Property(e => e.Ertekeles)
+                .HasPrecision(10)
+                .HasColumnName("ertekeles");
+            entity.Property(e => e.FelhasznaloId)
+                .HasColumnType("int(11)")
+                .HasColumnName("felhasznalo_id");
+            entity.Property(e => e.FilmId)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnType("int(11)")
+                .HasColumnName("film_id");
+            entity.Property(e => e.HozzaszolasDatum)
+                .HasColumnType("datetime")
+                .HasColumnName("hozzaszolas_datum");
+            entity.Property(e => e.VelemenySzoveg)
+                .HasColumnType("text")
+                .HasColumnName("velemeny_szoveg");
+
+            entity.HasOne(d => d.Felhasznalo).WithMany(p => p.FilmVelemenyeks)
+                .HasForeignKey(d => d.FelhasznaloId)
+                .HasConstraintName("film_velemenyek_ibfk_1");
+
+            entity.HasOne(d => d.Film).WithMany(p => p.FilmVelemenyeks)
+                .HasForeignKey(d => d.FilmId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("film_velemenyek_ibfk_2");
+        });
+
         modelBuilder.Entity<Filmek>(entity =>
         {
             entity.HasKey(e => e.FilmId).HasName("PRIMARY");
@@ -62,6 +106,48 @@ public partial class FilmfokuszContext : DbContext
             entity.Property(e => e.Szereplok)
                 .HasColumnType("text")
                 .HasColumnName("szereplok");
+        });
+
+        modelBuilder.Entity<SorozatVelemenyek>(entity =>
+        {
+            entity.HasKey(e => e.VelemenyId).HasName("PRIMARY");
+
+            entity.ToTable("sorozat_velemenyek");
+
+            entity.HasIndex(e => e.FelhasznaloId, "felhasznalo_id");
+
+            entity.HasIndex(e => new { e.FelhasznaloId, e.SorozatId }, "felhasznalo_id_2").IsUnique();
+
+            entity.HasIndex(e => e.SorozatId, "sorozat_id");
+
+            entity.Property(e => e.VelemenyId)
+                .HasColumnType("int(11)")
+                .HasColumnName("velemeny_id");
+            entity.Property(e => e.Ertekeles)
+                .HasPrecision(10)
+                .HasColumnName("ertekeles");
+            entity.Property(e => e.FelhasznaloId)
+                .HasColumnType("int(11)")
+                .HasColumnName("felhasznalo_id");
+            entity.Property(e => e.HozzaszolasDatum)
+                .HasColumnType("datetime")
+                .HasColumnName("hozzaszolas_datum");
+            entity.Property(e => e.SorozatId)
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnType("int(11)")
+                .HasColumnName("sorozat_id");
+            entity.Property(e => e.VelemenySzoveg)
+                .HasColumnType("text")
+                .HasColumnName("velemeny_szoveg");
+
+            entity.HasOne(d => d.Felhasznalo).WithMany(p => p.SorozatVelemenyeks)
+                .HasForeignKey(d => d.FelhasznaloId)
+                .HasConstraintName("sorozat_velemenyek_ibfk_1");
+
+            entity.HasOne(d => d.Sorozat).WithMany(p => p.SorozatVelemenyeks)
+                .HasForeignKey(d => d.SorozatId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("sorozat_velemenyek_ibfk_2");
         });
 
         modelBuilder.Entity<Sorozatok>(entity =>
@@ -126,40 +212,6 @@ public partial class FilmfokuszContext : DbContext
             entity.Property(e => e.Salt)
                 .HasMaxLength(64)
                 .HasColumnName("SALT");
-        });
-
-        modelBuilder.Entity<Velemenyek>(entity =>
-        {
-            entity.HasKey(e => e.VelemenyId).HasName("PRIMARY");
-
-            entity.ToTable("velemenyek");
-
-            entity.HasIndex(e => e.FelhasznaloId, "felhasznalo_id");
-
-            entity.HasIndex(e => e.FilmId, "film_id");
-
-            entity.HasIndex(e => e.SorozatId, "sorozat_id");
-
-            entity.Property(e => e.VelemenyId)
-                .HasColumnType("int(11)")
-                .HasColumnName("velemeny_id");
-            entity.Property(e => e.Ertekeles)
-                .HasPrecision(10)
-                .HasColumnName("ertekeles");
-            entity.Property(e => e.FelhasznaloId)
-                .HasColumnType("int(11)")
-                .HasColumnName("felhasznalo_id");
-            entity.Property(e => e.FilmId)
-                .HasDefaultValueSql("'NULL'")
-                .HasColumnType("int(11)")
-                .HasColumnName("film_id");
-            entity.Property(e => e.SorozatId)
-                .HasDefaultValueSql("'NULL'")
-                .HasColumnType("int(11)")
-                .HasColumnName("sorozat_id");
-            entity.Property(e => e.VelemenySzoveg)
-                .HasColumnType("text")
-                .HasColumnName("velemeny_szoveg");
         });
 
         OnModelCreatingPartial(modelBuilder);

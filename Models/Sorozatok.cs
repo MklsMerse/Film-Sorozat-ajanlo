@@ -24,4 +24,6 @@ public partial class Sorozatok
     public string SorozatUrl { get; set; } = null!;
 
     public int EvadokSzama { get; set; }
+
+    public virtual ICollection<SorozatVelemenyek> SorozatVelemenyeks { get; set; } = new List<SorozatVelemenyek>();
 }

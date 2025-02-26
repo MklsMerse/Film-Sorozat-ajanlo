@@ -1,12 +1,13 @@
 using System.Security.Cryptography;
 using FilmFokuszBackEnd.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Net.Mail;
 
 namespace FilmFokuszBackEnd
 {
     public class Program
-    { 
+    {
         public static int SaltLength = 64;
 
         public static Dictionary<string, User> LoggedInUsers = new Dictionary<string, User>();
@@ -45,17 +46,11 @@ namespace FilmFokuszBackEnd
             mail.Subject = subject;
             mail.Body = body;
 
-            /*System.Net.Mail.Attachment attachment;
-            attachment = new System.Net.Mail.Attachment("");
-            mail.Attachments.Add(attachment);*/
-
             SmtpServer.Port = 587;
-            SmtpServer.Credentials = new System.Net.NetworkCredential("filmfokuszkando@gmail.com", "fzcspxawkmvnjipb");                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-
+            SmtpServer.Credentials = new System.Net.NetworkCredential("filmfokuszkando@gmail.com", "fzcspxawkmvnjipb");
             SmtpServer.EnableSsl = true;
 
             await SmtpServer.SendMailAsync(mail);
-
         }
 
         public static void Main(string[] args)
@@ -65,10 +60,13 @@ namespace FilmFokuszBackEnd
 
             builder.Services.AddCors(c => { c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); });
 
-            // Add services to the container.
+            // Adatbázis kapcsolat beállítása
+            builder.Services.AddDbContext<FilmfokuszContext>(options =>
+            options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+            // Add services to the container.
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -76,7 +74,6 @@ namespace FilmFokuszBackEnd
 
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -84,14 +81,12 @@ namespace FilmFokuszBackEnd
             }
 
             app.UseHttpsRedirection();
-
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();
         }
     }
 }
-//Scaffold-DbContext "SERVER=localhost;PORT=3306;DATABASE=;USER=root;PASSWORD=;SSL MODE=none;" mysql.entityframeworkcore -outputdir Models -f
+
+//Scaffold-DbContext "SERVER=localhost;PORT=3306;DATABASE=filmfokusz;USER=root;PASSWORD=;SSL MODE=none;" mysql.entityframeworkcore -outputdir Models -f
