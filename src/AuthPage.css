@@ -93,4 +93,23 @@ body {
     color: #800020;
   }
   
-  
+  .registration-extra {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .registration-left,
+.registration-right {
+  flex: 1;
+}
+
+.registration-right {
+  margin-left: 1rem;
+  text-align: right;
+}
+
+.profile-picture-preview {
+  margin-top: 0.5rem;
+}

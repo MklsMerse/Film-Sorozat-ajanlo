@@ -5,6 +5,7 @@ import './AuthPage.css';
 
 export const AuthPage = ({ setIsAuthenticated }) => {
   const [isLogin, setIsLogin] = useState(true);
+  const [fullName, setFullName] = useState(''); // Új állapot a teljes névhez
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +14,9 @@ export const AuthPage = ({ setIsAuthenticated }) => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicturePreview, setProfilePicturePreview] = useState(null);
 
   const navigate = useNavigate();
 
@@ -33,8 +37,36 @@ export const AuthPage = ({ setIsAuthenticated }) => {
     return "";
   };
 
-  const handleAuth = () => {
-    if (!username || !password || (!isLogin && (!email || !confirmPassword))) {
+  // Profilkép feltöltés kezelése (ugyanaz marad)
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        alert("Kérlek egy képfájlt válassz!");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const img = new Image();
+        img.onload = () => {
+          if (img.width > 320 || img.height > 320) {
+            alert("A profilkép maximális mérete 320x320 pixel lehet. Kérlek válassz kisebb képet!");
+            setProfilePicture(null);
+            setProfilePicturePreview(null);
+          } else {
+            setProfilePicture(event.target.result); // Base64 string
+            setProfilePicturePreview(event.target.result);
+          }
+        };
+        img.src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleAuth = async () => {
+    // Ellenőrizzük az alapmezőket; regisztrációs módban a fullName is kötelező!
+    if (!username || !password || (!isLogin && (!fullName || !email || !confirmPassword))) {
       alert('Kérlek töltsd ki az összes mezőt!');
       return;
     }
@@ -60,16 +92,21 @@ export const AuthPage = ({ setIsAuthenticated }) => {
         alert('Az e-mail cím már foglalt!');
         return;
       }
-      const newUser = { username, email, password };
+      // Új felhasználó objektum, amely tartalmazza a fullName mezőt
+      const newUser = { fullName, username, email, password, profilePicture };
       users.push(newUser);
       localStorage.setItem('registeredUsers', JSON.stringify(users));
       alert('Regisztráció sikeres! Kérlek jelentkezz be.');
       setIsLogin(true);
+      // Töröljük a mezőket
+      setFullName('');
       setUsername('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
       setCaptchaValue(null);
+      setProfilePicture(null);
+      setProfilePicturePreview(null);
     } else {
       // BEJELENTKEZÉS
       const storedUsers = localStorage.getItem('registeredUsers');
@@ -80,8 +117,9 @@ export const AuthPage = ({ setIsAuthenticated }) => {
       const users = JSON.parse(storedUsers);
       const user = users.find((u) => u.username === username && u.password === password);
       if (user) {
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
         setIsAuthenticated(true);
-        navigate("/"); // Átirányítás a Home oldalra
+        navigate("/");
       } else {
         alert('Hibás felhasználónév vagy jelszó!');
       }
@@ -91,6 +129,15 @@ export const AuthPage = ({ setIsAuthenticated }) => {
   return (
     <div className="auth-container">
       <h2>{isLogin ? 'Bejelentkezés' : 'Regisztráció'}</h2>
+      {/* Ha regisztrációs módban vagyunk, jelenjen meg a Teljes Név input */}
+      {!isLogin && (
+        <input 
+          type="text" 
+          placeholder="Teljes Név" 
+          value={fullName} 
+          onChange={(e) => setFullName(e.target.value)}
+        />
+      )}
       <input 
         type="text" 
         placeholder="Felhasználónév" 
@@ -98,12 +145,32 @@ export const AuthPage = ({ setIsAuthenticated }) => {
         onChange={(e) => setUsername(e.target.value)}
       />
       {!isLogin && (
-        <input 
-          type="email" 
-          placeholder="E-mail cím" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className="registration-extra">
+          <div className="registration-left">
+            <input 
+              type="email" 
+              placeholder="E-mail cím" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="registration-right">
+            <input 
+              type="file" 
+              accept="image/*" 
+              onChange={handleProfilePictureChange} 
+            />
+            {profilePicturePreview && (
+              <div className="profile-picture-preview">
+                <img 
+                  src={profilePicturePreview} 
+                  alt="Profilkép előnézet" 
+                  style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '50%' }} 
+                />
+              </div>
+            )}
+          </div>
+        </div>
       )}
       <div className="password-wrapper">
         <input 

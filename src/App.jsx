@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { Footer } from './Footer';
 import { Home } from './Home';
@@ -6,13 +6,34 @@ import { About } from './About';
 import { MovieList } from './MovieList';
 import { SeriesList } from './SeriesList';
 import { AuthPage } from './AuthPage';
+import { ProfileModal } from './ProfileModal';
 import './App.css';
 
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const [showMoviesDropdown, setShowMoviesDropdown] = useState(false);
   const [showSeriesDropdown, setShowSeriesDropdown] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
+  // Amikor a felhasználó bejelentkezik, betöltjük a localStorage-ban tárolt adatokat
+  useEffect(() => {
+    if (isAuthenticated) {
+      const storedUser = localStorage.getItem("loggedInUser");
+      if (storedUser) {
+        setLoggedInUser(JSON.parse(storedUser));
+      }
+    }
+  }, [isAuthenticated]);
+
+  // Profilkép frissítése callback: módosítja a bejelentkezett felhasználó adatát
+  const updateProfilePicture = (newPic) => {
+    const updatedUser = { ...loggedInUser, profilePicture: newPic };
+    setLoggedInUser(updatedUser);
+    localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
+    // Itt opcionálisan frissítheted a regisztrált felhasználók listáját is, ha szükséges.
+  };
 
   return (
     <Router>
@@ -22,23 +43,20 @@ export const App = () => {
         ) : (
           <Route path="/*" element={
             <div>
-              <nav id="navbar" className="navbar navbar-expand-sm navbar-dark bg-dark">
+              <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
                 <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/">
-  <img 
-    src="logo.png" 
-    alt="FilmFókusz Logo" 
-    style={{
-      height: '40px',
-      width: '40px',
-      marginRight: '10px',
-      border: '1px solid black',
-      borderRadius: '50%'
-    }} 
-  />
-  FilmFókusz
-</NavLink>
-
+                  <NavLink className="navbar-brand" to="/">
+                  <img 
+                      src="logo.png" 
+                      alt="FilmFókusz Logo" 
+                      style={{
+                        height: '40px',
+                        width: '40px',
+                        marginRight: '10px',
+                        border: '1px solid black',
+                        borderRadius: '50%'
+                      }} 
+                    />FilmFókusz</NavLink>
                   <input 
                     type="text" 
                     placeholder="Keresés..." 
@@ -93,8 +111,26 @@ export const App = () => {
                       </li>
                     </ul>
                   </div>
+                  {/* Profilkép megjelenítése a jobb felső sarokban, kattintható */}
+                  {loggedInUser && (
+                    <div className="navbar-profile" onClick={() => setShowProfileModal(true)}>
+                      <img 
+                        src={loggedInUser.profilePicture ? loggedInUser.profilePicture : '/defaultuser.png'} 
+                        alt="Profil" 
+                        className="profile-image"
+                      />
+                    </div>
+                  )}
                 </div>
               </nav>
+              {/* Modal a profil adatok és profilkép módosításához */}
+              {showProfileModal && loggedInUser && (
+                <ProfileModal 
+                  user={loggedInUser} 
+                  onClose={() => setShowProfileModal(false)} 
+                  onUpdateProfilePicture={updateProfilePicture}
+                />
+              )}
               <Routes>
                 <Route path="/" element={<Home searchTerm={searchTerm} />} />
                 <Route path="/about" element={<About />} />
