@@ -28,11 +28,27 @@ export const App = () => {
   }, [isAuthenticated]);
 
   // Profilkép frissítése callback: módosítja a bejelentkezett felhasználó adatát
-  const updateProfilePicture = (newPic) => {
+  const updateProfilePicture = async (newPic) => {
+    // Frissítjük a lokális állapotot és a localStorage-t
     const updatedUser = { ...loggedInUser, profilePicture: newPic };
     setLoggedInUser(updatedUser);
     localStorage.setItem("loggedInUser", JSON.stringify(updatedUser));
-    // Itt opcionálisan frissítheted a regisztrált felhasználók listáját is, ha szükséges.
+  
+    // Most küldünk egy PUT kérést a backend felé a profilkép frissítésére
+    try {
+      const response = await fetch("http://localhost:5104/api/User/updateProfilePicture", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ UserId: updatedUser.Id, NewProfilePicturePath: newPic })
+      });
+  
+      if (!response.ok) {
+        const errorMsg = await response.text();
+        console.error("Profilkép frissítési hiba: ", errorMsg);
+      }
+    } catch (error) {
+      console.error("Hiba történt a profilkép frissítésekor: ", error.message);
+    }
   };
 
   return (
@@ -73,16 +89,16 @@ export const App = () => {
                         </NavLink>
                         {showMoviesDropdown && (
                           <ul className="dropdown-menu show">
-                            <li><NavLink className="dropdown-item" to="/movies/scifi">Sci-Fi</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/action">Akció</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/romance">Romantikus</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/drama">Dráma</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/comedy">Vígjáték</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/horror">Horror</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/thriller">Thriller</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/adventure">Kaland</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/documentary">Dokumentumfilm</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/animation">Animáció</NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/scifi">Sci-Fi <i class="fa-solid fa-robot fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/action">Akció <i class="fa-solid fa-gun fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/romance">Romantikus <i class="fa-solid fa-heart fa-beat"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/drama">Dráma <i class="fa-solid fa-masks-theater fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/comedy">Vígjáték <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/horror">Horror <i class="fa-solid fa-ghost fa-fade"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/thriller">Thriller <i class="fa-solid fa-exclamation fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/adventure">Kaland <i class="fa-solid fa-wand-sparkles fa-shake"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/documentary">Dokumentumfilm <i class="fa-solid fa-book fa-beat"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/movies/animation">Animáció <i class="fa-solid fa-child-reaching fa-bounce"></i></NavLink></li>
                           </ul>
                         )}
                       </li>
@@ -94,15 +110,15 @@ export const App = () => {
                         </NavLink>
                         {showSeriesDropdown && (
                           <ul className="dropdown-menu show">
-                            <li><NavLink className="dropdown-item" to="/series/scifi">Sci-Fi</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/action">Akció</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/romance">Romantikus</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/drama">Dráma</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/comedy">Vígjáték</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/horror">Horror</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/thriller">Thriller</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/adventure">Kaland</NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/animation">Animáció</NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/scifi">Sci-Fi <i class="fa-solid fa-robot fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/action">Akció <i class="fa-solid fa-gun fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/romance">Romantikus  <i class="fa-solid fa-heart fa-beat"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/drama">Dráma <i class="fa-solid fa-masks-theater fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/comedy">Vígjáték <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/horror">Horror <i class="fa-solid fa-ghost fa-fade"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/thriller">Thriller <i class="fa-solid fa-exclamation fa-bounce"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/adventure">Kaland <i class="fa-solid fa-wand-sparkles fa-shake"></i></NavLink></li>
+                            <li><NavLink className="dropdown-item" to="/series/animation">Animáció <i class="fa-solid fa-child-reaching fa-bounce"></i></NavLink></li>
                           </ul>
                         )}
                       </li>
@@ -111,16 +127,21 @@ export const App = () => {
                       </li>
                     </ul>
                   </div>
-                  {/* Profilkép megjelenítése a jobb felső sarokban, kattintható */}
-                  {loggedInUser && (
-                    <div className="navbar-profile" onClick={() => setShowProfileModal(true)}>
-                      <img 
-                        src={loggedInUser.profilePicture ? loggedInUser.profilePicture : '/defaultuser.png'} 
-                        alt="Profil" 
-                        className="profile-image"
-                      />
-                    </div>
-                  )}
+                 {/* Profilkép és felhasználónév megjelenítése a jobb felső sarokban */}
+{loggedInUser && (
+  <div className="navbar-profile" onClick={() => setShowProfileModal(true)} style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+    <span style={{ marginRight: '8px', color: '#fff', fontWeight: 'bold' }}>
+      {loggedInUser.LoginNev || loggedInUser.username}
+    </span>
+    <img 
+      src={loggedInUser.profilePicture ? loggedInUser.profilePicture : '/defaultuser.png'} 
+      alt="Profil" 
+      className="profile-image"
+      style={{ height: '40px', width: '40px', borderRadius: '50%', border: '1px solid #fff' }}
+    />
+  </div>
+)}
+
                 </div>
               </nav>
               {/* Modal a profil adatok és profilkép módosításához */}

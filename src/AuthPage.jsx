@@ -5,16 +5,14 @@ import './AuthPage.css';
 
 export const AuthPage = ({ setIsAuthenticated }) => {
   const [isLogin, setIsLogin] = useState(true);
-  const [fullName, setFullName] = useState(''); // Új állapot a teljes névhez
+  const [fullName, setFullName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [captchaValue, setCaptchaValue] = useState(null);
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [profilePicture, setProfilePicture] = useState(null);
   const [profilePicturePreview, setProfilePicturePreview] = useState(null);
 
@@ -37,7 +35,6 @@ export const AuthPage = ({ setIsAuthenticated }) => {
     return "";
   };
 
-  // Profilkép feltöltés kezelése (ugyanaz marad)
   const handleProfilePictureChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -65,7 +62,7 @@ export const AuthPage = ({ setIsAuthenticated }) => {
   };
 
   const handleAuth = async () => {
-    // Ellenőrizzük az alapmezőket; regisztrációs módban a fullName is kötelező!
+    // Ellenőrzés, hogy minden szükséges mező ki van-e töltve
     if (!username || !password || (!isLogin && (!fullName || !email || !confirmPassword))) {
       alert('Kérlek töltsd ki az összes mezőt!');
       return;
@@ -86,42 +83,70 @@ export const AuthPage = ({ setIsAuthenticated }) => {
         alert(passwordError);
         return;
       }
-      const storedUsers = localStorage.getItem('registeredUsers');
-      let users = storedUsers ? JSON.parse(storedUsers) : [];
-      if (users.some((u) => u.email === email)) {
-        alert('Az e-mail cím már foglalt!');
-        return;
+
+      const newUser = {
+        fullName: fullName,
+        username: username,
+        email: email,
+        password: password, // A jelszót szerveroldalon hash-eljük
+        profilePicture: profilePicture || ""
+      };
+
+      try {
+        // Regisztrációs végpont: módosítsd a backend URL-t, ha szükséges
+        const response = await fetch("http://localhost:5104/api/User/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUser)
+        });
+
+        if (!response.ok) {
+          const errorMsg = await response.text();
+          alert("Hiba: " + errorMsg);
+          return;
+        }
+
+        alert('Regisztráció sikeres! Kérlek jelentkezz be.');
+        setIsLogin(true);
+        setFullName('');
+        setUsername('');
+        setEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setCaptchaValue(null);
+        setProfilePicture(null);
+        setProfilePicturePreview(null);
+      } catch (error) {
+        alert("Hiba történt: " + error.message);
       }
-      // Új felhasználó objektum, amely tartalmazza a fullName mezőt
-      const newUser = { fullName, username, email, password, profilePicture };
-      users.push(newUser);
-      localStorage.setItem('registeredUsers', JSON.stringify(users));
-      alert('Regisztráció sikeres! Kérlek jelentkezz be.');
-      setIsLogin(true);
-      // Töröljük a mezőket
-      setFullName('');
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      setCaptchaValue(null);
-      setProfilePicture(null);
-      setProfilePicturePreview(null);
     } else {
       // BEJELENTKEZÉS
-      const storedUsers = localStorage.getItem('registeredUsers');
-      if (!storedUsers) {
-        alert('Nincs regisztrált felhasználó, kérlek regisztrálj először!');
-        return;
-      }
-      const users = JSON.parse(storedUsers);
-      const user = users.find((u) => u.username === username && u.password === password);
-      if (user) {
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
+      try {
+        const loginData = {
+          username: username,
+          password: password
+        };
+
+        const response = await fetch("http://localhost:5104/api/User/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginData)
+        });
+
+        if (!response.ok) {
+          const errorMsg = await response.text();
+          alert("Hiba: " + errorMsg);
+          return;
+        }
+
+        // Bejelentkezés sikeres: A szerver visszaküldi a felhasználó adatait
+        const userData = await response.json();
+        // Mentheted localStorage-ba, vagy frissítheted a globális auth állapotot
+        localStorage.setItem("loggedInUser", JSON.stringify(userData));
         setIsAuthenticated(true);
-        navigate("/");
-      } else {
-        alert('Hibás felhasználónév vagy jelszó!');
+        navigate("/"); // Navigálás a főoldalra (Home.jsx)
+      } catch (error) {
+        alert("Hiba történt: " + error.message);
       }
     }
   };
@@ -129,7 +154,7 @@ export const AuthPage = ({ setIsAuthenticated }) => {
   return (
     <div className="auth-container">
       <h2>{isLogin ? 'Bejelentkezés' : 'Regisztráció'}</h2>
-      {/* Ha regisztrációs módban vagyunk, jelenjen meg a Teljes Név input */}
+      {/* Regisztrációs módban jelenik meg a Teljes Név input */}
       {!isLogin && (
         <input 
           type="text" 
@@ -211,3 +236,5 @@ export const AuthPage = ({ setIsAuthenticated }) => {
     </div>
   );
 };
+
+export default AuthPage;

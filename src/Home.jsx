@@ -86,7 +86,7 @@ export const Home = () => {
   
       <h3>Miért érdemes ezt az oldalt használni?</h3>
       <ul>
-        <li><strong>Személyre szabott ajánlások:</strong> Az oldal különböző ajánlásokat kínál a felhasználók korábbi keresései és preferenciái alapján, így mindenki könnyedén rátalálhat a neki tetsző tartalmakra.</li>
+        <li><strong>Személyre szabott ajánlások:</strong> Az oldal különböző ajánlásokat kínál a felhasználóknak, így mindenki könnyedén rátalálhat a neki tetsző tartalmakra.</li>
         <li><strong>Többféle műfaj és kategória:</strong> Az oldal gazdag tartalomválasztéka lehetővé teszi, hogy a felhasználók bármilyen típusú szórakozást találjanak, a legújabb sci-fi filmektől kezdve a klasszikus drámákig, és mindent, ami közte van.</li>
         <li><strong>Felhasználóbarát dizájn:</strong> A dizájn egyszerű és letisztult, így könnyen navigálhatunk a különböző tartalmak között, miközben a szép színek és elrendezés biztosítják a kellemes vizuális élményt.</li>
         <li><strong>Hírek és frissítések:</strong> A legújabb filmek és sorozatok mellett folyamatosan frissülő híreket és információkat is találhatsz a szórakoztatóipar legújabb trendjeiről, valamint érdekességekről.</li>
