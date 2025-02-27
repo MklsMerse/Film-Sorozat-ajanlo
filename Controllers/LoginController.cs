@@ -37,8 +37,8 @@ namespace FilmFokuszBackEnd.Controllers
             {
                 try
                 {
-                    string Hash = Program.CreateSHA256(loginDTO.TmpHash);
-                    User loggedUser = await cx.Users.FirstOrDefaultAsync(f => f.LoginNev == loginDTO.LoginName && f.Hash == Hash);
+                    string Hash = Program.CreateSHA256(loginDTO.Password);
+                    User loggedUser = await cx.Users.FirstOrDefaultAsync(f => f.LoginNev == loginDTO.Username && f.Hash == Hash);
                     if (loggedUser != null && loggedUser.Active)
                     {
                         //Egyszerre csak egy gépről lehet dolgozni eleje
@@ -47,7 +47,7 @@ namespace FilmFokuszBackEnd.Controllers
                         int elemSzam = Program.LoggedInUsers.Count;
                         while (!talalt && index < elemSzam)
                         {
-                            if (Program.LoggedInUsers.ElementAt(index).Value.LoginNev.ToUpper() == loginDTO.LoginName.ToUpper())
+                            if (Program.LoggedInUsers.ElementAt(index).Value.LoginNev.ToUpper() == loginDTO.Username.ToUpper())
                             {
                                 lock (Program.LoggedInUsers)
                                 {

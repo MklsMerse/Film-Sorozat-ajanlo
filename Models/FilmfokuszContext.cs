@@ -39,8 +39,6 @@ public partial class FilmfokuszContext : DbContext
 
             entity.HasIndex(e => e.FelhasznaloId, "felhasznalo_id");
 
-            entity.HasIndex(e => new { e.FelhasznaloId, e.FilmId }, "felhasznalo_id_2").IsUnique();
-
             entity.HasIndex(e => e.FilmId, "film_id");
 
             entity.Property(e => e.VelemenyId)
@@ -115,8 +113,6 @@ public partial class FilmfokuszContext : DbContext
             entity.ToTable("sorozat_velemenyek");
 
             entity.HasIndex(e => e.FelhasznaloId, "felhasznalo_id");
-
-            entity.HasIndex(e => new { e.FelhasznaloId, e.SorozatId }, "felhasznalo_id_2").IsUnique();
 
             entity.HasIndex(e => e.SorozatId, "sorozat_id");
 
@@ -203,15 +199,19 @@ public partial class FilmfokuszContext : DbContext
             entity.Property(e => e.Id).HasColumnType("int(11)");
             entity.Property(e => e.Email).HasMaxLength(64);
             entity.Property(e => e.Hash)
-                .HasMaxLength(64)
-                .HasColumnName("HASH");
-            entity.Property(e => e.LoginNev).HasMaxLength(16);
-            entity.Property(e => e.Name).HasMaxLength(64);
+                .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'");
+            entity.Property(e => e.LoginNev).HasDefaultValueSql("'NULL'");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'");
             entity.Property(e => e.PermissionId).HasColumnType("int(11)");
-            entity.Property(e => e.ProfilePicturePath).HasMaxLength(64);
+            entity.Property(e => e.ProfilePicturePath)
+                .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'");
             entity.Property(e => e.Salt)
-                .HasMaxLength(64)
-                .HasColumnName("SALT");
+                .HasMaxLength(255)
+                .HasDefaultValueSql("'NULL'");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace FilmFokuszBackEnd.Models;
 
@@ -20,6 +19,5 @@ public partial class FilmVelemenyek
 
     public virtual User Felhasznalo { get; set; } = null!;
 
-    [JsonIgnore]
     public virtual Filmek? Film { get; set; }
 }

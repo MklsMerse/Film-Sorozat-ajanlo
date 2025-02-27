@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace FilmFokuszBackEnd.Models;
 
@@ -23,5 +22,6 @@ public partial class Filmek
     public decimal Ertekeles { get; set; }
 
     public string FilmUrl { get; set; } = null!;
+
     public virtual ICollection<FilmVelemenyek> FilmVelemenyeks { get; set; } = new List<FilmVelemenyek>();
 }
