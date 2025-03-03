@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { MovieList } from './MovieList';
 import { SeriesList } from './SeriesList';
 import './film.css';
+import { MovieList } from './MovieList';
+
+
 
 export const Home = () => {
   const [movies, setMovies] = useState([
@@ -39,6 +41,9 @@ export const Home = () => {
     setSeries(data);
   };
 */
+
+
+
   return (
     <div>
       <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
@@ -79,7 +84,7 @@ export const Home = () => {
         </section>
       </main>
       <section id="website-description">
-    <div class="container">
+    <div className="container">
       <h2>Miért érdemes ezt az oldalt használni?</h2>
       <p>Ez a weboldal a szórakoztató tartalmak igazi központja, ahol a felhasználók könnyedén felfedezhetik és élvezhetik az ajánlott filmeket és sorozatokat. Az oldal célja, hogy személyre szabott élményt nyújtson minden látogatónak, legyen szó az aktuális trendekről, a legújabb mozikról vagy időtálló klasszikusokról.</p>
       <p>A felhasználók könnyedén navigálhatnak a különböző műfajok és kategóriák között, miközben élvezhetik a gyönyörű, intuitív felhasználói felületet. Az oldal különböző szűrő- és keresési lehetőségekkel biztosítja, hogy mindenki gyorsan megtalálja a számára érdekes tartalmat, legyen szó egy izgalmas akciófilmről, romantikus vígjátékról, vagy a legújabb sorozat epizódjairól.</p>
@@ -96,9 +101,9 @@ export const Home = () => {
       <p>A célunk, hogy minden látogató egyedülálló és élvezetes szórakozást találjon, és a legjobb filmes élményeket kínáljuk, mindezt egy könnyen elérhető és felhasználóbarát platformon.</p>
     </div>
     <section id="website-logo">
-      <div class="container">
-        <div class="logo-container">
-          <img src="logo.png" alt="Weboldal logó" class="website-logo" />
+      <div className="container">
+        <div className="logo-container">
+          <img src="logo.png" alt="Weboldal logó" className="website-logo" />
           <h2 style={{color: "#800020"}} className="filmfokuszfelirat">FilmFókusz</h2>
         </div>
       </div>

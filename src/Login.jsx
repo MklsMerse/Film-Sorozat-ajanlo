@@ -11,11 +11,15 @@ export const Login = () => {
     if (username === 'admin' && password === 'password') {
       setIsLoggedIn(true);
       alert('Sikeres belépés!');
+      const userData = { username, token: "token", PermissionId: 9 };
+      localStorage.setItem("loggedInUser", JSON.stringify(userData));
+      localStorage.setItem("token", "token");
       navigate('/');
     } else {
       alert('Hibás felhasználónév vagy jelszó.');
     }
   };
+  
 
   const handleLogout = () => {
     setIsLoggedIn(false);

@@ -141,6 +141,8 @@ export const AuthPage = ({ setIsAuthenticated }) => {
 
         // Bejelentkezés sikeres: A szerver visszaküldi a felhasználó adatait
         const userData = await response.json();
+        localStorage.setItem("loggedInUser", JSON.stringify(userData));
+        localStorage.setItem("token", userData.token);
         // Mentheted localStorage-ba, vagy frissítheted a globális auth állapotot
         localStorage.setItem("loggedInUser", JSON.stringify(userData));
         setIsAuthenticated(true);

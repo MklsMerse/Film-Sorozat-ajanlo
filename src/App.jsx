@@ -8,6 +8,7 @@ import { SeriesList } from './SeriesList';
 import { AuthPage } from './AuthPage';
 import { LogoutModal } from './LogoutModal';
 import { ProfileModal } from './ProfileModal';
+import { GenreFilms } from './GenreFilms';
 import './App.css';
 
 export const App = () => {
@@ -24,7 +25,7 @@ export const App = () => {
   // Betöltjük a bejelentkezett felhasználót, ha van
   useEffect(() => {
     if (isAuthenticated) {
-      const storedUser = localStorage.getItem("loggedInUser");
+      const storedUser = localStorage.getItem('loggedInUser');
       if (storedUser) {
         setLoggedInUser(JSON.parse(storedUser));
       }
@@ -32,11 +33,23 @@ export const App = () => {
   }, [isAuthenticated]);
 
   const handleLogout = () => {
-    localStorage.removeItem("loggedInUser");
+    localStorage.removeItem('loggedInUser');
     setLoggedInUser(null);
     setIsAuthenticated(false);
     setShowLogoutModal(false);
-    navigate("/"); // Visszavezet az AuthPage-re
+    navigate('/');
+  };
+
+  // Frissíti a loggedInUser állapotát az új profilképpel
+  const handleProfilePicUpdate = (newPicture) => {
+    setLoggedInUser((prevUser) => {
+      const updatedUser = {
+        ...prevUser,
+        profilePicture: newPicture,
+      };
+      localStorage.setItem('loggedInUser', JSON.stringify(updatedUser));
+      return updatedUser;
+    });
   };
 
   return (
@@ -46,25 +59,27 @@ export const App = () => {
           // Ha nem vagyunk bejelentkezve, az AuthPage jelenik meg
           <Route path="/*" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
         ) : (
-          // Ha be vagyunk jelentkezve, a főoldal és a navbar
+          // Bejelentkezett állapotban a főoldal és a navbar jelenik meg
           <Route
             path="/*"
             element={
               <div>
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
                   <div className="container-fluid">
-                  <img 
-                      src="logo.png" 
-                      alt="FilmFókusz Logo" 
+                    <img
+                      src="logo.png"
+                      alt="FilmFókusz Logo"
                       style={{
                         height: '40px',
                         width: '40px',
                         marginRight: '10px',
                         border: '1px solid black',
-                        borderRadius: '50%'
+                        borderRadius: '50%',
                       }}
                     />
-                    <NavLink className="navbar-brand" to="/">FilmFókusz</NavLink>
+                    <NavLink className="navbar-brand" to="/">
+                      FilmFókusz
+                    </NavLink>
                     <input
                       type="text"
                       placeholder="Keresés..."
@@ -83,16 +98,56 @@ export const App = () => {
                           </NavLink>
                           {showMoviesDropdown && (
                             <ul className="dropdown-menu show">
-                              <li><NavLink className="dropdown-item" to="/movies/scifi">Sci-Fi <i class="fa-solid fa-robot fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/action">Akció <i class="fa-solid fa-gun fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/romance">Romantikus <i class="fa-solid fa-heart fa-beat"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/drama">Dráma <i class="fa-solid fa-masks-theater fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/comedy">Vígjáték <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/horror">Horror <i class="fa-solid fa-ghost fa-fade"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/thriller">Thriller <i class="fa-solid fa-exclamation fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/adventure">Kaland <i class="fa-solid fa-wand-sparkles fa-shake"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/documentary">Dokumentumfilm <i class="fa-solid fa-book fa-beat"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/movies/animation">Animáció <i class="fa-solid fa-child-reaching fa-bounce"></i></NavLink></li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/Sci-Fi">
+                                  Sci-Fi <i className="fa-solid fa-robot fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/Akció">
+                                  Akció <i className="fa-solid fa-gun fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/Romantikus">
+                                  Romantikus <i className="fa-solid fa-heart fa-beat"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/Dráma">
+                                  Dráma <i className="fa-solid fa-masks-theater fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/Vígjáték">
+                                  Vígjáték <i className="fa-solid fa-face-grin-squint-tears fa-shake"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/horror">
+                                  Horror <i className="fa-solid fa-ghost fa-fade"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/thriller">
+                                  Thriller <i className="fa-solid fa-exclamation fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/kaland">
+                                  Kaland <i className="fa-solid fa-wand-sparkles fa-shake"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/dokumentumfilm">
+                                  Dokumentumfilm <i className="fa-solid fa-book fa-beat"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/movies/animáció">
+                                  Animáció <i className="fa-solid fa-child-reaching fa-bounce"></i>
+                                </NavLink>
+                              </li>
                             </ul>
                           )}
                         </li>
@@ -106,28 +161,65 @@ export const App = () => {
                           </NavLink>
                           {showSeriesDropdown && (
                             <ul className="dropdown-menu show">
-                              <li><NavLink className="dropdown-item" to="/series/scifi">Sci-Fi <i class="fa-solid fa-robot fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/action">Akció <i class="fa-solid fa-gun fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/romance">Romantikus  <i class="fa-solid fa-heart fa-beat"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/drama">Dráma <i class="fa-solid fa-masks-theater fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/comedy">Vígjáték <i class="fa-solid fa-face-grin-squint-tears fa-shake"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/horror">Horror <i class="fa-solid fa-ghost fa-fade"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/thriller">Thriller <i class="fa-solid fa-exclamation fa-bounce"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/adventure">Kaland <i class="fa-solid fa-wand-sparkles fa-shake"></i></NavLink></li>
-                            <li><NavLink className="dropdown-item" to="/series/animation">Animáció <i class="fa-solid fa-child-reaching fa-bounce"></i></NavLink></li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/scifi">
+                                  Sci-Fi <i className="fa-solid fa-robot fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/action">
+                                  Akció <i className="fa-solid fa-gun fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/romance">
+                                  Romantikus <i className="fa-solid fa-heart fa-beat"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/drama">
+                                  Dráma <i className="fa-solid fa-masks-theater fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/comedy">
+                                  Vígjáték <i className="fa-solid fa-face-grin-squint-tears fa-shake"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/horror">
+                                  Horror <i className="fa-solid fa-ghost fa-fade"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/thriller">
+                                  Thriller <i className="fa-solid fa-exclamation fa-bounce"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/adventure">
+                                  Kaland <i className="fa-solid fa-wand-sparkles fa-shake"></i>
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/series/animation">
+                                  Animáció <i className="fa-solid fa-child-reaching fa-bounce"></i>
+                                </NavLink>
+                              </li>
                             </ul>
                           )}
                         </li>
                         <li className="nav-item">
-                          <NavLink className="nav-link" to="/about">Rólunk</NavLink>
+                          <NavLink className="nav-link" to="/about">
+                            Rólunk
+                          </NavLink>
                         </li>
                       </ul>
                     </div>
 
-                    {/* Profil + kijelentkezés a jobb oldalon */}
-                    {loggedInUser && (
+                   {/* Profil + kijelentkezés a jobb oldalon */}
+                   {loggedInUser && (
                       <div className="navbar-profile" style={{ display: 'flex', alignItems: 'center' }}>
-                        {/* A profilra kattintva a ProfileModal jelenik meg */}
                         <div
                           onClick={() => setShowProfileModal(true)}
                           style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
@@ -136,7 +228,7 @@ export const App = () => {
                             {loggedInUser.LoginNev || loggedInUser.username}
                           </span>
                           <img
-                            src={loggedInUser.profilePicture ? loggedInUser.profilePicture : '/default-user.png'}
+                            src={loggedInUser.profilePicture ? loggedInUser.profilePicture : '/defaultuser.png'}
                             alt="Profil"
                             className="profile-image"
                             style={{
@@ -144,7 +236,7 @@ export const App = () => {
                               width: '40px',
                               borderRadius: '50%',
                               border: '1px solid #fff',
-                              marginRight: '8px'
+                              marginRight: '8px',
                             }}
                           />
                         </div>
@@ -158,18 +250,21 @@ export const App = () => {
                             borderRadius: '4px',
                           }}
                         >
-                          Kijelentkezés <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                          Kijelentkezés{' '}
+                          <i className="fa-solid fa-arrow-right-from-bracket"></i>
                         </button>
                       </div>
                     )}
                   </div>
                 </nav>
 
-                {/* ProfileModal megjelenítése (ha showProfileModal true) */}
-                {showProfileModal && loggedInUser && (
+
+                 {/* ProfileModal megjelenítése (ha showProfileModal true) */}
+                 {showProfileModal && loggedInUser && (
                   <ProfileModal
                     user={loggedInUser}
                     onClose={() => setShowProfileModal(false)}
+                    onUpdateProfilePicture={handleProfilePicUpdate}
                   />
                 )}
 
@@ -181,10 +276,12 @@ export const App = () => {
                   />
                 )}
 
+
                 <Routes>
                   <Route path="/" element={<Home searchTerm={searchTerm} />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/movies" element={<MovieList searchTerm={searchTerm} />} />
+                  <Route path="/movies/:mufaj" element={<GenreFilms />} />
                   <Route path="/series" element={<SeriesList searchTerm={searchTerm} />} />
                 </Routes>
                 <Footer />

@@ -1,7 +1,12 @@
 import React, { useRef } from 'react';
 import './ProfileModal.css';
 
-export const ProfileModal = ({ user, onClose, onUpdateProfilePicture }) => {
+export const ProfileModal = ({
+  user,
+  onClose,
+  // Ezt a callbacket hívjuk meg, hogy frissítsük a szülő állapotát
+  onUpdateProfilePicture
+}) => {
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
@@ -13,8 +18,9 @@ export const ProfileModal = ({ user, onClose, onUpdateProfilePicture }) => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Típusellenőrzés
       if (!file.type.startsWith('image/')) {
-        alert("Kérlek, egy képfájlt válassz!");
+        alert('Kérlek, egy képfájlt válassz!');
         return;
       }
       const reader = new FileReader();
@@ -22,10 +28,13 @@ export const ProfileModal = ({ user, onClose, onUpdateProfilePicture }) => {
         const img = new Image();
         img.onload = () => {
           if (img.width > 320 || img.height > 320) {
-            alert("A profilkép maximális mérete 320x320 pixel lehet. Kérlek válassz kisebb képet!");
+            alert(
+              'A profilkép maximális mérete 320x320 pixel lehet. Kérlek válassz kisebb képet!'
+            );
             return;
           }
-          // Ha a kép megfelel, frissítjük a profilképet
+          // Ha a kép megfelel, meghívjuk a szülő által átadott függvényt
+          // Ez frissíti a loggedInUser.profilePicture-t az App.jsx-ben
           onUpdateProfilePicture(event.target.result);
         };
         img.src = event.target.result;
@@ -37,26 +46,34 @@ export const ProfileModal = ({ user, onClose, onUpdateProfilePicture }) => {
   return (
     <div className="profile-modal-overlay" onClick={onClose}>
       <div className="profile-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="close-button" onClick={onClose}>×</button>
-        <img 
-          src={user.profilePicture ? user.profilePicture : '/defaultuser.png'} 
-          alt="Profil" 
+        <button className="close-button" onClick={onClose}>
+          ×
+        </button>
+        <img
+          src={user.profilePicture ? user.profilePicture : '/defaultuser.png'}
+          alt="Profil"
           className="modal-profile-image"
         />
         <div className="profile-details">
-          <p><strong>Teljes Név:</strong> {user.fullName}</p>
-          <p><strong>Felhasználónév:</strong> {user.username}</p>
-          <p><strong>E-mail Cím:</strong> {user.email}</p>
+          <p>
+            <strong>Teljes Név:</strong> {user.fullName}
+          </p>
+          <p>
+            <strong>Felhasználónév:</strong> {user.username}
+          </p>
+          <p>
+            <strong>E-mail Cím:</strong> {user.email}
+          </p>
         </div>
         <button className="change-picture-button" onClick={handleButtonClick}>
           Profilkép megváltoztatása
         </button>
-        <input 
-          type="file" 
-          accept="image/*" 
-          ref={fileInputRef} 
-          onChange={handleFileChange} 
-          style={{ display: 'none' }} 
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
         />
       </div>
     </div>
