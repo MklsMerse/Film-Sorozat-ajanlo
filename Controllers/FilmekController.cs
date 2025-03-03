@@ -10,6 +10,49 @@ namespace FilmFokuszBackEnd.Controllers
     [ApiController]
     public class FilmekController : ControllerBase
     {
+        [HttpGet("mufaj/{token}/{mufaj}")]
+        public async Task<IActionResult> GetFilmekByMufaj(string token, string mufaj)
+        {
+            // Ellenőrizzük, hogy a token érvényes-e
+            if (!Program.LoggedInUsers.ContainsKey(token))
+            {
+                return Unauthorized("Érvénytelen token! Jelentkezz be újra.");
+            }
+
+            try
+            {
+                using (var cx = new FilmfokuszContext())
+                {
+                    // Mivel az adatbázisban lehet, hogy kisbetűs a műfaj neve, normalizáljuk a bejövő adatot
+                    string normalizedMufaj = mufaj.ToLower();
+
+                    // Ellenőrzés, hogy van-e ilyen műfajú film az adatbázisban
+                    var films = await cx.Filmeks
+                        .Where(f => f.Mufaj == mufaj)
+                        .Select(f => new
+                        {
+                            f.FilmId,
+                            f.Cim,
+                            f.Mufaj,
+                            f.FilmUrl
+                        })
+                        .ToListAsync();
+
+                    if (films.Count == 0)
+                    {
+                        return NotFound($"Nincsenek találatok a(z) '{mufaj}' műfajra.");
+                    }
+
+                    return Ok(films);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Szerverhiba: " + (ex.InnerException?.Message ?? ex.Message));
+            }
+        }
+
+
 
         [HttpGet("{token}")]
         public async Task<IActionResult> Get(string token)
