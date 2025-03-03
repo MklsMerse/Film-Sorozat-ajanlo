@@ -9,6 +9,45 @@ namespace FilmFokuszBackEnd.Controllers
     [ApiController]
     public class SorozatokController : ControllerBase
     {
+        [HttpGet("mufaj/{token}/{mufaj}")]
+        public async Task<IActionResult> GetSorozatokByMufaj(string token, string mufaj)
+        {
+           
+            if (!Program.LoggedInUsers.ContainsKey(token))
+            {
+                return Unauthorized("Érvénytelen token! Jelentkezz be újra.");
+            }
+
+            try
+            {
+                using (var cx = new FilmfokuszContext())
+                {
+                    string normalizedMufaj = mufaj.ToLower();
+
+                    var sorozatoks = await cx.Sorozatoks
+                        .Where(f => f.Mufaj == mufaj)
+                        .Select(f => new
+                        {
+                            f.SorozatId,
+                            f.Cim,
+                            f.Mufaj,
+                        })
+                        .ToListAsync();
+
+                    if (sorozatoks.Count == 0)
+                    {
+                        return NotFound($"Nincsenek találatok a(z) '{mufaj}' műfajra.");
+                    }
+
+                    return Ok(sorozatoks);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Szerverhiba: " + (ex.InnerException?.Message ?? ex.Message));
+            }
+        }
+
         [HttpGet("{token}")]
         public async Task<IActionResult> Get(string token)
         {
