@@ -43,7 +43,6 @@ export const Home = () => {
 */
 
 
-
   return (
     <div>
       <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">

@@ -10,6 +10,7 @@ import { LogoutModal } from './LogoutModal';
 import { ProfileModal } from './ProfileModal';
 import { GenreFilms } from './GenreFilms';
 import './App.css';
+import { GenreSorozatoks } from './GenreSorozatoks';
 
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -162,27 +163,27 @@ export const App = () => {
                           {showSeriesDropdown && (
                             <ul className="dropdown-menu show">
                               <li>
-                                <NavLink className="dropdown-item" to="/series/scifi">
+                                <NavLink className="dropdown-item" to="/series/Sci-Fi">
                                   Sci-Fi <i className="fa-solid fa-robot fa-bounce"></i>
                                 </NavLink>
                               </li>
                               <li>
-                                <NavLink className="dropdown-item" to="/series/action">
+                                <NavLink className="dropdown-item" to="/series/Akció">
                                   Akció <i className="fa-solid fa-gun fa-bounce"></i>
                                 </NavLink>
                               </li>
                               <li>
-                                <NavLink className="dropdown-item" to="/series/romance">
+                                <NavLink className="dropdown-item" to="/series/Romantikus">
                                   Romantikus <i className="fa-solid fa-heart fa-beat"></i>
                                 </NavLink>
                               </li>
                               <li>
-                                <NavLink className="dropdown-item" to="/series/drama">
+                                <NavLink className="dropdown-item" to="/series/Dráma">
                                   Dráma <i className="fa-solid fa-masks-theater fa-bounce"></i>
                                 </NavLink>
                               </li>
                               <li>
-                                <NavLink className="dropdown-item" to="/series/comedy">
+                                <NavLink className="dropdown-item" to="/series/Vígjáték">
                                   Vígjáték <i className="fa-solid fa-face-grin-squint-tears fa-shake"></i>
                                 </NavLink>
                               </li>
@@ -197,12 +198,12 @@ export const App = () => {
                                 </NavLink>
                               </li>
                               <li>
-                                <NavLink className="dropdown-item" to="/series/adventure">
+                                <NavLink className="dropdown-item" to="/series/Kaland">
                                   Kaland <i className="fa-solid fa-wand-sparkles fa-shake"></i>
                                 </NavLink>
                               </li>
                               <li>
-                                <NavLink className="dropdown-item" to="/series/animation">
+                                <NavLink className="dropdown-item" to="/series/Animáció">
                                   Animáció <i className="fa-solid fa-child-reaching fa-bounce"></i>
                                 </NavLink>
                               </li>
@@ -283,6 +284,7 @@ export const App = () => {
                   <Route path="/movies" element={<MovieList searchTerm={searchTerm} />} />
                   <Route path="/movies/:mufaj" element={<GenreFilms />} />
                   <Route path="/series" element={<SeriesList searchTerm={searchTerm} />} />
+                  <Route path="/series/:mufaj" element={<GenreSorozatoks />} />
                 </Routes>
                 <Footer />
               </div>
