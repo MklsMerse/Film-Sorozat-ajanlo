@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import { SeriesList } from './SeriesList';
 import './film.css';
-import { MovieList } from './MovieList';
 
+const filmKepek = {
+  "Eredet" : "https://journality.hu/wp-content/uploads/2010/10/eredet.jpg",
+  "Titanic" : "https://m.media-amazon.com/images/M/MV5BYzYyN2FiZmUtYWYzMy00MzViLWJkZTMtOGY1ZjgzNWMwN2YxXkEyXkFqcGc@._V1_.jpg",
+  "A sötét lovag" : "https://www.mafab.hu/static/profiles/2014/292/23/2384_4.jpg",
+  "Testről és lélekről" : "https://images.justwatch.com/poster/111082300/s718/testrol-es-lelekrol.jpg",
+  "Kis város" : "https://m.media-amazon.com/images/M/MV5BYjMyYTc1MGYtNDdlYS00MTk1LWJiNDMtMzg4MDUzNWJiNmE4XkEyXkFqcGc@._V1_.jpg",
+  "A Viszkis" : "https://media.port.hu/images/000/979/788.jpg",
+};
 
+const sorozatImages = {
+  "Terápia" : "https://m.media-amazon.com/images/M/MV5BNDgwNDE2NTA5OV5BMl5BanBnXkFtZTgwNjg5MTczNTE@._V1_.jpg",
+  "A mi kis falunk" : "https://images.justwatch.com/poster/302072377/s718/evad-1.jpg",
+  "Stranger Things" : "https://static.posters.cz/image/350/plakatok/stranger-things-seasons-i132237.jpg",
+  "A Térség" : "https://m.media-amazon.com/images/M/MV5BYzUyYmI3MjctY2Q2MC00NmFjLTgwZGUtNWQzZWNlYmVjNzE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+  "Westworld" : "https://m.media-amazon.com/images/M/MV5BMjM2MTA5NjIwNV5BMl5BanBnXkFtZTgwNjI2OTMxNTM@._V1_FMjpg_UX1000_.jpg",
+  "Black Mirror" : "https://hips.hearstapps.com/hmg-prod/images/black-mirror-font-1513096756.jpg?crop=1xw:1xh;center,top&resize=980:*",
+};
 
-export const Home = () => {
-  const [movies, setMovies] = useState([
-    { title: "Eredet", image: "https://journality.hu/wp-content/uploads/2010/10/eredet.jpg", genre: "Sci-Fi" },
-    { title: "Titanic", image: "https://m.media-amazon.com/images/M/MV5BYzYyN2FiZmUtYWYzMy00MzViLWJkZTMtOGY1ZjgzNWMwN2YxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "Romantikus" },
-    { title: "A sötét lovag", image: "https://www.mafab.hu/static/profiles/2014/292/23/2384_4.jpg", genre: "Akció" },
-    { title: "Testről és lélekről", image: "https://images.justwatch.com/poster/111082300/s718/testrol-es-lelekrol.jpg", genre: "Dráma" },
-    { title: "Dennis, a komisz", image: "https://www.mafab.hu/static/profiles/2014/293/11/46481_34.jpg", genre: "Vígjáték" },
-    { title: "Indiana Jones és a kristálykoponya királysága", image: "https://images.justwatch.com/poster/303867060/s718/indiana-jones-es-a-kristalykoponya-kiralysaga.jpg", genre: "kaland" },
-  ]);
-  const [series, setSeries] = useState([
-    { title: "Stranger Things", image: "https://static.posters.cz/image/350/plakatok/stranger-things-seasons-i132237.jpg", genre: "Sci-Fi" },
-    { title: "Rick and Morty", image: "https://m.media-amazon.com/images/M/MV5BZGQyZjk2MzMtMTcyNC00NGU3LTlmNjItNDExMWM4ZDFhYmQ2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "Animáció" },
-    { title: "Squid Game", image: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p20492218_b_v8_ae.jpg", genre: "Akció" },
-    { title: "Game of Thrones", image: "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "kaland" },
-    { title: "Friends", image: "https://m.media-amazon.com/images/M/MV5BOTU2YmM5ZjctOGVlMC00YTczLTljM2MtYjhlNGI5YWMyZjFkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "Vígjáték" }
-  ]);
+export const Home = ({ searchTerm }) => {
+  const [movies, setMovies] = useState([]);
+  const [sorozat, setSeries] = useState([]);
+
+  // A token kinyerése a localStorage-ból
+  const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
+  const token = loggedInUser.token || 'token';
+  
 
  /* useEffect(() => {
     fetchMovies();
@@ -42,6 +48,30 @@ export const Home = () => {
   };
 */
 
+useEffect(() => {
+  const url = `http://localhost:5104/api/filmek/${token}`;
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      setMovies(data.slice(0, 6));
+    })
+    .catch(err => console.error('Hiba az ajánlott filmek lekérésekor:', err));
+}, [token]);
+
+useEffect(() => {
+  const seriesUrl = `http://localhost:5104/api/sorozatok/${token}`;
+  console.log('Küldöm a sorozatok kérését:', seriesUrl);
+  fetch(seriesUrl)
+    .then((res) => {
+      console.log('Sorozatok HTTP státusz:', res.status);
+      return res.json();
+    })
+    .then((data) => {
+      console.log('Sorozatok adatai:', data);
+      setSeries(data.slice(0, 6));
+    })
+    .catch((err) => console.error('Hiba az ajánlott sorozatok lekérésekor:', err));
+}, [token]);
 
   return (
     <div>
@@ -75,11 +105,44 @@ export const Home = () => {
       <main>
         <section id="movies">
           <h2 id="movies-title">Ajánlott filmek</h2>
-          <MovieList movies={movies} />
+          <div className="filmek-container">
+            {movies.length > 0 ? (
+              movies.map((film) => (
+                <div key={film.FilmId} className="film-card">
+                  <img
+                    src={filmKepek[film.cim] || '/placeholder.png'}
+                    alt={film.cim}
+                    className="film-image"
+                  />
+                  <h3>{film.cim}</h3>
+                  <p>{film.mufaj}</p>
+                </div>
+              ))
+            ) : (
+              <p>Betöltés...</p>
+            )}
+          </div>
         </section>
+        <br />
         <section id="series">
           <h2 id="series-title">Ajánlott sorozatok</h2>
-          <SeriesList series={series} />
+          <div className="sorozatok-container">
+        {sorozat.length > 0 ? (
+          sorozat.map((sorozat) => (
+            <div key={sorozat.SorozatId} className="sorozat-card">
+              <img
+                src={sorozatImages[sorozat.cim] || '/placeholder.png'}
+                alt={sorozat.cim}
+                className="sorozat-image"
+              />
+              <h3>{sorozat.cim}</h3>
+              <p>{sorozat.mufaj}</p>
+            </div>
+              ))
+            ) : (
+              <p>Betöltés...</p>
+            )}
+          </div>
         </section>
       </main>
       <section id="website-description">

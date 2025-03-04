@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { Footer } from './Footer';
-import { Home } from './Home';
+import { Home, RecommendedMovies } from './Home';
 import { About } from './About';
-import { MovieList } from './MovieList';
-import { SeriesList } from './SeriesList';
 import { AuthPage } from './AuthPage';
 import { LogoutModal } from './LogoutModal';
 import { ProfileModal } from './ProfileModal';
@@ -281,9 +279,9 @@ export const App = () => {
                 <Routes>
                   <Route path="/" element={<Home searchTerm={searchTerm} />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/movies" element={<MovieList searchTerm={searchTerm} />} />
+                  <Route path="/movies" element={<Home searchTerm={searchTerm} />} />
                   <Route path="/movies/:mufaj" element={<GenreFilms />} />
-                  <Route path="/series" element={<SeriesList searchTerm={searchTerm} />} />
+                  <Route path="/series" element={<Home searchTerm={searchTerm} />} />
                   <Route path="/series/:mufaj" element={<GenreSorozatoks />} />
                 </Routes>
                 <Footer />

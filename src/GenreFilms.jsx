@@ -23,6 +23,7 @@ const filmImages = {
 
   //Akció
   "A sötét lovag": "https://www.mafab.hu/static/profiles/2014/292/23/2384_4.jpg",
+  "A Viszkis" : "https://media.port.hu/images/000/979/788.jpg",
   "Mad Max - A harag útja" : "https://media.port.hu/images/000/765/293.jpg",
   "John Wick" : "https://m.media-amazon.com/images/S/pv-target-images/6c2c7ace999b2efa7d6d113f7f3ec49f83722dbd2a22b202ef8028f26a1d0b69.jpg",
   "Drágán add az életed!" : "https://m.media-amazon.com/images/M/MV5BMGNlYmM1NmQtYWExMS00NmRjLTg5ZmEtMmYyYzJkMzljYWMxXkEyXkFqcGc@._V1_.jpg",
