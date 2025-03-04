@@ -7,19 +7,19 @@ import { MovieList } from './MovieList';
 
 export const Home = () => {
   const [movies, setMovies] = useState([
-    { title: "Eredet", image: "movieimages/eredet.jpg", genre: "Sci-Fi" },
-    { title: "Titanic", image: "movieimages/titanic.png", genre: "Romantikus" },
-    { title: "A sötét lovag", image: "movieimages/sötétlovag.png", genre: "Akció" },
-    { title: "Testről és lélekről", image: "movieimages/testrol.jpg", genre: "Dráma" },
-    { title: "Dennis, a komisz", image: "movieimages/dennis.png", genre: "Vígjáték" },
-    { title: "Indiana Jones és a kristálykoponya királysága", image: "movieimages/indiana.png", genre: "Kaland" },
+    { title: "Eredet", image: "https://journality.hu/wp-content/uploads/2010/10/eredet.jpg", genre: "Sci-Fi" },
+    { title: "Titanic", image: "https://m.media-amazon.com/images/M/MV5BYzYyN2FiZmUtYWYzMy00MzViLWJkZTMtOGY1ZjgzNWMwN2YxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "Romantikus" },
+    { title: "A sötét lovag", image: "https://www.mafab.hu/static/profiles/2014/292/23/2384_4.jpg", genre: "Akció" },
+    { title: "Testről és lélekről", image: "https://images.justwatch.com/poster/111082300/s718/testrol-es-lelekrol.jpg", genre: "Dráma" },
+    { title: "Dennis, a komisz", image: "https://www.mafab.hu/static/profiles/2014/293/11/46481_34.jpg", genre: "Vígjáték" },
+    { title: "Indiana Jones és a kristálykoponya királysága", image: "https://images.justwatch.com/poster/303867060/s718/indiana-jones-es-a-kristalykoponya-kiralysaga.jpg", genre: "kaland" },
   ]);
   const [series, setSeries] = useState([
-    { title: "Stranger Things", image: "seriesimages/stranger.png", genre: "Sci-Fi" },
-    { title: "Rick & Morty", image: "seriesimages/rickandmorty.png", genre: "Animáció" },
-    { title: "Nyerd meg az életed", image: "seriesimages/squid.png", genre: "Akció/Dráma" },
-    { title: "Trónok harca", image: "seriesimages/tronok.png", genre: "Kaland" },
-    { title: "Jóbarátok", image: "seriesimages/friends.jpg", genre: "Vígjáték" }
+    { title: "Stranger Things", image: "https://static.posters.cz/image/350/plakatok/stranger-things-seasons-i132237.jpg", genre: "Sci-Fi" },
+    { title: "Rick and Morty", image: "https://m.media-amazon.com/images/M/MV5BZGQyZjk2MzMtMTcyNC00NGU3LTlmNjItNDExMWM4ZDFhYmQ2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "Animáció" },
+    { title: "Squid Game", image: "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p20492218_b_v8_ae.jpg", genre: "Akció" },
+    { title: "Game of Thrones", image: "https://m.media-amazon.com/images/M/MV5BMTNhMDJmNmYtNDQ5OS00ODdlLWE0ZDAtZTgyYTIwNDY3OTU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "kaland" },
+    { title: "Friends", image: "https://m.media-amazon.com/images/M/MV5BOTU2YmM5ZjctOGVlMC00YTczLTljM2MtYjhlNGI5YWMyZjFkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg", genre: "Vígjáték" }
   ]);
 
  /* useEffect(() => {
