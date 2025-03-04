@@ -1,0 +1,57 @@
+.all-series-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: flex-start;
+  }
+  
+  .all-series-card {
+    border: 3px solid black; 
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    width: 200px;
+    background-color: aliceblue;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .all-series-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .osszes-sorozatok h2{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .sorozat-kep {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border-bottom: 3px solid black; 
+    margin-bottom: 10px;
+    transition: transform 0.5s ease;
+  }
+  
+.sorozat-kep:hover{
+    transform: translateY(1px) scale(1.1); 
+  
+}
+
+.series-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;    
+    padding: 0 1rem;   
+  }
+
+  .all-series-card h3 {
+    font-size: 1.2rem;
+  }

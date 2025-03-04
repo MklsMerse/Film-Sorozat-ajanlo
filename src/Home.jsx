@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './film.css';
 
+
+
 const filmKepek = {
   "Eredet" : "https://journality.hu/wp-content/uploads/2010/10/eredet.jpg",
   "Titanic" : "https://m.media-amazon.com/images/M/MV5BYzYyN2FiZmUtYWYzMy00MzViLWJkZTMtOGY1ZjgzNWMwN2YxXkEyXkFqcGc@._V1_.jpg",
@@ -8,6 +10,7 @@ const filmKepek = {
   "Testről és lélekről" : "https://images.justwatch.com/poster/111082300/s718/testrol-es-lelekrol.jpg",
   "Kis város" : "https://m.media-amazon.com/images/M/MV5BYjMyYTc1MGYtNDdlYS00MTk1LWJiNDMtMzg4MDUzNWJiNmE4XkEyXkFqcGc@._V1_.jpg",
   "A Viszkis" : "https://media.port.hu/images/000/979/788.jpg",
+  "Interstellar" : "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_.jpg",
 };
 
 const sorozatImages = {
@@ -17,6 +20,7 @@ const sorozatImages = {
   "A Térség" : "https://m.media-amazon.com/images/M/MV5BYzUyYmI3MjctY2Q2MC00NmFjLTgwZGUtNWQzZWNlYmVjNzE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
   "Westworld" : "https://m.media-amazon.com/images/M/MV5BMjM2MTA5NjIwNV5BMl5BanBnXkFtZTgwNjI2OTMxNTM@._V1_FMjpg_UX1000_.jpg",
   "Black Mirror" : "https://hips.hearstapps.com/hmg-prod/images/black-mirror-font-1513096756.jpg?crop=1xw:1xh;center,top&resize=980:*",
+  "The Mandalorian" : "https://m.media-amazon.com/images/M/MV5BNjgxZGM0OWUtZGY1MS00MWRmLTk2N2ItYjQyZTI1OThlZDliXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
 };
 
 export const Home = ({ searchTerm }) => {
@@ -53,7 +57,7 @@ useEffect(() => {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      setMovies(data.slice(0, 6));
+      setMovies(data.slice(0, 7));
     })
     .catch(err => console.error('Hiba az ajánlott filmek lekérésekor:', err));
 }, [token]);
@@ -68,7 +72,7 @@ useEffect(() => {
     })
     .then((data) => {
       console.log('Sorozatok adatai:', data);
-      setSeries(data.slice(0, 6));
+      setSeries(data.slice(0, 7));
     })
     .catch((err) => console.error('Hiba az ajánlott sorozatok lekérésekor:', err));
 }, [token]);

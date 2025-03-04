@@ -1,0 +1,47 @@
+.search-results {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .result-card {
+    border: 3px solid black;
+    border-radius: 8px;
+    padding: 1rem;
+    cursor: pointer;
+    width: 200px;
+    background-color: aliceblue;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    text-align: left;
+  }
+  
+  .result-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .tipus-label {
+    font-weight: bold;
+    color: #800020;
+    margin-top: 5px;
+  }
+  
+  .search-results h2 {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  }
+  

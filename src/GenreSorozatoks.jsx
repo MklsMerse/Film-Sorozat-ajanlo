@@ -137,16 +137,16 @@ export const GenreSorozatoks = () => {
 
   
   return (
-    <div className="genre-sorozatok">
+    <div className="genre-sorozatok2">
       <h2>{mufaj} sorozatok</h2>
-      <div className="sorozatok-container">
+      <div className="sorozatok2-container">
         {sorozat.length > 0 ? (
           sorozat.map((sorozat) => (
-            <div key={sorozat.SorozatId} className="sorozat-card">
+            <div key={sorozat.SorozatId} className="sorozat2-card">
               <img
                 src={sorozatImages[sorozat.cim] || '/placeholder.png'}
                 alt={sorozat.cim}
-                className="sorozat-image"
+                className="sorozat2-image"
               />
               <h3>{sorozat.cim}</h3>
               <p>{sorozat.mufaj}</p>

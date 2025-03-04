@@ -13,26 +13,16 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   }
   
-  .filmek-container {
+  .filmek2-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* vízszintes középre igazítás */
+    justify-content: flex-start;
+    gap: 1rem;
   }
   
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  .film-card {
+  .film2-card {
     border: 3px solid #800020; 
     border-radius: 8px;
     padding: 1rem;
@@ -41,14 +31,15 @@
     background-color: aliceblue;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    
   }
   
-  .film-card:hover {
+  .film2-card:hover {
     transform: scale(1.08);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
   
-  .film-image {
+  .film2-image {
     width: 100%;
     height: auto;
     border-radius: 8px;
@@ -57,17 +48,17 @@
     transition: transform 0.5s ease;
   }
   
-.film-image:hover{
+.film2-image:hover{
     transform: translateY(1px) scale(1.1); 
   
 }
 
-  .film-card h3 {
+  .film2-card h3 {
     font-size: 1.2rem;
     margin: 0 0 5px 0;
   }
   
-  .film-card p {
+  .film2-card p {
     margin: 0;
     color: #666;
     font-size: 0.9rem;

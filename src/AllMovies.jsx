@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import './GenreFilms.css';
+import React, { useEffect, useState } from 'react';
+import './AllMovies.css';
 
-// Képek objektuma, filmcímekhez rendelve
-const filmImages = {
-
+const osszesFilm = {
+    
   //Sci-Fi
   "Eredet": "https://journality.hu/wp-content/uploads/2010/10/eredet.jpg",
   "Interstellar" : "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_.jpg",
@@ -180,50 +178,49 @@ const filmImages = {
   "Így neveld a sárkányodat" : "https://mesekincstar.tv/wp-content/uploads/2015/10/igy-neveld-a-sarkanyodat-belyeg-mesekincstar.jpg",
   "Szörny Rt." : "https://mesekincstar.tv/wp-content/uploads/2015/12/szornyt-rt-belyeg-mesekincstar.jpg",
 
-
 };
 
-export const GenreFilms = () => {
-  const { mufaj } = useParams();
-  const [filmek, setFilmek] = useState([]);
-
+export const AllMovies = ({ searchTerm }) => {
+  const [movies, setMovies] = useState([]);
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
   const token = loggedInUser.token || 'token';
 
   useEffect(() => {
-    const url = `http://localhost:5104/api/filmek/mufaj/${token}/${mufaj}`;
-    console.log('Küldöm a kérést:', url);
+    const url = `http://localhost:5104/api/filmek/${token}`;
     fetch(url)
-      .then(res => {
-        console.log('HTTP státusz:', res.status);
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP hiba: ${res.status}`);
+        }
         return res.json();
       })
-      .then(data => {
-        console.log('Kapott adatok:', data);
-        setFilmek(data);
+      .then((data) => {
+        setMovies(data);
       })
-      .catch(err => console.error('Hiba a filmek lekérésekor:', err));
-  }, [mufaj, token]);
-
+      .catch((err) => console.error('Hiba az összes film lekérésekor:', err));
+  }, [token]);
+  
   return (
-    <div className="genre-filmek">
-      <h2>{mufaj} filmek</h2>
-      <div className="filmek2-container">
-        {filmek.length > 0 ? (
-          filmek.map((film) => (
-            <div key={film.FilmId} className="film2-card">
+    <div className="osszes-filmek">
+      <h2>Összes film</h2>
+      <div className="movies-wrapper">
+      <div className="all-movies-container">
+        {movies.length > 0 ? (
+          movies.map((film) => (
+            <div key={film.FilmId} className="all-movie-card">
               <img
-                src={filmImages[film.cim] || '/placeholder.png'}
+                src={osszesFilm[film.cim] || '/placeholder.png'}
                 alt={film.cim}
-                className="film2-image"
+                className="film-kep"
               />
               <h3>{film.cim}</h3>
-              <p>{film.mufaj}</p>
-            </div>
+              <p>{film.mufaj}</p>              
+            </div>          
           ))
         ) : (
-          <p>Nincsenek találatok a(z) {mufaj} műfajra.</p>
+          <p>Betöltés...</p>
         )}
+      </div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { Footer } from './Footer';
-import { Home, RecommendedMovies } from './Home';
+import { Home } from './Home';
 import { About } from './About';
 import { AuthPage } from './AuthPage';
 import { LogoutModal } from './LogoutModal';
@@ -9,6 +9,10 @@ import { ProfileModal } from './ProfileModal';
 import { GenreFilms } from './GenreFilms';
 import './App.css';
 import { GenreSorozatoks } from './GenreSorozatoks';
+import { AllMovies } from './AllMovies';
+import { AllSeries } from './AllSeries';
+import { SearchResults } from './SearchResults';
+
 
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,15 +25,22 @@ export const App = () => {
 
   const navigate = useNavigate();
 
-  // Betöltjük a bejelentkezett felhasználót, ha van
+  /*
   useEffect(() => {
-    if (isAuthenticated) {
-      const storedUser = localStorage.getItem('loggedInUser');
-      if (storedUser) {
-        setLoggedInUser(JSON.parse(storedUser));
-      }
+    const storedUser = localStorage.getItem('loggedInUser');
+    if (storedUser) {
+      setIsAuthenticated(true);
+      setLoggedInUser(JSON.parse(storedUser));
     }
-  }, [isAuthenticated]);
+  }, []);
+  */
+  useEffect(() => {
+    const storedUser = localStorage.getItem('loggedInUser');
+    if (storedUser) {
+      setIsAuthenticated(true);
+      setLoggedInUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('loggedInUser');
@@ -39,7 +50,7 @@ export const App = () => {
     navigate('/');
   };
 
-  // Frissíti a loggedInUser állapotát az új profilképpel
+  // Frissíti a loggedInUser állapotát az új profilképpel.
   const handleProfilePicUpdate = (newPicture) => {
     setLoggedInUser((prevUser) => {
       const updatedUser = {
@@ -55,10 +66,10 @@ export const App = () => {
     <div>
       <Routes>
         {!isAuthenticated ? (
-          // Ha nem vagyunk bejelentkezve, az AuthPage jelenik meg
+          // Ha nem vagyunk bejelentkezve, az AuthPage jelenik meg.
           <Route path="/*" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
         ) : (
-          // Bejelentkezett állapotban a főoldal és a navbar jelenik meg
+          // Bejelentkezett állapotban a főoldal és a navbar jelenik meg.
           <Route
             path="/*"
             element={
@@ -66,7 +77,7 @@ export const App = () => {
                 <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
                   <div className="container-fluid">
                     <img
-                      src="logo.png"
+                      src="/logo.png"
                       alt="FilmFókusz Logo"
                       style={{
                         height: '40px',
@@ -78,12 +89,17 @@ export const App = () => {
                     />
                     <NavLink className="navbar-brand" to="/">
                       FilmFókusz
-                    </NavLink>
+                    </NavLink>                 
                     <input
                       type="text"
                       placeholder="Keresés..."
                       className="form-control w-25"
                       onChange={(e) => setSearchTerm(e.target.value.toLowerCase())}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
+                        }
+                      }}
                     />
                     <div className="collapse navbar-collapse" id="navbarNav">
                       <ul className="navbar-nav">
@@ -216,8 +232,8 @@ export const App = () => {
                       </ul>
                     </div>
 
-                   {/* Profil + kijelentkezés a jobb oldalon */}
-                   {loggedInUser && (
+                    {/* Profil + kijelentkezés a jobb oldalon */}
+                    {loggedInUser && (
                       <div className="navbar-profile" style={{ display: 'flex', alignItems: 'center' }}>
                         <div
                           onClick={() => setShowProfileModal(true)}
@@ -227,7 +243,7 @@ export const App = () => {
                             {loggedInUser.LoginNev || loggedInUser.username}
                           </span>
                           <img
-                            src={loggedInUser.profilePicture ? loggedInUser.profilePicture : '/defaultuser.png'}
+                            src={loggedInUser.profilePicture ? loggedInUser.profilePicture :  '/defaultuser.png'}
                             alt="Profil"
                             className="profile-image"
                             style={{
@@ -249,17 +265,15 @@ export const App = () => {
                             borderRadius: '4px',
                           }}
                         >
-                          Kijelentkezés{' '}
-                          <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                          Kijelentkezés <i className="fa-solid fa-arrow-right-from-bracket"></i>
                         </button>
                       </div>
                     )}
                   </div>
                 </nav>
 
-
-                 {/* ProfileModal megjelenítése (ha showProfileModal true) */}
-                 {showProfileModal && loggedInUser && (
+                {/* ProfileModal */}
+                {showProfileModal && loggedInUser && (
                   <ProfileModal
                     user={loggedInUser}
                     onClose={() => setShowProfileModal(false)}
@@ -275,14 +289,14 @@ export const App = () => {
                   />
                 )}
 
-
                 <Routes>
                   <Route path="/" element={<Home searchTerm={searchTerm} />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/movies" element={<Home searchTerm={searchTerm} />} />
+                  <Route path="/movies" element={<AllMovies searchTerm={searchTerm} />} />
                   <Route path="/movies/:mufaj" element={<GenreFilms />} />
-                  <Route path="/series" element={<Home searchTerm={searchTerm} />} />
+                  <Route path="/series" element={<AllSeries searchTerm={searchTerm} />} />
                   <Route path="/series/:mufaj" element={<GenreSorozatoks />} />
+                  <Route path="/search" element={<SearchResults />} />
                 </Routes>
                 <Footer />
               </div>
