@@ -1,27 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './film.css';
+import { FilmekSorozatokKepei } from './FilmekSorozatokKepei';
 
 
-
-const filmKepek = {
-  "Eredet" : "https://journality.hu/wp-content/uploads/2010/10/eredet.jpg",
-  "Titanic" : "https://m.media-amazon.com/images/M/MV5BYzYyN2FiZmUtYWYzMy00MzViLWJkZTMtOGY1ZjgzNWMwN2YxXkEyXkFqcGc@._V1_.jpg",
-  "A sötét lovag" : "https://www.mafab.hu/static/profiles/2014/292/23/2384_4.jpg",
-  "Testről és lélekről" : "https://images.justwatch.com/poster/111082300/s718/testrol-es-lelekrol.jpg",
-  "Kis város" : "https://m.media-amazon.com/images/M/MV5BYjMyYTc1MGYtNDdlYS00MTk1LWJiNDMtMzg4MDUzNWJiNmE4XkEyXkFqcGc@._V1_.jpg",
-  "A Viszkis" : "https://media.port.hu/images/000/979/788.jpg",
-  "Interstellar" : "https://m.media-amazon.com/images/M/MV5BYzdjMDAxZGItMjI2My00ODA1LTlkNzItOWFjMDU5ZDJlYWY3XkEyXkFqcGc@._V1_.jpg",
-};
-
-const sorozatImages = {
-  "Terápia" : "https://m.media-amazon.com/images/M/MV5BNDgwNDE2NTA5OV5BMl5BanBnXkFtZTgwNjg5MTczNTE@._V1_.jpg",
-  "A mi kis falunk" : "https://images.justwatch.com/poster/302072377/s718/evad-1.jpg",
-  "Stranger Things" : "https://static.posters.cz/image/350/plakatok/stranger-things-seasons-i132237.jpg",
-  "A Térség" : "https://m.media-amazon.com/images/M/MV5BYzUyYmI3MjctY2Q2MC00NmFjLTgwZGUtNWQzZWNlYmVjNzE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-  "Westworld" : "https://m.media-amazon.com/images/M/MV5BMjM2MTA5NjIwNV5BMl5BanBnXkFtZTgwNjI2OTMxNTM@._V1_FMjpg_UX1000_.jpg",
-  "Black Mirror" : "https://hips.hearstapps.com/hmg-prod/images/black-mirror-font-1513096756.jpg?crop=1xw:1xh;center,top&resize=980:*",
-  "The Mandalorian" : "https://m.media-amazon.com/images/M/MV5BNjgxZGM0OWUtZGY1MS00MWRmLTk2N2ItYjQyZTI1OThlZDliXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-};
 
 export const Home = ({ searchTerm }) => {
   const [movies, setMovies] = useState([]);
@@ -114,7 +95,7 @@ useEffect(() => {
               movies.map((film) => (
                 <div key={film.FilmId} className="film-card">
                   <img
-                    src={filmKepek[film.cim] || '/placeholder.png'}
+                    src={FilmekSorozatokKepei[film.cim] || '/placeholder.png'}
                     alt={film.cim}
                     className="film-image"
                   />
@@ -135,7 +116,7 @@ useEffect(() => {
           sorozat.map((sorozat) => (
             <div key={sorozat.SorozatId} className="sorozat-card">
               <img
-                src={sorozatImages[sorozat.cim] || '/placeholder.png'}
+                src={FilmekSorozatokKepei[sorozat.cim] || '/placeholder.png'}
                 alt={sorozat.cim}
                 className="sorozat-image"
               />

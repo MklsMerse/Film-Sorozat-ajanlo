@@ -22,6 +22,7 @@ export const AuthPage = ({ setIsAuthenticated }) => {
     setCaptchaValue(value);
   };
 
+  
   const validatePassword = (pass) => {
     if (pass.length < 8) {
       return "A jelszó minimum 8 karakter hosszúságúnak kell lennie!";
