@@ -10,12 +10,16 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
     onRatingUpdate(item.id, value, item.tipus);
   };
 
+
+  
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <button className="modal-close" onClick={onClose}>×</button>
         <h2 className="modal-title">{item.cim}</h2>
+        
         <div className="modal-content">
+          {/* Bal oldalt a kép */}
           <div className="modal-left">
             <img
               src={FilmekSorozatokKepei[item.cim] || '/placeholder.png'}
@@ -23,9 +27,11 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
               className="modal-image"
             />
           </div>
+          
+          {/* Jobb oldalt az adatok */}
           <div className="modal-right">
             <p><strong>Leírás:</strong> {item.leiras}</p>
-            <p><strong>Megjelenési dátum:</strong> {item.megjelenesi_datum}</p>
+            <p><strong>Megjelenési dátum:</strong> {item.megjelenesiDatum}</p>
             <p><strong>Műfaj:</strong> {item.mufaj}</p>
             <p><strong>Rendező:</strong> {item.rendezo}</p>
             <p><strong>Szereplők:</strong> {item.szereplok}</p>
@@ -34,10 +40,11 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
             )}
             <p>
               <strong>Link:</strong>{' '}
-              <a href={item.film_url || item.url} target="_blank" rel="noopener noreferrer">
-                {item.film_url || item.url}
+              <a href={item.filmUrl || item.url} target="_blank" rel="noopener noreferrer">
+                {item.filmUrl || item.url}
               </a>
             </p>
+
             <div className="modal-rating">
               <strong>Értékelés:</strong>
               <div className="rating-buttons">
