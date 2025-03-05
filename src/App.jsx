@@ -34,6 +34,7 @@ export const App = () => {
     }
   }, []);
   */
+ 
   useEffect(() => {
     const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
@@ -243,7 +244,7 @@ export const App = () => {
                             {loggedInUser.LoginNev || loggedInUser.username}
                           </span>
                           <img
-                            src={loggedInUser.profilePicture ? loggedInUser.profilePicture :  '/defaultuser.png'}
+                            src={loggedInUser.profilePicture ? loggedInUser.profilePicture :  'defaultuser.png'}
                             alt="Profil"
                             className="profile-image"
                             style={{

@@ -360,7 +360,7 @@ export const SearchResults = () => {
             </div>
           ))
         ) : (
-          <p>Nincs találat.</p>
+          <p className='nincs-talalat'>Nincs találat! <i className="fa-solid fa-magnifying-glass-minus"></i></p>
         )}
       </div>
     </div>
