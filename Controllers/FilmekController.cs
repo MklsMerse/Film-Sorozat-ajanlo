@@ -34,7 +34,11 @@ namespace FilmFokuszBackEnd.Controllers
                             f.FilmId,
                             f.Cim,
                             f.Mufaj,
-                            f.FilmUrl
+                            f.FilmUrl,
+                            f.Leiras,
+                            f.Rendezo,
+                            f.Szereplok,
+                            f.MegjelenesiDatum
                         })
                         .ToListAsync();
 

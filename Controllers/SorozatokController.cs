@@ -31,6 +31,12 @@ namespace FilmFokuszBackEnd.Controllers
                             f.SorozatId,
                             f.Cim,
                             f.Mufaj,
+                            f.Leiras,
+                            f.Rendezo,
+                            f.Szereplok,
+                            f.SorozatUrl,
+                            f.EvadokSzama,
+                            f.MegjelenesiDatum
                         })
                         .ToListAsync();
 
