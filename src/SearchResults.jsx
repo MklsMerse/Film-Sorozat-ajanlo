@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './SearchResults.css';
 import { FilmekSorozatokKepei } from './FilmekSorozatokKepei';
-
+import { DetailModal } from './DetailModal';
 
 export const SearchResults = () => {
   const [results, setResults] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const term = queryParams.get('term')?.toLowerCase() || '';
@@ -14,11 +15,9 @@ export const SearchResults = () => {
   const token = loggedInUser.token || 'token';
 
   useEffect(() => {
-    // Egyszerre kérjük le a filmeket és a sorozatokat, majd egy tömbbe fűzzük őket
     const filmUrl = `http://localhost:5104/api/filmek/${token}`;
     const seriesUrl = `http://localhost:5104/api/sorozatok/${token}`;
 
-    // Promise.all-lal párhuzamosan hívjuk meg a két végpontot
     Promise.all([
       fetch(filmUrl).then((res) => {
         if (!res.ok) throw new Error(`Film hiba: ${res.status}`);
@@ -30,35 +29,44 @@ export const SearchResults = () => {
       }),
     ])
       .then(([filmsData, seriesData]) => {
-        // A filmeknél átalakítjuk a struktúrát egy közös séma szerint
+        // Filmek átalakítása egy közös séma szerint, beleértve a megjelenési dátumot
         const filmResults = filmsData.map((film) => ({
           id: film.FilmId,
           cim: film.cim,
           mufaj: film.mufaj,
           url: film.FilmUrl,
-          tipus: 'Film', // Megkülönböztetéshez
+          tipus: 'Film',
+          leiras: film.leiras,
+          rendezo: film.rendezo,
+          szereplok: film.szereplok,
+          ertekeles: film.ertekeles,
+          megjelenesiDatum: film.megjelenesiDatum, // hozzáadva
         }));
 
-        // Ugyanez sorozatokra
+        // Sorozatok átalakítása, beleértve a megjelenési dátumot
         const seriesResults = seriesData.map((sorozat) => ({
           id: sorozat.SorozatId,
           cim: sorozat.cim,
           mufaj: sorozat.mufaj,
           url: sorozat.SorozatUrl,
           tipus: 'Sorozat',
+          leiras: sorozat.leiras,
+          rendezo: sorozat.rendezo,
+          szereplok: sorozat.szereplok,
+          ertekeles: sorozat.ertekeles,
+          evadokSzama: sorozat.evadokSzama,
+          megjelenesiDatum: sorozat.megjelenesiDatum, // hozzáadva
         }));
 
-        // Összefűzzük a két tömböt
         const combined = [...filmResults, ...seriesResults];
-
-        // Keresési kifejezés alapján szűrés (címben szerepel-e)
         const filtered = combined.filter((item) =>
           item.cim.toLowerCase().includes(term)
         );
-
         setResults(filtered);
       })
-      .catch((err) => console.error('Hiba a keresési eredmények lekérésekor:', err));
+      .catch((err) =>
+        console.error('Hiba a keresési eredmények lekérésekor:', err)
+      );
   }, [term, token]);
 
   return (
@@ -67,7 +75,11 @@ export const SearchResults = () => {
       <div className="results-container">
         {results.length > 0 ? (
           results.map((item) => (
-            <div key={`${item.tipus}-${item.id}`} className="result-card">
+            <div
+              key={`${item.tipus}-${item.id}`}
+              className="result-card"
+              onClick={() => setSelectedItem(item)}
+            >
               <img
                 src={FilmekSorozatokKepei[item.cim] || '/placeholder.png'}
                 alt={item.cim}
@@ -79,9 +91,22 @@ export const SearchResults = () => {
             </div>
           ))
         ) : (
-          <p className='nincs-talalat'>Nincs találat! <i className="fa-solid fa-magnifying-glass-minus"></i></p>
+          <p className="nincs-talalat">
+            Nincs találat! <i className="fa-solid fa-magnifying-glass-minus"></i>
+          </p>
         )}
       </div>
+
+      {selectedItem && (
+        <DetailModal
+          item={selectedItem}
+          onClose={() => setSelectedItem(null)}
+          onRatingUpdate={(id, newRating, tipus) => {
+            console.log("Frissítem az értékelést:", id, newRating, tipus);
+            setSelectedItem({ ...selectedItem, ertekeles: newRating });
+          }}
+        />
+      )}
     </div>
   );
 };

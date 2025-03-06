@@ -18,6 +18,7 @@
   padding: 20px !important;
   border-radius: 8px !important;
   width: 80% !important;
+  height: 97% !important;
   max-width: 800px !important;
   position: relative !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25) !important;
@@ -138,3 +139,4 @@
   border-color: #800020 !important;
   border: 1px solid black !important;
 }
+

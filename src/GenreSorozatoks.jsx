@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './GenreSorozatoks.css';
 import { FilmekSorozatokKepei } from './FilmekSorozatokKepei';
+import { DetailModal } from './DetailModal';
 
 export const GenreSorozatoks = () => {
   const { mufaj } = useParams();
   const [sorozat, setSorozatok] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
 
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
   const token = loggedInUser.token || 'token';
@@ -25,27 +27,43 @@ export const GenreSorozatoks = () => {
       .catch(err => console.error('Hiba a sorozatok lekérésekor:', err));
   }, [mufaj, token]);
 
-  
+  // Kattintás esetén beállítjuk a kiválasztott sorozatot a modalhoz
+  const handleCardClick = (s) => {
+    setSelectedItem({ ...s, tipus: 'Sorozat' });
+  };
+
   return (
     <div className="genre-sorozatok2">
       <h2>{mufaj} sorozatok</h2>
       <div className="sorozatok2-container">
         {sorozat.length > 0 ? (
-          sorozat.map((sorozat) => (
-            <div key={sorozat.SorozatId} className="sorozat2-card">
+          sorozat.map((s) => (
+            <div key={s.SorozatId} className="sorozat2-card" onClick={() => handleCardClick(s)}>
               <img
-                src={FilmekSorozatokKepei[sorozat.cim] || '/placeholder.png'}
-                alt={sorozat.cim}
+                src={FilmekSorozatokKepei[s.cim] || '/placeholder.png'}
+                alt={s.cim}
                 className="sorozat2-image"
               />
-              <h3>{sorozat.cim}</h3>
-              <p>{sorozat.mufaj}</p>
+              <h3>{s.cim}</h3>
+              <p>{s.mufaj}</p>
             </div>
           ))
         ) : (
           <p>Nincsenek találatok a(z) {mufaj} műfajra.</p>
         )}
       </div>
+
+      {/* Ha van kiválasztott sorozat, megjelenik a DetailModal */}
+      {selectedItem && (
+        <DetailModal
+          item={selectedItem}
+          onClose={() => setSelectedItem(null)}
+          onRatingUpdate={(id, newRating, tipus) => {
+            console.log("Frissítem az értékelést:", id, newRating, tipus);
+            setSelectedItem({ ...selectedItem, ertekeles: newRating });
+          }}
+        />
+      )}
     </div>
   );
 };
