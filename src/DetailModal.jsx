@@ -5,6 +5,11 @@ import './DetailModal.css';
 export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
   const [rating, setRating] = useState(item.ertekeles || 0);
 
+  const dateObj = new Date(item.megjelenesiDatum);
+  const dateOnly = !isNaN(dateObj.getTime())
+    ? dateObj.toISOString().slice(0, 10) // Példa: "2010-07-16"
+    : "Érvénytelen dátum";
+
   const handleRatingClick = (value) => {
     setRating(value);
     onRatingUpdate(item.id, value, item.tipus);
@@ -40,7 +45,7 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
           {/* Jobb oldalt az adatok */}
           <div className="modal-right">
             <p><strong>Leírás:</strong> {item.leiras}</p>
-            <p><strong>Megjelenési dátum:</strong> {item.megjelenesiDatum}</p>
+            <p><strong>Megjelenési dátum:</strong> {dateOnly}</p>
             <p><strong>Műfaj:</strong> {item.mufaj}</p>
             <p><strong>Rendező:</strong> {item.rendezo}</p>
             <p><strong>Szereplők:</strong> {item.szereplok}</p>

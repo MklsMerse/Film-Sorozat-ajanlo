@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 import './AuthPage.css';
 
+const isValidEmail = (email) => {
+  if (!email || email.trim() === "") return false;
+  // Ez a minta csak olyan e-mailt engedélyez, amely '@' után .com vagy .hu végződéssel zárul.
+  const pattern = /^[^@\s]+@[^@\s]+\.(com|hu)$/i;
+  return pattern.test(email);
+};
+
 export const AuthPage = ({ setIsAuthenticated }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [fullName, setFullName] = useState('');
@@ -72,7 +79,12 @@ export const AuthPage = ({ setIsAuthenticated }) => {
     }
 
     if (!isLogin) {
-      // REGISZTRÁCIÓ
+      
+      if (!isValidEmail(email)) {
+        alert("Kérlek érvényes e-mail címet adj meg!");
+        return;
+      }
+
       if (!captchaValue) {
         alert("Kérlek erősítsd meg, hogy nem vagy robot!");
         return;
