@@ -22,7 +22,6 @@ export const AuthPage = ({ setIsAuthenticated }) => {
     setCaptchaValue(value);
   };
 
-  
   const validatePassword = (pass) => {
     if (pass.length < 8) {
       return "A jelszó minimum 8 karakter hosszúságúnak kell lennie!";
@@ -45,6 +44,9 @@ export const AuthPage = ({ setIsAuthenticated }) => {
       }
       const reader = new FileReader();
       reader.onload = (event) => {
+        const result = event.target.result; // ez a teljes data URL ("data:image/png;base64,...")
+        // Szedd ki belőle csak a Base64 részt
+        const base64String = result.split(',')[1];
         const img = new Image();
         img.onload = () => {
           if (img.width > 320 || img.height > 320) {
@@ -52,11 +54,11 @@ export const AuthPage = ({ setIsAuthenticated }) => {
             setProfilePicture(null);
             setProfilePicturePreview(null);
           } else {
-            setProfilePicture(event.target.result); // Base64 string
-            setProfilePicturePreview(event.target.result);
+            setProfilePicture(base64String); // csak a Base64 részt tároljuk
+            setProfilePicturePreview(result); // előnézethez a teljes data URL-t használjuk
           }
         };
-        img.src = event.target.result;
+        img.src = result;
       };
       reader.readAsDataURL(file);
     }
@@ -144,8 +146,6 @@ export const AuthPage = ({ setIsAuthenticated }) => {
         const userData = await response.json();
         localStorage.setItem("loggedInUser", JSON.stringify(userData));
         localStorage.setItem("token", userData.token);
-        // Mentheted localStorage-ba, vagy frissítheted a globális auth állapotot
-        localStorage.setItem("loggedInUser", JSON.stringify(userData));
         setIsAuthenticated(true);
         navigate("/"); // Navigálás a főoldalra (Home.jsx)
       } catch (error) {

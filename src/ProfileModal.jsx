@@ -4,7 +4,6 @@ import './ProfileModal.css';
 export const ProfileModal = ({
   user,
   onClose,
-  // Ezt a callbacket hívjuk meg, hogy frissítsük a szülő állapotát
   onUpdateProfilePicture
 }) => {
   const fileInputRef = useRef(null);
@@ -18,26 +17,25 @@ export const ProfileModal = ({
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Típusellenőrzés
       if (!file.type.startsWith('image/')) {
         alert('Kérlek, egy képfájlt válassz!');
         return;
       }
       const reader = new FileReader();
       reader.onload = (event) => {
+        const result = event.target.result; // például: "data:image/png;base64,AAA..."
+        // Levágjuk a "data:image/xxx;base64," részt, hogy csak a Base64 kód legyen
+        const base64String = result.split(',')[1];
         const img = new Image();
         img.onload = () => {
           if (img.width > 320 || img.height > 320) {
-            alert(
-              'A profilkép maximális mérete 320x320 pixel lehet. Kérlek válassz kisebb képet!'
-            );
+            alert('A profilkép maximális mérete 320x320 pixel lehet. Kérlek válassz kisebb képet!');
             return;
           }
-          // Ha a kép megfelel, meghívjuk a szülő által átadott függvényt
-          // Ez frissíti a loggedInUser.profilePicture-t az App.jsx-ben
-          onUpdateProfilePicture(event.target.result);
+          // Frissítjük a profilképet a Base64 stringgel
+          onUpdateProfilePicture(base64String);
         };
-        img.src = event.target.result;
+        img.src = result;
       };
       reader.readAsDataURL(file);
     }
@@ -50,10 +48,15 @@ export const ProfileModal = ({
           ×
         </button>
         <img
-          src={user.profilePicture ? user.profilePicture : '/defaultuser.png'}
-          alt="Profil"
-          className="modal-profile-image"
-        />
+  src={
+    user && user.profilePicture && user.profilePicture.length > 0 
+      ? `data:image/png;base64,${user.profilePicture}` 
+      : '/defaultuser.png'
+  }
+  alt="Profil"
+  className="profile-image"
+/>
+
         <div className="profile-details">
           <p>
             <strong>Teljes Név:</strong> {user.fullName}

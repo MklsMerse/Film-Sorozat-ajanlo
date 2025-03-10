@@ -13,7 +13,6 @@ import { AllMovies } from './AllMovies';
 import { AllSeries } from './AllSeries';
 import { SearchResults } from './SearchResults';
 
-
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -25,16 +24,6 @@ export const App = () => {
 
   const navigate = useNavigate();
 
-  /*
-  useEffect(() => {
-    const storedUser = localStorage.getItem('loggedInUser');
-    if (storedUser) {
-      setIsAuthenticated(true);
-      setLoggedInUser(JSON.parse(storedUser));
-    }
-  }, []);
-  */
- 
   useEffect(() => {
     const storedUser = localStorage.getItem('loggedInUser');
     if (storedUser) {
@@ -244,7 +233,9 @@ export const App = () => {
                             {loggedInUser.LoginNev || loggedInUser.username}
                           </span>
                           <img
-                            src={loggedInUser.profilePicture ? loggedInUser.profilePicture :  'defaultuser.png'}
+                             src={loggedInUser.profilePicture && loggedInUser.profilePicture.length > 0 
+                              ? `data:image/png;base64,${loggedInUser.profilePicture}` 
+                              : '/defaultuser.png'}
                             alt="Profil"
                             className="profile-image"
                             style={{

@@ -14,7 +14,10 @@
 
 /* A modal ablak konténerje */
 .modal-container {
-  background: #fff !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-image: url('/public/det.gif') !important;
   padding: 20px !important;
   border-radius: 8px !important;
   width: 80% !important;
@@ -23,6 +26,7 @@
   position: relative !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25) !important;
   animation: modalAppear 0.3s ease-out !important;
+  border: 2px solid white  !important;
 }
 
 /* Modal megjelenési animáció */
@@ -39,6 +43,7 @@
 
 /* Bezáró gomb */
 .modal-close {
+  color: white !important;
   position: absolute !important;
   top: -10px !important;
   right: -5px !important;
@@ -56,6 +61,7 @@
   color: white !important;
   background-color: #800020 !important;
   border-radius: 10px !important;
+  border: 2px solid black !important;
 }
 
 /* A modal tartalom elrendezése két oszlopban: */
@@ -77,7 +83,7 @@
   flex: 0 0 110% !important;
   text-align: left !important;
   font-size: 1rem !important;
-  color: black !important;
+  color: white !important;
   position: relative !important;
   right: 120px !important;
 }
@@ -87,7 +93,7 @@
   width: 150% !important;
   height: 100% !important;
   border-radius: 10px !important;
-  border: 2px solid #ccc !important;
+  border: 2px solid black !important;
   box-shadow: 0 100px 100px rgba(10, 10, 10, 0.5) !important;
   transition: transform 0.5s ease !important;
 }
@@ -96,7 +102,6 @@
   transform: translateY(-50px) scale(1.1) !important; 
 }
 
-/* Jobb oldali adatok stílusa */
 .modal-right p {
   margin: 30px 10 !important;
 }
@@ -140,3 +145,13 @@
   border: 1px solid black !important;
 }
 
+.modal-trailer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1; /* a tartalom mögé kerül */
+  opacity: 0.8; /* vagy állítsd 1-re, ha teljesen látható legyen */
+}
