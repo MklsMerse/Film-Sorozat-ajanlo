@@ -57,7 +57,8 @@ namespace FilmFokuszBackEnd.Controllers
         [HttpGet("{token}")]
         public async Task<IActionResult> Get(string token)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+                (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
@@ -76,6 +77,7 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
+
 
         [HttpGet("velemenyek/{token},{sorozatId}")]
         public async Task<IActionResult> GetVelemenyek(string token, int sorozatId)
@@ -104,7 +106,8 @@ namespace FilmFokuszBackEnd.Controllers
         [HttpPost("{token}")]
         public async Task<IActionResult> Post(string token, [FromBody] Sorozatok sorozat)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+                (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
@@ -126,10 +129,12 @@ namespace FilmFokuszBackEnd.Controllers
             }
         }
 
+
         [HttpPut("{token}")]
         public async Task<IActionResult> UpdateSorozat(string token, [FromBody] Sorozatok updatedSorozat)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+                (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
@@ -167,25 +172,26 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
-        [HttpDelete("delete-sorozat")]
-        public IActionResult DeleteSorozat(string token, int sorozatId)
+
+        [HttpDelete("delete-sorozat/{token}/{sorozatId}")]
+        public async Task<IActionResult> DeleteSorozat(string token, int sorozatId)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+                (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
                     using (var cx = new FilmfokuszContext())
                     {
-                        // Megkeressük a törlendő filmet
-                        var sorozatToDelete = cx.Sorozatoks.FirstOrDefault(f => f.SorozatId == sorozatId);
+                        var sorozatToDelete = await cx.Sorozatoks.FindAsync(sorozatId);
                         if (sorozatToDelete == null)
                         {
-                            return NotFound($"Nem található sorozat az {sorozatId} azonosítóval.");
+                            return NotFound($"Nem található sorozat a megadott {sorozatId} azonosítóval.");
                         }
 
                         cx.Sorozatoks.Remove(sorozatToDelete);
-                        cx.SaveChanges();
-                        return Ok("A sorozat adatai törölve.");
+                        await cx.SaveChangesAsync();
+                        return Ok("A sorozat sikeresen törölve.");
                     }
                 }
                 catch (Exception ex)
@@ -198,5 +204,6 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
+
     }
 }

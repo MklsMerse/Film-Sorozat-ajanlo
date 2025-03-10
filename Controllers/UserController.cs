@@ -13,34 +13,191 @@ namespace FilmFokuszBackEnd.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-
-        [HttpGet("/EmailName{token}")]
-        public async Task<IActionResult> GetUserData(string token)
+        [HttpPut("admin-update/{token}")]
+        public async Task<IActionResult> AdminUpdateUser(string token, [FromBody] User updatedUser)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token))
+            {
+                var currentUser = Program.LoggedInUsers[token];
+                if (currentUser.PermissionId == 2)
+                {
+                    // Ugyanaz a logika, mint a Put("{token}")-ben
+                    try
+                    {
+                        using (var cx = new FilmfokuszContext())
+                        {
+                            var existingUser = await cx.Users.FindAsync(updatedUser.Id);
+                            if (existingUser == null)
+                            {
+                                return NotFound("A megadott felhasználó nem található.");
+                            }
+                            // Frissítés
+                            existingUser.LoginNev = updatedUser.LoginNev;
+                            // ... és így tovább
+
+                            await cx.SaveChangesAsync();
+                            return Ok("A felhasználó adatai módosítva (admin).");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.InnerException?.Message ?? ex.Message);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Nincs jogod hozzá (nem admin)!");
+                }
+            }
+            else
+            {
+                return BadRequest("Érvénytelen token!");
+            }
+        }
+
+
+        [HttpPost("login-admin")]
+        public async Task<IActionResult> LoginAdmin([FromBody] LoginDTO loginDTO)
+        {
+            using (var cx = new FilmfokuszContext())
             {
                 try
                 {
-                    using (var cx = new FilmfokuszContext())
+                    // 1) Első lépés: megkeressük a usert a felhasználónév alapján
+                    var user = await cx.Users
+                        .FirstOrDefaultAsync(u => u.LoginNev == loginDTO.Username);
+
+                    if (user == null || !user.Active)
                     {
-                        var users = await cx.Users.Select(u => new
-                        {
-                            u.Id,
-                            u.LoginNev,
-                            u.Hash,
-                            u.Salt,
-                            u.Name,
-                            u.PermissionId,
-                            u.Active,
-                            u.Email,
-                            u.ProfilePicturePath
-                        }).ToListAsync();
-                        return Ok(users);
+                        return BadRequest("Hibás név vagy jelszó/inaktív felhasználó!");
                     }
+
+                    // 2) Ellenőrizzük, hogy PermissionId = 2-e (admin)
+                    if (user.PermissionId != 2)
+                    {
+                        return BadRequest("Nincs jogosultság a WPF alkalmazáshoz (admin)!");
+                    }
+
+                    // 3) A jelszót ugyanúgy hash-eljük, mint a regisztrációnál:
+                    //    password + user.Salt -> CreateSHA256
+                    string hash = Program.CreateSHA256(loginDTO.Password + user.Salt);
+
+                    if (hash != user.Hash)
+                    {
+                        return BadRequest("Hibás név vagy jelszó/inaktív felhasználó!");
+                    }
+
+                    // 4) Ha minden stimmel, generálunk egy tokent és eltároljuk
+                    string token = Guid.NewGuid().ToString();
+                    lock (Program.LoggedInUsers)
+                    {
+                        Program.LoggedInUsers[token] = user;
+                    }
+
+                    // 5) A profilképet Base64 stringgé konvertáljuk, hogy a kliens is megjeleníthesse
+                    string base64Picture = user.ProfilePicturePath != null && user.ProfilePicturePath.Length > 0
+                        ? Convert.ToBase64String(user.ProfilePicturePath)
+                        : "";
+
+                    // 6) Visszaküldjük a LoggedUser DTO-t
+                    return Ok(new LoggedUser
+                    {
+                        Name = user.Name,
+                        Email = user.Email,
+                        Permission = user.PermissionId,
+                        ProfilePicturePath = base64Picture, // string, base64
+                        Token = token
+                    });
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex.InnerException?.Message);
+                    return BadRequest("Hiba történt: " + ex.Message);
+                }
+            }
+        }
+
+
+
+        [HttpPost("register-admin")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterDto dto)
+        {
+            try
+            {
+                using (var cx = new FilmfokuszContext())
+                {
+                    // Ellenőrizzük, hogy nincs-e már ilyen email
+                    if (cx.Users.Any(u => u.Email == dto.Email))
+                        return BadRequest("Az e-mail cím már foglalt.");
+
+                    // Generálunk salt-ot és hash-t
+                    string salt = Program.GenerateSalt();
+                    // A jelszó tárolásánál: password + salt
+                    string hash = Program.CreateSHA256(dto.Password + salt);
+
+                    // Ha nincs profilkép, üres tömb
+                    byte[] profilePictureData = string.IsNullOrEmpty(dto.ProfilePicture)
+                        ? new byte[0]
+                        : Convert.FromBase64String(dto.ProfilePicture);
+
+                    var user = new User
+                    {
+                        Name = dto.FullName,
+                        LoginNev = dto.Username,
+                        Email = dto.Email,
+                        Hash = hash,
+                        Salt = salt,
+                        ProfilePicturePath = profilePictureData,
+                        Active = true,
+                        PermissionId = 2  // Admin
+                    };
+
+                    cx.Users.Add(user);
+                    await cx.SaveChangesAsync();
+                    return Ok("Admin regisztráció sikeres.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.InnerException?.Message ?? ex.Message);
+            }
+        }
+
+
+        [HttpGet("EmailName")]
+        public async Task<IActionResult> GetUserData([FromQuery] string token)
+        {
+            if (Program.LoggedInUsers.ContainsKey(token))
+            {
+                var currentUser = Program.LoggedInUsers[token];
+                // Csak az adminok (PermissionId == 2) férhetnek hozzá
+                if (currentUser.PermissionId == 2)
+                {
+                    try
+                    {
+                        using (var cx = new FilmfokuszContext())
+                        {
+                            var users = await cx.Users.Select(u => new
+                            {
+                                u.Id,
+                                u.LoginNev,
+                                u.Name,
+                                u.PermissionId,
+                                u.Active,
+                                u.Email,
+                                u.Hash,
+                                u.Salt
+                            }).ToListAsync();
+                            return Ok(users);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.InnerException?.Message);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Nincs jogod hozzá!");
                 }
             }
             else
@@ -48,6 +205,8 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
+
+
 
 
         [HttpPost("{token}")]
@@ -79,68 +238,84 @@ namespace FilmFokuszBackEnd.Controllers
         [HttpPut("{token}")]
         public async Task<IActionResult> Put(string token, [FromBody] User updatedUser)
         {
-            // Ellenőrizzük, hogy létezik-e a token, és a PermissionId == 9 jogosultság rendben van-e
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token))
             {
-                try
+                var currentUser = Program.LoggedInUsers[token];
+                // Ha 9 vagy 2 a PermissionId, engedélyezzük
+                if (currentUser.PermissionId == 9 || currentUser.PermissionId == 2)
                 {
-                    using (var cx = new FilmfokuszContext())
+                    try
                     {
-                        // Megkeressük a meglévő felhasználót az adatbázisban az Id alapján
-                        var existingUser = await cx.Users.FindAsync(updatedUser.Id);
-                        if (existingUser == null)
+                        using (var cx = new FilmfokuszContext())
                         {
-                            return NotFound("A megadott felhasználó nem található.");
+                            var existingUser = await cx.Users.FindAsync(updatedUser.Id);
+                            if (existingUser == null)
+                            {
+                                return NotFound("A megadott felhasználó nem található.");
+                            }
+
+                            // Frissítjük a mezőket
+                            existingUser.LoginNev = updatedUser.LoginNev;
+                            existingUser.Hash = updatedUser.Hash;
+                            existingUser.Salt = updatedUser.Salt;
+                            existingUser.Name = updatedUser.Name;
+                            existingUser.PermissionId = updatedUser.PermissionId;
+                            existingUser.Active = updatedUser.Active;
+                            existingUser.Email = updatedUser.Email;
+                            existingUser.ProfilePicturePath = updatedUser.ProfilePicturePath;
+
+                            await cx.SaveChangesAsync();
+                            return Ok("A felhasználó adatai módosítva.");
                         }
-
-                        // Frissítjük a mezőket a bejövő adatok alapján
-                        existingUser.LoginNev = updatedUser.LoginNev;
-                        existingUser.Hash = updatedUser.Hash;
-                        existingUser.Salt = updatedUser.Salt;
-                        existingUser.Name = updatedUser.Name;
-                        existingUser.PermissionId = updatedUser.PermissionId;
-                        existingUser.Active = updatedUser.Active;
-                        existingUser.Email = updatedUser.Email;
-                        existingUser.ProfilePicturePath = updatedUser.ProfilePicturePath;
-
-                        // Elmentjük a változtatásokat
-                        await cx.SaveChangesAsync();
-                        return Ok("A felhasználó adatai módosítva.");
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.InnerException?.Message ?? ex.Message);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    return BadRequest(ex.InnerException?.Message ?? ex.Message);
+                    return BadRequest("Nincs jogod hozzá (PermissionId != 9 vagy 2)!");
                 }
             }
             else
             {
-                return BadRequest("Nincs jogod hozzá!");
+                return BadRequest("Érvénytelen token!");
             }
+
         }
 
         [HttpDelete("{token}/{id}")]
         public async Task<IActionResult> Delete(string token, int id)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token))
             {
-                try
+                var currentUser = Program.LoggedInUsers[token];
+                // Engedélyezzük a törlést, ha a felhasználó PermissionId 9 vagy 2
+                if (currentUser.PermissionId == 9 || currentUser.PermissionId == 2)
                 {
-                    using (var cx = new FilmfokuszContext())
+                    try
                     {
-                        var user = await cx.Users.FindAsync(id);
-                        if (user == null)
+                        using (var cx = new FilmfokuszContext())
                         {
-                            return NotFound("A megadott felhasználó nem található.");
+                            var user = await cx.Users.FindAsync(id);
+                            if (user == null)
+                            {
+                                return NotFound("A megadott felhasználó nem található.");
+                            }
+                            cx.Users.Remove(user);
+                            await cx.SaveChangesAsync();
+                            return Ok("A felhasználó adatai törölve.");
                         }
-                        cx.Users.Remove(user);
-                        await cx.SaveChangesAsync();
-                        return Ok("A felhasználó adatai törölve.");
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.InnerException?.Message ?? ex.Message);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    return BadRequest(ex.InnerException?.Message ?? ex.Message);
+                    return BadRequest("Nincs jogod hozzá!");
                 }
             }
             else
@@ -148,6 +323,7 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
+
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)

@@ -61,7 +61,8 @@ namespace FilmFokuszBackEnd.Controllers
         [HttpGet("{token}")]
         public async Task<IActionResult> Get(string token)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+               (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
@@ -80,6 +81,7 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
+
 
         [HttpGet("velemenyek/{token},{filmId}")]
         public async Task<IActionResult> GetVelemenyek(string token,int filmId)
@@ -108,7 +110,8 @@ namespace FilmFokuszBackEnd.Controllers
         [HttpPost("{token}")]
         public async Task<IActionResult> Post(string token, [FromBody] Filmek film)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+                (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
@@ -130,10 +133,14 @@ namespace FilmFokuszBackEnd.Controllers
             }
         }
 
+
+
         [HttpPut("{token}")]
         public async Task<IActionResult> UpdateFilm(string token, [FromBody] Filmek updatedFilm)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            // Ha a token létezik és a user PermissionId-je 9 VAGY 2, engedélyezzük a frissítést
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+                (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
@@ -172,16 +179,17 @@ namespace FilmFokuszBackEnd.Controllers
         }
 
 
-        [HttpDelete("delete-film")]
+
+        [HttpDelete("delete-film/{token}/{filmId}")]
         public IActionResult DeleteFilm(string token, int filmId)
         {
-            if (Program.LoggedInUsers.ContainsKey(token) && Program.LoggedInUsers[token].PermissionId == 9)
+            if (Program.LoggedInUsers.ContainsKey(token) &&
+                (Program.LoggedInUsers[token].PermissionId == 9 || Program.LoggedInUsers[token].PermissionId == 2))
             {
                 try
                 {
                     using (var cx = new FilmfokuszContext())
                     {
-                        // Megkeressük a törlendő filmet
                         var filmToDelete = cx.Filmeks.FirstOrDefault(f => f.FilmId == filmId);
                         if (filmToDelete == null)
                         {
@@ -203,6 +211,9 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Nincs jogod hozzá!");
             }
         }
+
+
+
     }
 }
 
