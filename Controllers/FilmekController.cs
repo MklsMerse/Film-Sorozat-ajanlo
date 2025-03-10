@@ -130,8 +130,6 @@ namespace FilmFokuszBackEnd.Controllers
             }
         }
 
-
-
         [HttpPut("{token}")]
         public async Task<IActionResult> UpdateFilm(string token, [FromBody] Filmek updatedFilm)
         {

@@ -207,8 +207,8 @@ public partial class FilmfokuszContext : DbContext
                 .HasDefaultValueSql("'NULL'");
             entity.Property(e => e.PermissionId).HasColumnType("int(11)");
             entity.Property(e => e.ProfilePicturePath)
-                .HasMaxLength(255)
-                .HasDefaultValueSql("'NULL'");
+                .HasDefaultValueSql("'NULL'")
+                .HasColumnType("blob");
             entity.Property(e => e.Salt)
                 .HasMaxLength(255)
                 .HasDefaultValueSql("'NULL'");

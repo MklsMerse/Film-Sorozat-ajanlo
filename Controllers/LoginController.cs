@@ -30,7 +30,6 @@ namespace FilmFokuszBackEnd.Controllers
         }
 
         [HttpPost]
-
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
             using (var cx = new FilmfokuszContext())
@@ -41,7 +40,7 @@ namespace FilmFokuszBackEnd.Controllers
                     User loggedUser = await cx.Users.FirstOrDefaultAsync(f => f.LoginNev == loginDTO.Username && f.Hash == Hash);
                     if (loggedUser != null && loggedUser.Active)
                     {
-                        //Egyszerre csak egy gépről lehet dolgozni eleje
+                        // Egyszerre csak egy gépről lehet dolgozni eleje
                         bool talalt = false;
                         int index = 0;
                         int elemSzam = Program.LoggedInUsers.Count;
@@ -57,13 +56,26 @@ namespace FilmFokuszBackEnd.Controllers
                             }
                             index++;
                         }
-                        //Egyszerre csak egy gépről lehet dolgozni vége
+                        // Egyszerre csak egy gépről lehet dolgozni vége
                         string token = Guid.NewGuid().ToString();
                         lock (Program.LoggedInUsers)
                         {
                             Program.LoggedInUsers.Add(token, loggedUser);
                         }
-                        return Ok(new LoggedUser { Name = loggedUser.Name, Email = loggedUser.Email, Permission = loggedUser.PermissionId, ProfilePicturePath = loggedUser.ProfilePicturePath, Token = token });
+
+                        // Ha a ProfilePicturePath nem null, konvertáljuk Base64 stringgé
+                        string profilePictureBase64 = loggedUser.ProfilePicturePath != null
+                            ? Convert.ToBase64String(loggedUser.ProfilePicturePath)
+                            : "";
+
+                        return Ok(new LoggedUser
+                        {
+                            Name = loggedUser.Name,
+                            Email = loggedUser.Email,
+                            Permission = loggedUser.PermissionId,
+                            ProfilePicturePath = profilePictureBase64,
+                            Token = token
+                        });
                     }
                     else
                     {

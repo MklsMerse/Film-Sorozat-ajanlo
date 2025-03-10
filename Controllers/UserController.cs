@@ -13,6 +13,7 @@ namespace FilmFokuszBackEnd.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+
         [HttpGet("/EmailName{token}")]
         public async Task<IActionResult> GetUserData(string token)
         {
@@ -161,8 +162,21 @@ namespace FilmFokuszBackEnd.Controllers
                     // Generáljunk salt-ot és hash-t a jelszóhoz
                     string salt = Program.GenerateSalt();
                     string hash = Program.CreateSHA256(dto.Password + salt);
+                    byte[] profilePictureData;
+                    if (string.IsNullOrEmpty(dto.ProfilePicture))
+                    {
+                        // Mivel a backendben nincs defaultuser.png, ha a felhasználó nem tölt fel képet, 
+                        // akkor üres értéket adunk vissza.
+                        profilePictureData = new byte[0];
+                    }
+                    else
+                    {
+                        // A kliens Base64 kódolt stringet küld a képről
+                        profilePictureData = Convert.FromBase64String(dto.ProfilePicture);
+                    }
 
-                    // Létrehozzuk a User entitást:
+
+                    // Létrehozzuk a User entitást
                     var user = new User
                     {
                         Name = dto.FullName,          // Teljes név
@@ -170,7 +184,7 @@ namespace FilmFokuszBackEnd.Controllers
                         Email = dto.Email,
                         Hash = hash,
                         Salt = salt,
-                        ProfilePicturePath = string.IsNullOrEmpty(dto.ProfilePicture) ? "defaultuser.png" : dto.ProfilePicture,
+                        ProfilePicturePath = profilePictureData,
                         Active = true,
                         PermissionId = 1
                     };
@@ -185,6 +199,8 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest(ex.InnerException?.Message ?? ex.Message);
             }
         }
+
+
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDTO loginDto)

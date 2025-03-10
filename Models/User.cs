@@ -21,7 +21,7 @@ public partial class User
 
     public string Email { get; set; } = null!;
 
-    public string? ProfilePicturePath { get; set; }
+    public byte[]? ProfilePicturePath { get; set; }
 
     public virtual ICollection<FilmVelemenyek> FilmVelemenyeks { get; set; } = new List<FilmVelemenyek>();
 
