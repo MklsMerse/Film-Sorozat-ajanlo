@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 04. 14:23
+-- Létrehozás ideje: 2025. Már 10. 23:04
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -44,12 +44,12 @@ CREATE TABLE `filmek` (
 --
 
 INSERT INTO `filmek` (`film_id`, `cim`, `leiras`, `megjelenesi_datum`, `mufaj`, `rendezo`, `szereplok`, `ertekeles`, `film_url`) VALUES
-(8, 'Eredet', 'A film egy izgalmas sci-fi, ahol a főszereplő egy álommanipulátor, aki különleges küldetést vállal.', '2010-07-16', 'sci-fi', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page', 0, 'https://www.imdb.com/title/tt1375666/'),
+(8, 'Eredet', 'A film egy izgalmas sci-fi, ahol a főszereplő egy álommanipulátor, aki különleges küldetést vállal.', '2010-07-16', 'sci-fi', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page', 1, 'https://www.imdb.com/title/tt1375666/'),
 (9, 'Titanic', 'A híres szerelmi történet a Titanic katasztrófájáról, amely egy fiatal pár szenvedéseit meséli el.', '1997-12-19', 'Romantikus', 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 0, 'https://www.imdb.com/title/tt0120338/'),
 (10, 'A sötét lovag', 'Batman a Gotham városát fenyegető Joker ellen harcol, miközben a törvény és igazságosság határait feszegeti.', '2008-07-18', 'Akció', 'Christopher Nolan', 'Christian Bale, Heath Ledger', 0, 'https://www.imdb.com/title/tt0468569/'),
 (11, 'Testről és lélekről', 'Két ember próbálja megérteni egymást, miközben különböző kihívásokkal szembesülnek a mindennapi életben.', '2017-02-10', 'Dráma', 'Ildikó Enyedi', 'Alexandra Borbély, Morcsányi Géza', 0, 'https://www.imdb.com/title/tt5762634/'),
 (12, 'Kis város', 'Egy kisváros mindennapi életét követhetjük, ahol a helyi közösség tagjai különféle problémákkal küzdenek.', '2007-03-14', 'Vígjáték', 'Krisztina Goda', 'Károly Eperjes, Anna Kovalik', 0, 'https://www.imdb.com/title/tt0981307/'),
-(13, 'A Viszkis', 'A történet egy híres magyar bankrabló életét meséli el, aki a bűnözés világában próbálja meg találni a helyét.', '2017-11-30', 'akció', 'Nemes Jeles László', 'Benedek Miklós, Zoltán Hegedüs', 0, 'https://www.imdb.com/title/tt7556932/'),
+(13, 'A Viszkis', 'A történet egy híres magyar bankrabló életét meséli el, aki a bűnözés világában próbálja meg találni a helyét.', '2017-11-30', 'akció', 'Nemes Jeles László', 'Benedek Miklós, Zoltán Hegedüs', 1, 'https://www.imdb.com/title/tt7556932/'),
 (14, 'Interstellar', 'Egy csapat űrhajós egy féreglyukon áthaladva próbálja megmenteni az emberiséget.', '2014-11-07', 'sci-fi', 'Christopher Nolan', 'Matthew McConaughey, Anne Hathaway, Jessica Chastain', 0, 'https://www.imdb.com/title/tt0816692/'),
 (16, 'Szárnyas fejvadász 2049', 'Egy replikáns nyomozó felfedez egy titkot, amely megváltoztathatja a világot.', '2017-10-06', 'sci-fi', 'Denis Villeneuve', 'Ryan Gosling, Harrison Ford, Ana de Armas', 0, 'https://www.imdb.com/title/tt1856101/'),
 (18, 'Dűne', 'Egy fiatal herceg sorsa összefonódik egy sivatagi bolygóval és annak rejtélyeivel.', '2021-10-22', 'sci-fi', 'Denis Villeneuve', 'Timothée Chalamet, Zendaya, Oscar Isaac', 0, 'https://www.imdb.com/title/tt1160419/'),
@@ -185,7 +185,7 @@ INSERT INTO `filmek` (`film_id`, `cim`, `leiras`, `megjelenesi_datum`, `mufaj`, 
 (150, 'Gru', 'Gru, a gonosztevő, próbálja megszerezni a Holdat, de három árva kislány szeretete megváltoztatja az életét.', '2010-07-09', 'animáció', 'Pierre Coffin, Chris Renaud', 'Steve Carell, Jason Segel, Russell Brand', 0, 'https://www.imdb.com/title/tt1323594/'),
 (151, 'Így neveld a sárkányodat', 'Hiccup, egy fiatal viking fiú, aki megpróbálja megváltoztatni a faluját azzal, hogy elfogadja a sárkányokat és egy különleges sárkányt, Fogatlant nevel.', '2010-03-26', 'animáció', 'Dean DeBlois, Chris Sanders', 'Jay Baruchel, Gerard Butler, Craig Ferguson', 0, 'https://www.imdb.com/title/tt0892769/'),
 (152, 'Szörny Rt.', 'A film a Szörny Rt.-n, egy szörnyekből álló vállalaton keresztül mutatja be, hogy a szörnyek gyermekek félelmeiből szerzik energiájukat. Amikor egy kisgyermek, Boo, véletlenül a szörnyek világába kerül, két szörny, Sulley és Mike megpróbálja visszajuttatni őt a saját világába.', '2001-11-02', 'animáció', 'Pete Docter', 'Billy Crystal, John Goodman, Mary Gibbs', 0, 'https://www.imdb.com/title/tt0198781/'),
-(154, 'Kokainmedve', 'Egy medve aki kábítószer hatására ölni kezd', '2023-02-24', 'horror', 'Elizabeth Banks', 'Keri Russell, O\'Shea Jackson Jr.', 0, 'https://www.imdb.com/title/tt14209916/'),
+(154, 'Kokainmedve', 'Egy medve aki kábítószer hatására ölni kezd!!!', '2023-02-24', 'horror', 'Elizabeth Banks', 'Keri Russell, O\'Shea Jackson Jr.', 0, 'https://www.imdb.com/title/tt14209916/'),
 (155, 'Dennis, a komisz', 'Dennis egy csintalan gyerek, aki nem rosszakaratból, de a szomszédban pusztít, általában a barátaival együtt.', '1993-06-25', 'Vígjáték', 'Nick Castle', 'Walter Matthau, Mason Gamble, Joan Plowright', 0, 'https://www.imdb.com/title/tt0106701/'),
 (156, 'Indiana Jones és a kristálykoponya királysága', 'Indiana Jones egy titokzatos kristálykoponyát keres, miközben szembenéz egy orosz ügynökkel, aki szintén megszerezni akarja a különleges ereklyét', '2008-05-22', 'kaland', 'Steven Spielberg', 'Harrison Ford, George Lucas', 0, 'https://www.imdb.com/title/tt0367882/');
 
@@ -352,7 +352,7 @@ CREATE TABLE `user` (
   `PermissionId` int(11) NOT NULL,
   `Active` tinyint(1) NOT NULL,
   `Email` varchar(64) NOT NULL,
-  `ProfilePicturePath` varchar(255) DEFAULT NULL
+  `ProfilePicturePath` blob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
@@ -360,11 +360,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Id`, `LoginNev`, `Hash`, `Salt`, `Name`, `PermissionId`, `Active`, `Email`, `ProfilePicturePath`) VALUES
-(9, 'kerenyir', 'd5fe0e517520122f1ab363b6b7ee9ae616e7ad393693ef00d81a7f287a79931a', 'Gm63C4jiWnYvfZfiKUu2cu8AHPNDj8NoHhtQn88yiJhyOunBNSd7tRoWo5wwqg9X', 'Kerényi Róbert', 2, 1, 'kerenyir@kkszki.hu', 'franciabulldog.jpg'),
-(23, 'Szita', 'a34c3f1044ede88415cfaa0360cef9d1879f42a21b3a0097bb24831de57d2313', 'XMdgieKGPUGaFOyfHCvicGUbRmWfkzSyT9TrRCQiflxOSUOgcpQ3ND1LNKqZQoug', 'Szitai Bence', 1, 1, 'szitaibence1@gmail.com', 'defaultuser.png'),
-(27, 'Mkls', '7a0c47969a7f341766d04147fbf3cd4c24b9de51752aa6a8e29cc6ea1b027bcc', 'cyPlPrxMEcLNLguKiAurirqOv1XjJ7EShqnA3x1GxnSf2aOhXPskuauCKBNX9vVK', 'Miklós Merse', 1, 1, 'mkls@gmail.com', 'defaultuser.png'),
-(28, 'Brendon', '73b1f7ac1a2310c85362c467b3b9d62aec84a1cbb9be43a5bc5540c959025911', 'pc2Sxsub0lSSnK6ULbJZdFrVn2iwRihHH3ViQCwdd3rDOXtG9YgNaiJGscbWv8QL', 'Lakatos Brendon', 1, 1, 'lakatos@gmail.com', 'brendon.jpg'),
-(29, 'vmi', 'fabdeacdc07a2cc06d466f032e2b7fad73cc0f6fc2505a5acd3074e9e94d7617', 'J1d8BO0f0kLMMVjCP5hZIKCtMxWoQj1N0hb07TO5WA4kfwX1azTwUlw7JrFFmiiF', 'Valami', 1, 1, 'vmi@gmail.com', 'data:image/webp;base64,UklGRvgsAABXRUJQVlA4WAoAAAAQAAAAPwEAPwEAQUxQSAIOAAABn6e4bSRlh/pv+hj+EZGFK0QbDIg9gugk/M9w3LaRJIn5hz2z297zHRET0L9v4IH7O62hyrU9ehIzOsQEnbNpyRltz2jlKDbxHM03Jk3Gz1F23qUD79K7vsgn5BV6l0Ne4OJBstIhjT2nYtX5yMRCU45ozVPohbijlxN6e2/zB1rb/k99E2tS');
+(54, 'Majkaa', 'b0930cac3b19edb0ecba6c4f7aed3a66831500e6b1b17d774f192acaaaab3ee9', 'f4p3iPLH3Qpxo7X1Sb1FZMIBVgok6Bej6LRkVsRdwZ9Y3Q062i2uDhiT7nrA1p3o', 'Majoros Péter', 1, 1, 'majesz@gmail.com', NULL),
+(55, 'szitai.bence', 'a560dc86ad3caf55e9c4013416462c197409395b9fd379ae32ab54cf87b82700', 'mdTJ9LrEJ9AKBG1epVm9bL2ICcd8f1jpkNIKenSuHbnHzFI7Xf6AclspZqGp8kr4', 'Szitai Bence Márk', 2, 1, 'szitaibence1@gmail.com', NULL);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -415,7 +412,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT a táblához `filmek`
 --
 ALTER TABLE `filmek`
-  MODIFY `film_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=157;
+  MODIFY `film_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
 
 --
 -- AUTO_INCREMENT a táblához `film_velemenyek`
@@ -427,7 +424,7 @@ ALTER TABLE `film_velemenyek`
 -- AUTO_INCREMENT a táblához `sorozatok`
 --
 ALTER TABLE `sorozatok`
-  MODIFY `sorozat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `sorozat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT a táblához `sorozat_velemenyek`
@@ -439,7 +436,7 @@ ALTER TABLE `sorozat_velemenyek`
 -- AUTO_INCREMENT a táblához `user`
 --
 ALTER TABLE `user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Megkötések a kiírt táblákhoz
