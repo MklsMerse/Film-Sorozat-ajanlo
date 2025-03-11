@@ -96,7 +96,7 @@ export const Home = ({ searchTerm }) => {
                 </div>
               ))
             ) : (
-              <p>Betöltés...</p>
+              <p className='betoltes'>Betöltés...</p>
             )}
           </div>
         </section>
@@ -121,7 +121,7 @@ export const Home = ({ searchTerm }) => {
                 </div>
               ))
             ) : (
-              <p>Betöltés...</p>
+              <p className='betoltes'>Betöltés...</p>
             )}
           </div>
         </section>

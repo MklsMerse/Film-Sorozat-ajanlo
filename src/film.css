@@ -846,3 +846,10 @@ button[type="submit"] {
       color: #666;
       font-size: 0.9rem;
     }
+
+    .betoltes{
+      font-size: large;
+      font-weight: bolder;
+      color: #800020;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
