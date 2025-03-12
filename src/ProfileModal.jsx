@@ -23,8 +23,7 @@ export const ProfileModal = ({
       }
       const reader = new FileReader();
       reader.onload = (event) => {
-        const result = event.target.result; // például: "data:image/png;base64,AAA..."
-        // Levágjuk a "data:image/xxx;base64," részt, hogy csak a Base64 kód legyen
+        const result = event.target.result; 
         const base64String = result.split(',')[1];
         const img = new Image();
         img.onload = () => {

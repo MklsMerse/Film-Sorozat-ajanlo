@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
@@ -7,23 +7,44 @@ export const Login = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username === 'admin' && password === 'password') {
+  useEffect(() => {
+    // Ellenőrizzük, hogy van-e bejelentkezett felhasználó
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (loggedInUser) {
       setIsLoggedIn(true);
-      alert('Sikeres belépés!');
-      const userData = { username, token: "token", PermissionId: 9 };
-      localStorage.setItem("loggedInUser", JSON.stringify(userData));
-      localStorage.setItem("token", "token");
-      navigate('/');
-    } else {
-      alert('Hibás felhasználónév vagy jelszó.');
+      navigate('/dashboard'); // Átirányítunk egy dashboard oldalra, ha be van jelentkezve
+    }
+  }, [navigate]);
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+  
+      if (!response.ok) {
+        const data = await response.json();
+        alert(data.message || 'Hiba történt');
+      } else {
+        const data = await response.json();
+        localStorage.setItem("loggedInUser", JSON.stringify(data));
+        navigate('/');
+      }
+    } catch (error) {
+      alert('Hiba történt a bejelentkezés során.');
     }
   };
-  
 
   const handleLogout = () => {
+    localStorage.removeItem('loggedInUser');
+    localStorage.removeItem('token');
     setIsLoggedIn(false);
     alert('Sikeres kijelentkezés!');
+    navigate('/login'); // Kijelentkezés után visszairányítás a bejelentkező oldalra
   };
 
   return (
