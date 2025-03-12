@@ -12,6 +12,7 @@ import { GenreSorozatoks } from './GenreSorozatoks';
 import { AllMovies } from './AllMovies';
 import { AllSeries } from './AllSeries';
 import { SearchResults } from './SearchResults';
+import Iranyelvek from './Iranyelvek';
 
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -219,6 +220,11 @@ export const App = () => {
                             Rólunk
                           </NavLink>
                         </li>
+                        <li className="nav-item">
+                          <NavLink className="nav-link" to="/iranyelvek">
+                            Irányelvek
+                          </NavLink>
+                        </li>
                       </ul>
                     </div>
 
@@ -289,6 +295,7 @@ export const App = () => {
                   <Route path="/series" element={<AllSeries searchTerm={searchTerm} />} />
                   <Route path="/series/:mufaj" element={<GenreSorozatoks />} />
                   <Route path="/search" element={<SearchResults />} />
+                  <Route path="/iranyelvek" element={<Iranyelvek />} />
                 </Routes>
                 <Footer />
               </div>

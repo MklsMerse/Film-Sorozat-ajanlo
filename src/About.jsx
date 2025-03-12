@@ -30,6 +30,8 @@ export const About = () => {
       <p>
         Jó keresgélést kíván a FilmFókusz csapata.
       </p>
+      <img src="logo.png" alt="Weboldal logó" className="filmfokuszlogo"/>
     </div>
+    
   );
 };
