@@ -171,7 +171,6 @@ namespace FilmFokuszBackEnd.Controllers
             if (Program.LoggedInUsers.ContainsKey(token))
             {
                 var currentUser = Program.LoggedInUsers[token];
-                // Csak az adminok (PermissionId == 2) férhetnek hozzá
                 if (currentUser.PermissionId == 2)
                 {
                     try
@@ -256,7 +255,20 @@ namespace FilmFokuszBackEnd.Controllers
                                 return NotFound("A megadott felhasználó nem található.");
                             }
 
-                            // Frissítjük a mezőket
+                            var userWithSameUsername = await cx.Users
+                            .FirstOrDefaultAsync(u => u.LoginNev == updatedUser.LoginNev && u.Id != updatedUser.Id);
+                            if (userWithSameUsername != null)
+                            {
+                                return BadRequest("Ez a felhasználónév már foglalt!");
+                            }
+
+                            var userWithSameEmail = await cx.Users
+                            .FirstOrDefaultAsync(u => u.Email == updatedUser.Email && u.Id != updatedUser.Id);
+                            if (userWithSameEmail != null)
+                            {
+                                return BadRequest("Ez az e-mail cím már foglalt!");
+                            }
+
                             existingUser.LoginNev = updatedUser.LoginNev;
                             existingUser.Hash = updatedUser.Hash;
                             existingUser.Salt = updatedUser.Salt;
@@ -277,7 +289,7 @@ namespace FilmFokuszBackEnd.Controllers
                 }
                 else
                 {
-                    return BadRequest("Nincs jogod hozzá (PermissionId != 9 vagy 2)!");
+                    return BadRequest("Nincs jogod hozzá!");
                 }
             }
             else
@@ -337,28 +349,28 @@ namespace FilmFokuszBackEnd.Controllers
                     if (cx.Users.Any(u => u.Email == dto.Email))
                         return BadRequest("Az e-mail cím már foglalt.");
 
-                    // Generáljunk salt-ot és hash-t a jelszóhoz
+                    if (cx.Users.Any(u => u.LoginNev == dto.Username))
+                        return BadRequest("Ez a felhasználónév már foglalt.");
+
                     string salt = Program.GenerateSalt();
                     string hash = Program.CreateSHA256(dto.Password + salt);
                     byte[] profilePictureData;
                     if (string.IsNullOrEmpty(dto.ProfilePicture))
                     {
-                        // Mivel a backendben nincs defaultuser.png, ha a felhasználó nem tölt fel képet, 
-                        // akkor üres értéket adunk vissza.
                         profilePictureData = new byte[0];
                     }
                     else
                     {
-                        // A kliens Base64 kódolt stringet küld a képről
+                        
                         profilePictureData = Convert.FromBase64String(dto.ProfilePicture);
                     }
 
 
-                    // Létrehozzuk a User entitást
+                    
                     var user = new User
                     {
-                        Name = dto.FullName,          // Teljes név
-                        LoginNev = dto.Username,      // Felhasználónév
+                        Name = dto.FullName,          
+                        LoginNev = dto.Username,      
                         Email = dto.Email,
                         Hash = hash,
                         Salt = salt,
