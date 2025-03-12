@@ -13,6 +13,7 @@ namespace FilmFokuszBackEnd.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+
         [HttpPut("admin-update/{token}")]
         public async Task<IActionResult> AdminUpdateUser(string token, [FromBody] User updatedUser)
         {
@@ -54,6 +55,7 @@ namespace FilmFokuszBackEnd.Controllers
                 return BadRequest("Érvénytelen token!");
             }
         }
+
 
 
         [HttpPost("login-admin")]
@@ -379,15 +381,25 @@ namespace FilmFokuszBackEnd.Controllers
 
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDTO loginDto)
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
         {
             using (var cx = new FilmfokuszContext())
             {
-                var user = cx.Users.FirstOrDefault(u => u.LoginNev == loginDto.Username);
+                // 1) Megkeressük a felhasználót a felhasználónév alapján
+                var user = await cx.Users.FirstOrDefaultAsync(u => u.LoginNev == loginDto.Username);
+
                 if (user == null)
                 {
                     return BadRequest("Nincs ilyen felhasználó!");
                 }
+
+                // 2) Ellenőrizzük, hogy az Active mező értéke 1 (aktív) vagy 0 (inaktív)
+                if (!user.Active)
+                {
+                    return BadRequest("Fiókját egy bizonyos időre felfüggesztettük, kérjük próbálja meg később vagy írjon a filmfokuszkando@gmail.com e-mail címre!");
+                }
+
+                // 3) Ellenőrizzük a jelszót
                 string hash = Program.CreateSHA256(loginDto.Password + user.Salt);
                 if (hash == user.Hash)
                 {
