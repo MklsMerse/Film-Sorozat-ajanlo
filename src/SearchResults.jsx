@@ -81,7 +81,7 @@ export const SearchResults = () => {
               onClick={() => setSelectedItem(item)}
             >
               <img
-                src={FilmekSorozatokKepei[item.cim] || '/placeholder.png'}
+                src={FilmekSorozatokKepei[item.cim]?.image || '/placeholder.png'} 
                 alt={item.cim}
                 className="result-image"
               />

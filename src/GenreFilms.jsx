@@ -7,7 +7,7 @@ import { DetailModal } from './DetailModal';
 export const GenreFilms = () => {
   const { mufaj } = useParams();
   const [filmek, setFilmek] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null); // Új állapot a kiválasztott filmhez
+  const [selectedItem, setSelectedItem] = useState(null); // New state for selected film
 
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
   const token = loggedInUser.token || 'token';
@@ -27,7 +27,7 @@ export const GenreFilms = () => {
       .catch(err => console.error('Hiba a filmek lekérésekor:', err));
   }, [mufaj, token]);
 
-  // Kattintás esetén beállítjuk a kiválasztott filmet a modalhoz
+  // Handle card click event to set selected film for modal
   const handleCardClick = (film) => {
     setSelectedItem({ ...film, tipus: 'Film' });
   };
@@ -38,13 +38,18 @@ export const GenreFilms = () => {
       <div className="filmek2-container">
         {filmek.length > 0 ? (
           filmek.map((film) => (
-            <div 
-              key={film.FilmId} 
-              className="film2-card" 
+            <div
+              key={film.FilmId}
+              className="film2-card"
               onClick={() => handleCardClick(film)}
+              style={{
+                backgroundImage: `url(${FilmekSorozatokKepei[film.cim]?.trailer || '/placeholder.png'})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
             >
               <img
-                src={FilmekSorozatokKepei[film.cim] || '/placeholder.png'}
+                src={FilmekSorozatokKepei[film.cim]?.image || '/placeholder.png'}
                 alt={film.cim}
                 className="film2-image"
               />
@@ -57,7 +62,7 @@ export const GenreFilms = () => {
         )}
       </div>
 
-      {/* Ha van kiválasztott film, megjelenik a DetailModal */}
+      {/* Conditionally render the DetailModal if a film is selected */}
       {selectedItem && (
         <DetailModal
           item={selectedItem}

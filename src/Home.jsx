@@ -76,56 +76,57 @@ export const Home = ({ searchTerm }) => {
       </div>
       
       <main>
-        <section id="movies">
-          <h2 id="movies-title">Ajánlott filmek</h2>
-          <div className="filmek-container">
-            {movies.length > 0 ? (
-              movies.map((film) => (
-                <div 
-                  key={film.FilmId} 
-                  className="film-card"
-                  onClick={() => handleFilmClick(film)}
-                >
-                  <img
-                    src={FilmekSorozatokKepei[film.cim] || '/placeholder.png'}
-                    alt={film.cim}
-                    className="film-image"
-                  />
-                  <h3>{film.cim}</h3>
-                  <p>{film.mufaj}</p>
-                </div>
-              ))
-            ) : (
-              <p className='betoltes'>Betöltés...</p>
-            )}
+  <section id="movies">
+    <h2 id="movies-title">Ajánlott filmek</h2>
+    <div className="filmek-container">
+      {movies.length > 0 ? (
+        movies.map((film) => (
+          <div 
+            key={film.FilmId} 
+            className="film-card"
+            onClick={() => handleFilmClick(film)} // Klikkeléskor meghívódik a funkció
+          >
+            <img
+              src={FilmekSorozatokKepei[film.cim]?.image || '/placeholder.png'} // Kép megjelenítése
+              alt={film.cim}
+              className="film-image"
+            />
+            <h3>{film.cim}</h3>
+            <p>{film.mufaj}</p>
           </div>
-        </section>
-        <br />
-        <section id="series">
-          <h2 id="series-title">Ajánlott sorozatok</h2>
-          <div className="sorozatok-container">
-            {sorozat.length > 0 ? (
-              sorozat.map((soro) => (
-                <div 
-                  key={soro.SorozatId} 
-                  className="sorozat-card"
-                  onClick={() => handleSeriesClick(soro)}
-                >
-                  <img
-                    src={FilmekSorozatokKepei[soro.cim] || '/placeholder.png'}
-                    alt={soro.cim}
-                    className="sorozat-image"
-                  />
-                  <h3>{soro.cim}</h3>
-                  <p>{soro.mufaj}</p>
-                </div>
-              ))
-            ) : (
-              <p className='betoltes'>Betöltés...</p>
-            )}
+        ))
+      ) : (
+        <p className='betoltes'>Betöltés...</p>
+      )}
+    </div>
+  </section>
+  <br />
+  <section id="series">
+    <h2 id="series-title">Ajánlott sorozatok</h2>
+    <div className="sorozatok-container">
+      {sorozat.length > 0 ? (
+        sorozat.map((soro) => (
+          <div 
+            key={soro.SorozatId} 
+            className="sorozat-card"
+            onClick={() => handleSeriesClick(soro)} 
+          >
+            <img
+              src={FilmekSorozatokKepei[soro.cim]?.image || '/placeholder.png'}
+              alt={soro.cim}
+              className="sorozat-image"
+            />
+            <h3>{soro.cim}</h3>
+            <p>{soro.mufaj}</p>
           </div>
-        </section>
-      </main>
+        ))
+      ) : (
+        <p className='betoltes'>Betöltés...</p>
+      )}
+    </div>
+  </section>
+</main>
+
       
       <section id="website-description">
         <div className="container">

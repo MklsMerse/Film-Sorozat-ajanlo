@@ -1,4 +1,3 @@
-/* Átfedő réteg, ami lefedi az egész képernyőt */
 .modal-overlay {
   position: fixed !important;
   top: 0 !important;
@@ -12,12 +11,10 @@
   z-index: 1000 !important;
 }
 
-/* A modal ablak konténerje */
 .modal-container {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url('/public/det.gif') !important;
   padding: 20px !important;
   border-radius: 8px !important;
   width: 80% !important;
@@ -26,7 +23,7 @@
   position: relative !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25) !important;
   animation: modalAppear 0.3s ease-out !important;
-  border: 2px solid white  !important;
+  border: 2px solid white !important;
 }
 
 /* Modal megjelenési animáció */
@@ -41,7 +38,15 @@
   }
 }
 
-/* Bezáró gomb */
+.modal-trailer-background iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 .modal-close {
   color: white !important;
   position: absolute !important;
@@ -53,7 +58,7 @@
   cursor: pointer !important;
 }
 
-/* Modal cím, középre igazítva */
+/*
 .modal-title {
   text-align: center !important;
   font-size: 2rem !important;
@@ -63,12 +68,15 @@
   border-radius: 10px !important;
   border: 2px solid black !important;
 }
+*/
 
-/* A modal tartalom elrendezése két oszlopban: */
 .modal-content {
   display: flex !important;
   flex-direction: row !important;
   gap: 100px !important;
+  padding: 20px !important; 
+  position: relative !important; 
+  width: 100% !important; 
 }
 
 /* Bal oldali panel: a kép; explicit szélesség, hogy a kép a bal oldalon maradjon */
@@ -86,6 +94,8 @@
   color: white !important;
   position: relative !important;
   right: 120px !important;
+  background-color: rgba(0, 0, 0, 0.6) !important; 
+  border-radius: 10px !important;
 }
 
 /* Bal oldali kép stílusa */
@@ -98,7 +108,7 @@
   transition: transform 0.5s ease !important;
 }
 
-.modal-image:hover{
+.modal-image:hover {
   transform: translateY(-50px) scale(1.1) !important; 
 }
 

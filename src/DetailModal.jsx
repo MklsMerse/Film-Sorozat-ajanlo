@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FilmekSorozatokKepei } from './FilmekSorozatokKepei';
 import './DetailModal.css';
 
 export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
   const [rating, setRating] = useState(item.ertekeles || 0);
+  const [backgroundUrl, setBackgroundUrl] = useState('');
+
+  useEffect(() => {
+    if (item.cim && FilmekSorozatokKepei[item.cim]) {
+      const trailerUrl = FilmekSorozatokKepei[item.cim].trailer;
+      setBackgroundUrl(trailerUrl); // Beállítjuk az előzetes URL-t
+    }
+  }, [item]);
 
   const dateObj = new Date(item.megjelenesiDatum);
   const dateOnly = !isNaN(dateObj.getTime())
-    ? dateObj.toISOString().slice(0, 10) // Példa: "2010-07-16"
+    ? dateObj.toISOString().slice(0, 10)
     : "Érvénytelen dátum";
 
   const handleRatingClick = (value) => {
@@ -15,28 +23,34 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
     onRatingUpdate(item.id, value, item.tipus);
   };
 
-  // A link meghatározása: filmeknél filmUrl, sorozatoknál sorozatUrl, egyéb esetben item.url
   const link = item.filmUrl || item.sorozatUrl || item.url;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         {/* Trailer videó háttérben, ha elérhető */}
-        {item.TrailerUrl && (
-          <video className="modal-trailer" autoPlay muted loop>
-            <source src={item.TrailerUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        {backgroundUrl && (
+          <div className="modal-trailer-background">
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src={`https://www.youtube.com/embed/${backgroundUrl.split('=')[1]}?autoplay=1&mute=1&loop=1&playlist=${backgroundUrl.split('=')[1]}`} 
+              frameBorder="0" 
+              allow="autoplay; encrypted-media" 
+              allowFullScreen
+              title={`Trailer of ${item.cim}`} 
+            />
+          </div>
         )}
 
         <button className="modal-close" onClick={onClose}>×</button>
-        <h2 className="modal-title">{item.cim}</h2>
+        {/*<h2 className="modal-title">{item.cim}</h2>*/}
         
         <div className="modal-content">
           {/* Bal oldalt a kép */}
           <div className="modal-left">
             <img
-              src={FilmekSorozatokKepei[item.cim] || '/placeholder.png'}
+              src={FilmekSorozatokKepei[item.cim]?.image || '/placeholder.png'}
               alt={item.cim}
               className="modal-image"
             />
@@ -44,6 +58,7 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
           
           {/* Jobb oldalt az adatok */}
           <div className="modal-right">
+            <p><strong>Cím:</strong> {item.cim}</p>
             <p><strong>Leírás:</strong> {item.leiras}</p>
             <p><strong>Megjelenési dátum:</strong> {dateOnly}</p>
             <p><strong>Műfaj:</strong> {item.mufaj}</p>

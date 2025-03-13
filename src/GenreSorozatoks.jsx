@@ -27,7 +27,7 @@ export const GenreSorozatoks = () => {
       .catch(err => console.error('Hiba a sorozatok lekérésekor:', err));
   }, [mufaj, token]);
 
-  // Kattintás esetén beállítjuk a kiválasztott sorozatot a modalhoz
+  // Handle card click event to set selected series for modal
   const handleCardClick = (s) => {
     setSelectedItem({ ...s, tipus: 'Sorozat' });
   };
@@ -38,9 +38,18 @@ export const GenreSorozatoks = () => {
       <div className="sorozatok2-container">
         {sorozat.length > 0 ? (
           sorozat.map((s) => (
-            <div key={s.SorozatId} className="sorozat2-card" onClick={() => handleCardClick(s)}>
+            <div
+              key={s.SorozatId}
+              className="sorozat2-card"
+              onClick={() => handleCardClick(s)}
+              style={{
+                backgroundImage: `url(${FilmekSorozatokKepei[s.cim]?.trailer || '/placeholder.png'})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
               <img
-                src={FilmekSorozatokKepei[s.cim] || '/placeholder.png'}
+                src={FilmekSorozatokKepei[s.cim]?.image || '/placeholder.png'}
                 alt={s.cim}
                 className="sorozat2-image"
               />
@@ -53,7 +62,7 @@ export const GenreSorozatoks = () => {
         )}
       </div>
 
-      {/* Ha van kiválasztott sorozat, megjelenik a DetailModal */}
+      {/* Conditionally render the DetailModal if a series is selected */}
       {selectedItem && (
         <DetailModal
           item={selectedItem}

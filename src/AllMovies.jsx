@@ -3,8 +3,6 @@ import './AllMovies.css';
 import { DetailModal } from './DetailModal';
 import { FilmekSorozatokKepei } from './FilmekSorozatokKepei';
 
-
-
 export const AllMovies = ({ searchTerm }) => {
   const [movies, setMovies] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -25,7 +23,7 @@ export const AllMovies = ({ searchTerm }) => {
       })
       .catch((err) => console.error('Hiba az összes film lekérésekor:', err));
   }, [token]);
-  
+
   const handleCardClick = (film) => {
     setSelectedItem({ ...film, tipus: 'Film' });
   };
@@ -41,9 +39,14 @@ export const AllMovies = ({ searchTerm }) => {
                 key={film.FilmId}
                 className="all-movie-card"
                 onClick={() => handleCardClick(film)}
+                style={{
+                  backgroundImage: `url(${FilmekSorozatokKepei[film.cim]?.trailer || '/placeholder.png'})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
               >
                 <img
-                  src={FilmekSorozatokKepei[film.cim] || '/placeholder.png'}
+                  src={FilmekSorozatokKepei[film.cim]?.image || '/placeholder.png'}
                   alt={film.cim}
                   className="film-kep"
                 />
@@ -63,9 +66,7 @@ export const AllMovies = ({ searchTerm }) => {
           item={selectedItem}
           onClose={() => setSelectedItem(null)}
           onRatingUpdate={(id, newRating, tipus) => {
-            // API-hívással itt lehetne frissíteni az értékelést az adatbázisban
             console.log('Frissítem az értékelést:', id, newRating, tipus);
-            // Frissítjük a local state-et, hogy a modalon is látszódjon a változás
             setSelectedItem({ ...selectedItem, ertekeles: newRating });
           }}
         />
