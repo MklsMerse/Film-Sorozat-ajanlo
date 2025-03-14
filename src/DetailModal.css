@@ -23,7 +23,7 @@
   position: relative !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25) !important;
   animation: modalAppear 0.3s ease-out !important;
-  border: 2px solid white !important;
+  border: 5px solid #800020 !important;
 }
 
 /* Modal megjelenési animáció */

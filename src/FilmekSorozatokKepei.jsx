@@ -606,16 +606,46 @@ export const FilmekSorozatokKepei = {
     trailer: "https://www.youtube.com/watch?v=Vj5TrHsxyQU"
   },
 
-  "Stranger Things": "https://static.posters.cz/image/350/plakatok/stranger-things-seasons-i132237.jpg",
-  "A Térség": "https://m.media-amazon.com/images/M/MV5BYzUyYmI3MjctY2Q2MC00NmFjLTgwZGUtNWQzZWNlYmVjNzE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-  "Westworld": "https://m.media-amazon.com/images/M/MV5BMjM2MTA5NjIwNV5BMl5BanBnXkFtZTgwNjI2OTMxNTM@._V1_FMjpg_UX1000_.jpg",
-  "Black Mirror": "https://hips.hearstapps.com/hmg-prod/images/black-mirror-font-1513096756.jpg?crop=1xw:1xh;center,top&resize=980:*",
-  "The Mandalorian": "https://m.media-amazon.com/images/M/MV5BNjgxZGM0OWUtZGY1MS00MWRmLTk2N2ItYjQyZTI1OThlZDliXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-  "The 100": "https://m.media-amazon.com/images/M/MV5BNDdmZGYwOWEtN2FkZC00Y2ExLWJkY2UtNzFlODVlNzc3MGIzXkEyXkFqcGc@._V1_.jpg",
-  "Altered Carbon": "https://m.media-amazon.com/images/M/MV5BNTY4MWY1ZDktZjQxZS00ZDc5LWE3OTctZDU5MzQ2ZWU5ZTJkXkEyXkFqcGc@._V1_.jpg",
-  "Doctor Who": "https://m.media-amazon.com/images/M/MV5BZGVmY2RkZjAtZDAwMC00MmZhLThhMGItZmVlNzE4MTgyMWRkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
-  "Star Trek: Discovery": "https://images.prismic.io/star-trek-untold/8b2a6629-fc5c-40dc-ac35-6a43533e509f_StarTrek_Discovery_S2_KeyArt_2023_full.png?auto=compress,format",
-  "Fringe": "https://m.media-amazon.com/images/M/MV5BMWVlMmE1MmEtNjhjMC00MDdmLWIzZGMtNjc1YTZmNDc2MWExXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+  "Stranger Things": {
+    image: "https://static.posters.cz/image/350/plakatok/stranger-things-seasons-i132237.jpg",
+    trailer: "https://www.youtube.com/watch?v=b9EkMc79ZSU"
+  },
+  "A Térség": {
+    image: "https://m.media-amazon.com/images/M/MV5BYzUyYmI3MjctY2Q2MC00NmFjLTgwZGUtNWQzZWNlYmVjNzE2XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    trailer: "https://www.youtube.com/watch?v=M0QwBp_da28"
+  },
+  "Westworld": {
+    image: "https://m.media-amazon.com/images/M/MV5BMjM2MTA5NjIwNV5BMl5BanBnXkFtZTgwNjI2OTMxNTM@._V1_FMjpg_UX1000_.jpg",
+    trailer: "https://www.youtube.com/watch?v=kEkZdgWu7mM"
+  },
+  "Black Mirror": {
+    image: "https://hips.hearstapps.com/hmg-prod/images/black-mirror-font-1513096756.jpg?crop=1xw:1xh;center,top&resize=980:*",
+    trailer: "https://www.youtube.com/watch?v=1iqra1ojEvM"
+  },
+  "The Mandalorian": {
+    image: "https://m.media-amazon.com/images/M/MV5BNjgxZGM0OWUtZGY1MS00MWRmLTk2N2ItYjQyZTI1OThlZDliXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    trailer: "https://www.youtube.com/watch?v=aOC8E8z_ifw"
+  },
+  "The 100": {
+    image: "https://m.media-amazon.com/images/M/MV5BNDdmZGYwOWEtN2FkZC00Y2ExLWJkY2UtNzFlODVlNzc3MGIzXkEyXkFqcGc@._V1_.jpg",
+    trailer: "https://www.youtube.com/watch?v=aDrsItJ_HU4"
+  },
+  "Altered Carbon": {
+    image: "https://m.media-amazon.com/images/M/MV5BNTY4MWY1ZDktZjQxZS00ZDc5LWE3OTctZDU5MzQ2ZWU5ZTJkXkEyXkFqcGc@._V1_.jpg",
+    trailer: "https://www.youtube.com/watch?v=-Yt89b5AcwY"
+  },
+  "Doctor Who": {
+    image: "https://m.media-amazon.com/images/M/MV5BZGVmY2RkZjAtZDAwMC00MmZhLThhMGItZmVlNzE4MTgyMWRkXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    trailer: "https://www.youtube.com/watch?v=8NXTgEw05Tk"
+  },
+  "Star Trek: Discovery": {
+    image: "https://images.prismic.io/star-trek-untold/8b2a6629-fc5c-40dc-ac35-6a43533e509f_StarTrek_Discovery_S2_KeyArt_2023_full.png?auto=compress,format",
+    trailer: "https://www.youtube.com/watch?v=oWnYtyNKPsA"
+  },
+  "Fringe": {
+    image: "https://m.media-amazon.com/images/M/MV5BMWVlMmE1MmEtNjhjMC00MDdmLWIzZGMtNjc1YTZmNDc2MWExXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg",
+    trailer: "https://www.youtube.com/watch?v=29bSzbqZ3xE"
+  },
 
   //Akció
   "24" : "https://m.media-amazon.com/images/M/MV5BMTg5OTkyNzA0NF5BMl5BanBnXkFtZTcwMDYyMDUwMg@@._V1_.jpg",
