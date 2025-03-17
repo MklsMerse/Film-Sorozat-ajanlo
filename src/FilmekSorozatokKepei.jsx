@@ -298,6 +298,10 @@ export const FilmekSorozatokKepei = {
     image: "https://www.mafab.hu/static/profiles/2014/293/11/46481_34.jpg",
     trailer: "https://www.youtube.com/watch?v=8CogDP0vlfw"
   },
+  "Project X – A buli elszabadul" : {
+    image: "https://static.filmbuzi.hu/files/2011/project-x-poster.jpeg",
+    trailer: "https://www.youtube.com/watch?v=3BEIhA8CcY0"
+  },
 
 
   //Horror
@@ -780,6 +784,10 @@ export const FilmekSorozatokKepei = {
   "Mad Men": {
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTont6fz6GIeNcQSadf9hkO2kOoPeOoa1rBow&s",
     trailer: "https://www.youtube.com/watch?v=Q5PvTKell6Y"
+  },
+  "Shameless" : {
+    image: "https://image.tmdb.org/t/p/original/zXIpkdHAXO1gX0sc7x1rdbdhZ5r.jpg",
+    trailer: "https://www.youtube.com/watch?v=9tvkYS5cA58"
   },
 
   //Vígjáték
