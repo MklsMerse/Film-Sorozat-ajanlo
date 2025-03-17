@@ -12,7 +12,7 @@ export const Footer = () => {
           <p>Telefon: +36 70 420 6921</p>
         </div>
         <div className="footer-center">
-          <h4>Gyors linkek</h4>
+          <h4>Linkek</h4>
           <ul>
             {/* A HashLink komponens segítségével a "Filmek" link a home oldalra navigál és gördít a #movies szakaszra */}
             <li>
@@ -28,6 +28,16 @@ export const Footer = () => {
             </li>
             <li>
               <Link to="/about">Rólunk</Link>
+            </li>
+            <li>
+              <Link to="/movies">
+              Filmek
+              </Link>
+            </li>
+            <li>
+              <Link to="/series">
+              Sorozatok
+              </Link>
             </li>
           </ul>
         </div>
