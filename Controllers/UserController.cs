@@ -397,21 +397,21 @@ namespace FilmFokuszBackEnd.Controllers
         {
             using (var cx = new FilmfokuszContext())
             {
-                // 1) Megkeressük a felhasználót a felhasználónév alapján
-                var user = await cx.Users.FirstOrDefaultAsync(u => u.LoginNev == loginDto.Username);
+                // Keresés felhasználónév vagy e-mail alapján
+                var user = await cx.Users.FirstOrDefaultAsync(u => u.LoginNev == loginDto.Username || u.Email == loginDto.Username);
 
                 if (user == null)
                 {
                     return BadRequest("Nincs ilyen felhasználó!");
                 }
 
-                // 2) Ellenőrizzük, hogy az Active mező értéke 1 (aktív) vagy 0 (inaktív)
+                // Ellenőrizzük, hogy a fiók aktív-e
                 if (!user.Active)
                 {
                     return BadRequest("Fiókját egy bizonyos időre felfüggesztettük, kérjük próbálja meg később vagy írjon a filmfokuszkando@gmail.com e-mail címre!");
                 }
 
-                // 3) Ellenőrizzük a jelszót
+                // Jelszó ellenőrzése
                 string hash = Program.CreateSHA256(loginDto.Password + user.Salt);
                 if (hash == user.Hash)
                 {
@@ -431,6 +431,7 @@ namespace FilmFokuszBackEnd.Controllers
                 }
             }
         }
+
 
 
     }
