@@ -23,28 +23,30 @@ export const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password}),
       });
   
+      const data = await response.json();
+  
       if (!response.ok) {
-        const data = await response.json();
         alert(data.message || 'Hiba történt');
-      } else {
-        const data = await response.json();
-        localStorage.setItem("loggedInUser", JSON.stringify(data));
-        navigate('/');
+        return;
       }
+  
+      localStorage.setItem("loggedInUser", JSON.stringify(data));
+      navigate('/');
     } catch (error) {
       alert('Hiba történt a bejelentkezés során.');
     }
   };
+  
 
   const handleLogout = () => {
     localStorage.removeItem('loggedInUser');
     localStorage.removeItem('token');
     setIsLoggedIn(false);
     alert('Sikeres kijelentkezés!');
-    navigate('/login'); // Kijelentkezés után visszairányítás a bejelentkező oldalra
+    navigate('/login');
   };
 
   return (

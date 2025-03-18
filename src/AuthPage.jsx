@@ -178,10 +178,10 @@ export const AuthPage = ({ setIsAuthenticated }) => {
           onChange={(e) => setFullName(e.target.value)}
         />
       )}
-      <input 
-        type="text" 
-        placeholder="Felhasználónév" 
-        value={username} 
+      <input
+        type="text"
+        placeholder={isLogin ? "Felhasználónév vagy E-mail" : "Felhasználónév"}
+        value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       {!isLogin && (
