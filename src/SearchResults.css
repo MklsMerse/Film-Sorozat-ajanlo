@@ -21,6 +21,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     text-align: left;
+    animation: float 3s ease-in-out infinite;
   }
 
   .result-card:hover {

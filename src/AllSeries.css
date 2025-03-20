@@ -1,57 +1,169 @@
+/* Container for all series */
 .all-series-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: flex-start;
-  }
-  
-  .all-series-card {
-    border: 3px solid black; 
-    border-radius: 8px;
-    padding: 1rem;
-    cursor: pointer;
-    width: 200px;
-    background-color: aliceblue;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-  
-  .all-series-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  .osszes-sorozatok h2{
-    color: white;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 10px 15px;
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-transform: capitalize;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  }
-
-  .sorozat-kep {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    border-bottom: 3px solid black; 
-    margin-bottom: 10px;
-    transition: transform 0.5s ease;
-  }
-  
-.sorozat-kep:hover{
-    transform: translateY(1px) scale(1.1); 
-  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.series-wrapper {
-    max-width: 1200px;
-    margin: 0 auto;    
-    padding: 0 1rem;   
-  }
+/* Series card styling */
+.all-series-card {
+  border: 3px solid #800020;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  width: 200px;
+  background-color: aliceblue;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  animation: float 3s ease-in-out infinite;
+}
 
-  .all-series-card h3 {
-    font-size: 1.2rem;
+/* Hover effect for series cards */
+.all-series-card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-color: #ffcc00; /* Highlight border on hover */
+}
+
+/* Series image inside cards */
+.all-series-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Title styling for the series */
+.osszes-sorozatok h2 {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px 15px;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Series image styling */
+.sorozat-kep {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border-bottom: 3px solid black;
+  margin-bottom: 10px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Hover effect for series images */
+.sorozat-kep:hover {
+  transform: translateY(1px) scale(1.1);
+  opacity: 0.9; /* Slight transparency on hover */
+}
+
+/* Wrapper for series */
+.series-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Title inside each series card */
+.all-series-card h3 {
+  font-size: 1.2rem;
+}
+
+/* Year filter buttons container */
+.year-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+/* Styling for the year buttons */
+.year-button {
+  background-color: #800020;
+  color: white;
+  border: 4px solid #4d0014;
+  padding: 12px 24px;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover effect for year buttons */
+.year-button:hover {
+  background-color: black;
+  border-color: #800020;
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+}
+
+/* Active effect for year buttons */
+.year-button:active {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Focus effect for year buttons */
+.year-button:focus {
+  outline: none;
+  box-shadow: 0 0 10px 3px rgba(128, 0, 32, 0.7);
+}
+
+/* Adding animation for the hover effect in buttons */
+.year-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300%;
+  height: 300%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: width 0.4s ease, height 0.4s ease, top 0.4s ease, left 0.4s ease;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+/* Show the animation on hover */
+.year-button:hover::before {
+  width: 0%;
+  height: 0%;
+  opacity: 1;
+}
+
+/* Floating animation for series cards */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
   }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Animating the buttons too */
+.year-button {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Styling for when no series are found */
+.NoSeries {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 10px 15px;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}

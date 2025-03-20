@@ -60,7 +60,6 @@ export const AllMovies = ({ searchTerm }) => {
         </div>
       </div>
 
-      {/* Ha van kiválasztott film, megjelenítjük a DetailModal-t */}
       {selectedItem && (
         <DetailModal
           item={selectedItem}

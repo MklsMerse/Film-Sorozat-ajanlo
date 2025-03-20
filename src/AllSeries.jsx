@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './AllSeries.css';
 import { FilmekSorozatokKepei } from './FilmekSorozatokKepei';
-import { DetailModal } from './DetailModal'; // Import DetailModal
+import { DetailModal } from './DetailModal'; 
 
 export const AllSeries = ({ searchTerm }) => {
   const [sorozat, setSeries] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null); // New state for DetailModal
+  const [selectedItem, setSelectedItem] = useState(null); 
 
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
   const token = loggedInUser.token || 'token';
@@ -25,7 +25,6 @@ export const AllSeries = ({ searchTerm }) => {
       .catch((err) => console.error('Hiba az összes sorozat lekérésekor:', err));
   }, [token]);
 
-  // Handle card click event
   const handleCardClick = (soro) => {
     setSelectedItem({ ...soro, tipus: 'Sorozat' });
   };
@@ -62,7 +61,6 @@ export const AllSeries = ({ searchTerm }) => {
         </div>
       </div>
 
-      {/* Conditionally render the DetailModal if a series is selected */}
       {selectedItem && (
         <DetailModal
           item={selectedItem}

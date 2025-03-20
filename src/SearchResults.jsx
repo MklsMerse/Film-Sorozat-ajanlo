@@ -29,7 +29,6 @@ export const SearchResults = () => {
       }),
     ])
       .then(([filmsData, seriesData]) => {
-        // Filmek átalakítása egy közös séma szerint, beleértve a megjelenési dátumot
         const filmResults = filmsData.map((film) => ({
           id: film.FilmId,
           cim: film.cim,
@@ -40,10 +39,9 @@ export const SearchResults = () => {
           rendezo: film.rendezo,
           szereplok: film.szereplok,
           ertekeles: film.ertekeles,
-          megjelenesiDatum: film.megjelenesiDatum, // hozzáadva
+          megjelenesiDatum: film.megjelenesiDatum,
         }));
 
-        // Sorozatok átalakítása, beleértve a megjelenési dátumot
         const seriesResults = seriesData.map((sorozat) => ({
           id: sorozat.SorozatId,
           cim: sorozat.cim,

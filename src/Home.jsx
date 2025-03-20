@@ -2,15 +2,26 @@ import React, { useEffect, useState } from 'react';
 import './film.css';
 import { FilmekSorozatokKepei } from './FilmekSorozatokKepei';
 import { DetailModal } from './DetailModal';
+import QuizModal from './QuizModal';
 
-export const Home = ({ searchTerm }) => {
+export const Home = ({ searchTerm, onFocusSearch }) => {
   const [movies, setMovies] = useState([]);
   const [sorozat, setSeries] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null); // Új állapot a DetailModal-hoz
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  // A token kinyerése a localStorage-ból
+
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
   const token = loggedInUser.token || 'token';
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const url = `http://localhost:5104/api/filmek/${token}`;
@@ -128,32 +139,67 @@ export const Home = ({ searchTerm }) => {
 </main>
 
       
-      <section id="website-description">
-        <div className="container">
-          <h2>Miért érdemes ezt az oldalt használni?</h2>
-          <p>Ez a weboldal a szórakoztató tartalmak igazi központja, ahol a felhasználók könnyedén felfedezhetik és élvezhetik az ajánlott filmeket és sorozatokat. Az oldal célja, hogy személyre szabott élményt nyújtson minden látogatónak, legyen szó az aktuális trendekről, a legújabb mozikról vagy időtálló klasszikusokról.</p>
-          <p>A felhasználók könnyedén navigálhatnak a különböző műfajok és kategóriák között, miközben élvezhetik a gyönyörű, intuitív felhasználói felületet. Az oldal különböző szűrő- és keresési lehetőségekkel biztosítja, hogy mindenki gyorsan megtalálja a számára érdekes tartalmat, legyen szó egy izgalmas akciófilmről, romantikus vígjátékról, vagy a legújabb sorozat epizódjairól.</p>
-          <h3>Miért érdemes ezt az oldalt használni?</h3>
-          <ul>
-            <li><strong>Személyre szabott ajánlások:</strong> Az oldal különböző ajánlásokat kínál a felhasználóknak, így mindenki könnyedén rátalálhat a neki tetsző tartalmakra.</li>
-            <li><strong>Többféle műfaj és kategória:</strong> Az oldal gazdag tartalomválasztéka lehetővé teszi, hogy a felhasználók bármilyen típusú szórakozást találjanak, a legújabb sci-fi filmektől kezdve a klasszikus drámákig, és mindent, ami közte van.</li>
-            <li><strong>Felhasználóbarát dizájn:</strong> A dizájn egyszerű és letisztult, így könnyen navigálhatunk a különböző tartalmak között, miközben a szép színek és elrendezés biztosítják a kellemes vizuális élményt.</li>
-            <li><strong>Hírek és frissítések:</strong> A legújabb filmek és sorozatok mellett folyamatosan frissülő híreket és információkat is találhatsz a szórakoztatóipar legújabb trendjeiről, valamint érdekességekről.</li>
-            <li><strong>Közösségi élmény:</strong> Az oldal lehetőséget biztosít arra, hogy megoszd véleményedet másokkal, értékelhesd a tartalmakat, és akár barátaidnak is ajánlhass filmeket vagy sorozatokat.</li>
-          </ul>
-          <p>A célunk, hogy minden látogató egyedülálló és élvezetes szórakozást találjon, és a legjobb filmes élményeket kínáljuk, mindezt egy könnyen elérhető és felhasználóbarát platformon.</p>
+<section id="website-description">
+      <div className="container">
+        <div className="intro-text">
+          <h2>🎬 Üdvözlünk a <span className="highlight">FilmFókusz</span> világában!</h2>
+          <p>
+            Fedezd fel a legjobb filmeket és sorozatokat egyetlen kattintással. Akár egy klasszikust keresel, akár a legújabb kasszasikert, nálunk mindent megtalálsz!  
+          </p>
         </div>
-        <section id="website-logo">
-          <div className="container">
-            <div className="logo-container">
-              <img src="logo.png" alt="Weboldal logó" className="website-logo" />
-              <h2 style={{color: "#800020"}} className="filmfokuszfelirat">FilmFókusz</h2>
-            </div>
+
+        <div className="features">
+          <div className="feature-card">
+            <h3>🎯 Személyre szabott ajánlások</h3>
+            <p>Film- és sorozatajánlásaid az ízlésedhez igazodnak, hogy mindig a legjobb tartalmat nézhesd.</p>
           </div>
-        </section>
+
+          <div className="feature-card">
+            <h3>🔍 Okos keresés és szűrés</h3>
+            <p>Szűrj műfaj, év és még sok más szerint, hogy megtaláld, amit keresel.</p>
+          </div>
+
+          <div className="feature-card">
+            <h3>🌍 Nemzetközi és hazai kínálat</h3>
+            <p>Fedezd fel a legjobb külföldi és magyar alkotásokat egy helyen.</p>
+          </div>
+
+          <div className="feature-card">
+            <h3>💬 Vélemények és értékelések</h3>
+            <p>Nézd meg mások értékeléseit, és oszd meg saját véleményedet!</p>
+          </div>
+
+          <div className="feature-card">
+            <h3>🔄 Legnézettebb tartalmak</h3>
+            <p>Fedezd fel, hogy mely filmek és sorozatok a legnépszerűbbek a felhasználók körében!</p>
+          </div>
+
+          <div className="feature-card">
+            <h3>🎞️ Kiemelt premierajánlók</h3>
+            <p>Tudj meg többet a kedvenc mozifilmedről vagy sorozatodról!</p>
+          </div>
+
+        </div>
+
+        <div className="cta-section">
+          <h3>🎥 Csatlakozz hozzánk, és fedezd fel a legjobb filmeket!</h3>
+          <button className="cta-button" onClick={handleModalOpen}>Felfedezés</button>
+          {isModalOpen && <QuizModal closeModal={handleModalClose} />}
+        </div>
+      </div>
+
+      <section id="website-logo">
+        <div className="container">
+          <div className="logo-container">
+            <img src="logo.png" alt="Weboldal logó" className="website-logo" />
+            <h2 className="filmfokuszfelirat">FilmFókusz</h2>
+          </div>
+        </div>
       </section>
+    </section>
       
-      {/* DetailModal feltételes renderelése, ha van kiválasztott elem */}
+    
+
       {selectedItem && (
         <DetailModal
           item={selectedItem}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { Footer } from './Footer';
 import { Home } from './Home';
@@ -13,6 +13,8 @@ import { AllMovies } from './AllMovies';
 import { AllSeries } from './AllSeries';
 import { SearchResults } from './SearchResults';
 import Iranyelvek from './Iranyelvek';
+import EvtizedFilmek from './EvtizedFilmek';
+import EvtizedSorozatok from './EvtizedSorozatok';
 
 export const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,6 +24,8 @@ export const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showDecadeDropdown, setShowDecadeDropdown] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -41,7 +45,6 @@ export const App = () => {
     navigate('/');
   };
 
-  // Frissíti a loggedInUser állapotát az új profilképpel.
   const handleProfilePicUpdate = (newPicture) => {
     setLoggedInUser((prevUser) => {
       const updatedUser = {
@@ -53,14 +56,13 @@ export const App = () => {
     });
   };
 
+
   return (
-    <div>
+    <div>      
       <Routes>
         {!isAuthenticated ? (
-          // Ha nem vagyunk bejelentkezve, az AuthPage jelenik meg.
           <Route path="/*" element={<AuthPage setIsAuthenticated={setIsAuthenticated} />} />
         ) : (
-          // Bejelentkezett állapotban a főoldal és a navbar jelenik meg.
           <Route
             path="/*"
             element={
@@ -78,7 +80,7 @@ export const App = () => {
                         borderRadius: '50%',
                       }}
                     />
-                    <NavLink className="navbar-brand" to="/">
+                    <NavLink className="navbar-brand" to="/"  >
                       FilmFókusz
                     </NavLink>                 
                     <input
@@ -215,6 +217,29 @@ export const App = () => {
                             </ul>
                           )}
                         </li>
+                        <li
+                          className="nav-item dropdown"
+                          onMouseEnter={() => setShowDecadeDropdown(true)}
+                          onMouseLeave={() => setShowDecadeDropdown(false)}
+                        >
+                          <span className="nav-link dropdown-toggle">
+                            Évtized szerint
+                          </span>
+                          {showDecadeDropdown && (
+                            <ul className="dropdown-menu show">
+                              <li>
+                                <NavLink className="dropdown-item" to="/films">
+                                  Filmek évtizedek szerint
+                                </NavLink>
+                              </li>
+                              <li>
+                                <NavLink className="dropdown-item" to="/sorozatoks">
+                                  Sorozatok évtizedek szerint
+                                </NavLink>
+                              </li>
+                            </ul>
+                          )}
+                        </li>
                         <li className="nav-item">
                           <NavLink className="nav-link" to="/about">
                             Rólunk
@@ -228,7 +253,7 @@ export const App = () => {
                       </ul>
                     </div>
 
-                    {/* Profil + kijelentkezés a jobb oldalon */}
+
                     {loggedInUser && (
                       <div className="navbar-profile" style={{ display: 'flex', alignItems: 'center' }}>
                         <div
@@ -270,7 +295,7 @@ export const App = () => {
                   </div>
                 </nav>
 
-                {/* ProfileModal */}
+               
                 {showProfileModal && loggedInUser && (
                   <ProfileModal
                     user={loggedInUser}
@@ -279,7 +304,7 @@ export const App = () => {
                   />
                 )}
 
-                {/* Kijelentkezés megerősítő ablak */}
+                
                 {showLogoutModal && (
                   <LogoutModal
                     onConfirm={handleLogout}
@@ -296,6 +321,8 @@ export const App = () => {
                   <Route path="/series/:mufaj" element={<GenreSorozatoks />} />
                   <Route path="/search" element={<SearchResults />} />
                   <Route path="/iranyelvek" element={<Iranyelvek />} />
+                  <Route path="/films" element={<EvtizedFilmek />} />
+                  <Route path="/sorozatoks" element={<EvtizedSorozatok />} />
                 </Routes>
                 <Footer />
               </div>

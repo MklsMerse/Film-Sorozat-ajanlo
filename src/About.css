@@ -1,42 +1,149 @@
+/* Alap konténer */
 .about-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #E8E8E8; 
-    color: #0C0F0A;             
-    border-radius: 8px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 1);
-    line-height: 1.6;
-    font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Finomabb árnyék */
+  text-align: center;
+  animation: fadeIn 0.8s ease-out; /* Animáció a betöltődéskor */
+}
+
+/* Betöltődési animáció */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .about-container h2 {
-    text-align: center;
-    color: #800020;             
-    margin-bottom: 1rem;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .about-container h3 {
-    color: #800020;
-    margin-top: 2rem;
+}
+
+/* Fejléc és címsor */
+.about-header h2 {
+  font-size: 40px;
+  color: #800020;
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-transform: uppercase; /* Nagybetűs */
+  letter-spacing: 1px;
+}
+
+/* Leírás szöveg */
+.about-header p {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* Kiemelés */
+.highlight {
+  color: #800020;
+  font-weight: bold;
+}
+
+/* Tartalom rész */
+.about-content {
+  margin-top: 30px;
+}
+
+/* Features grid */
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Feature kártyák */
+.feature-card {
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08); /* Finom árnyék */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: slideUp 0.6s ease-out; /* Animáció a megjelenéshez */
+}
+
+/* Feature kártyák hover effektus */
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Kártyák címének stílusa */
+.feature-card h4 {
+  color: #800020;
+  font-size: 22px;
+  margin-bottom: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Kártyák leírása */
+.feature-card p {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* Záró szöveg */
+.closing-text {
+  margin-top: 30px;
+  font-size: 20px;
+  color: #222;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Logo konténer */
+.about-logo-container {
+  margin-top: 40px;
+}
+
+/* FilmFokusz logó */
+.filmfokuszlogo {
+  width: 180px;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  border-radius: 8px; /* Finom kerekített sarkok */
+}
+
+/* FilmFokusz logó hover effektus */
+.filmfokuszlogo:hover {
+  opacity: 1;
+  transform: scale(1.05); /* Logó megnövelése hoverre */
+}
+
+/* Animáció a feature kártyák megjelenéséhez */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .about-container ul {
-    list-style-type: disc;
-    margin-left: 2rem;
-    padding-left: 0;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .about-container li {
-    margin-bottom: 0.5rem;
+}
+
+/* Mobilnézet */
+@media (max-width: 768px) {
+  .about-header h2 {
+    font-size: 30px;
   }
-  
-  .filmfokuszlogo {
-    position: relative;
-    left: 687px;
-    top: 31px;
-    width: 80px;
-    height: auto;
-    border-radius: 3px;
-    opacity: 0.6;
+
+  .feature-card {
+    padding: 15px;
   }
+
+  .about-features {
+    gap: 15px;
+  }
+}
