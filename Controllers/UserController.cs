@@ -361,16 +361,16 @@ namespace FilmFokuszBackEnd.Controllers
                     }
                     else
                     {
-                        
+
                         profilePictureData = Convert.FromBase64String(dto.ProfilePicture);
                     }
 
 
-                    
+
                     var user = new User
                     {
-                        Name = dto.FullName,          
-                        LoginNev = dto.Username,      
+                        Name = dto.FullName,
+                        LoginNev = dto.Username,
                         Email = dto.Email,
                         Hash = hash,
                         Salt = salt,

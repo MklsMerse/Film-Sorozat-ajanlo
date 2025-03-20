@@ -205,5 +205,97 @@ namespace FilmFokuszBackEnd.Controllers
             }
         }
 
+
+        [HttpGet("sorozatok-evtized/{token}/{evtized}")]
+        public async Task<IActionResult> GetSorozatokByEvtized(string token, int evtized)
+        {
+            if (!Program.LoggedInUsers.ContainsKey(token))
+            {
+                return Unauthorized("Érvénytelen token! Jelentkezz be újra.");
+            }
+
+            try
+            {
+                using (var cx = new FilmfokuszContext())
+                {
+                    int startYear = evtized;
+                    int endYear = evtized + 9; 
+
+                    var sorozatoks = await cx.Sorozatoks
+                        .Where(f => f.MegjelenesiDatum.Year >= startYear && f.MegjelenesiDatum.Year <= endYear)
+                        .Select(f => new
+                        {
+                            f.SorozatId,
+                            f.Cim,
+                            f.Leiras,
+                            f.MegjelenesiDatum,
+                            f.Mufaj,
+                            f.Rendezo,
+                            f.Szereplok,
+                            f.Ertekeles,
+                            f.SorozatUrl,
+                            f.EvadokSzama
+                        })
+                        .ToListAsync();
+
+                    if (sorozatoks.Count == 0)
+                    {
+                        return NotFound($"Nincsenek találatok a(z) {startYear}-{endYear} közötti évtizedre.");
+                    }
+
+                    return Ok(sorozatoks);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Szerverhiba: " + (ex.InnerException?.Message ?? ex.Message));
+            }
+        }
+
+        [HttpGet("filtered-sorozatoks/{token}")]
+        public async Task<IActionResult> GetFilteredSorozatoks(string token, [FromQuery] string mufaj, [FromQuery] int ev)
+        {
+            if (!Program.LoggedInUsers.ContainsKey(token))
+            {
+                return Unauthorized("Érvénytelen token! Jelentkezz be újra.");
+            }
+
+            try
+            {
+                using (var cx = new FilmfokuszContext())
+                {
+                    int startYear = ev;
+                    int endYear = ev + 9;
+
+                    var filteredSorozatoks = await cx.Sorozatoks
+                        .Where(f => f.Mufaj == mufaj && f.MegjelenesiDatum.Year >= startYear && f.MegjelenesiDatum.Year <= endYear)
+                        .Select(f => new
+                        {
+                            f.SorozatId,
+                            f.Cim,
+                            f.Mufaj,
+                            f.SorozatUrl,
+                            f.Leiras,
+                            f.Rendezo,
+                            f.Szereplok,
+                            f.MegjelenesiDatum,
+                            f.Ertekeles
+                        })
+                        .ToListAsync();
+
+                    if (!filteredSorozatoks.Any())
+                    {
+                        return NotFound($"Nincsenek találatok a(z) '{mufaj}' műfajra {startYear}-{endYear} között.");
+                    }
+
+                    return Ok(filteredSorozatoks);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Szerverhiba: " + (ex.InnerException?.Message ?? ex.Message));
+            }
+        }
+
     }
 }

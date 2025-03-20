@@ -57,7 +57,6 @@ namespace FilmFokuszBackEnd.Controllers
         }
 
 
-
         [HttpGet("{token}")]
         public async Task<IActionResult> Get(string token)
         {
@@ -212,6 +211,94 @@ namespace FilmFokuszBackEnd.Controllers
             }
         }
 
+        [HttpGet("filmek-evtized/{token}/{evtized}")]
+        public async Task<IActionResult> GetFilmekByEvtized(string token, int evtized)
+        {
+            if (!Program.LoggedInUsers.ContainsKey(token))
+            {
+                return Unauthorized("Érvénytelen token! Jelentkezz be újra.");
+            }
+
+            try
+            {
+                using (var cx = new FilmfokuszContext())
+                {
+                    int startYear = evtized;
+                    int endYear = evtized + 9;
+
+                    var films = await cx.Filmeks
+                        .Where(f => f.MegjelenesiDatum.Year >= startYear && f.MegjelenesiDatum.Year <= endYear)
+                        .Select(f => new
+                        {
+                            f.FilmId,
+                            f.Cim,
+                            f.Leiras,
+                            f.MegjelenesiDatum,
+                            f.Mufaj,
+                            f.Rendezo,
+                            f.Szereplok,
+                            f.Ertekeles,
+                            f.FilmUrl
+                        })
+                        .ToListAsync();
+
+                    if (films.Count == 0)
+                    {
+                        return NotFound($"Nincsenek találatok a(z) {startYear}-{endYear} közötti évtizedre.");
+                    }
+
+                    return Ok(films);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Szerverhiba: " + (ex.InnerException?.Message ?? ex.Message));
+            }
+        }
+
+        [HttpGet("filtered-films/{token}")]
+        public async Task<IActionResult> GetFilteredFilms(string token, [FromQuery] string mufaj, [FromQuery] int ev)
+        {
+            if (!Program.LoggedInUsers.ContainsKey(token))
+            {
+                return Unauthorized("Érvénytelen token! Jelentkezz be újra.");
+            }
+
+            try
+            {
+                using (var cx = new FilmfokuszContext())
+                {
+                    int startYear = ev;
+                    int endYear = ev + 9; // Például: 1990 → 1999
+
+                    var filteredFilms = await cx.Filmeks
+                        .Where(f => f.Mufaj == mufaj && f.MegjelenesiDatum.Year >= startYear && f.MegjelenesiDatum.Year <= endYear)
+                        .Select(f => new
+                        {
+                            f.FilmId,
+                            f.Cim,
+                            f.Mufaj,
+                            f.FilmUrl,
+                            f.Leiras,
+                            f.Rendezo,
+                            f.Szereplok,
+                            f.MegjelenesiDatum
+                        })
+                        .ToListAsync();
+
+                    if (!filteredFilms.Any())
+                    {
+                        return NotFound($"Nincsenek találatok a(z) '{mufaj}' műfajra {startYear}-{endYear} között.");
+                    }
+
+                    return Ok(filteredFilms);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Szerverhiba: " + (ex.InnerException?.Message ?? ex.Message));
+            }
+        }
 
 
     }
