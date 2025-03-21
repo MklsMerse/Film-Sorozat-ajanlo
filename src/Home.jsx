@@ -142,7 +142,7 @@ export const Home = ({ searchTerm, onFocusSearch }) => {
 <section id="website-description">
       <div className="container">
         <div className="intro-text">
-          <h2>🎬 Üdvözlünk a <span className="highlight">FilmFókusz</span> világában!</h2>
+          <h2>🎬 Üdvözlünk a <span className="highlight" style={{ color: 'white'}}>FilmFókusz</span> világában!</h2>
           <p>
             Fedezd fel a legjobb filmeket és sorozatokat egyetlen kattintással. Akár egy klasszikust keresel, akár a legújabb kasszasikert, nálunk mindent megtalálsz!  
           </p>

@@ -21,7 +21,7 @@
     width: 80%;
     max-width: 600px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Lágy árnyék */
-    animation: slideUp 0.5s ease-out, glow 1.5s ease-in-out infinite alternate; /* Feljövő animáció és glow hatás */
+    animation: slideUp 0.5s ease-out, glow 10s ease-in-out infinite alternate; /* Feljövő animáció és glow hatás */
   }
   
   /* Animációk */
