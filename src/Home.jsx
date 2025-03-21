@@ -45,12 +45,10 @@ export const Home = ({ searchTerm, onFocusSearch }) => {
       .catch((err) => console.error('Hiba az ajánlott sorozatok lekérésekor:', err));
   }, [token]);
 
-  // Filmkártya kattintás kezelése
   const handleFilmClick = (film) => {
     setSelectedItem({ ...film, tipus: 'Film' });
   };
 
-  // Sorozatkártya kattintás kezelése
   const handleSeriesClick = (soro) => {
     setSelectedItem({ ...soro, tipus: 'Sorozat' });
   };
@@ -58,7 +56,6 @@ export const Home = ({ searchTerm, onFocusSearch }) => {
   return (
     <div>
       <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="carousel">
-        {/* Carousel kód marad változatlanul */}
         <div className="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -66,10 +63,10 @@ export const Home = ({ searchTerm, onFocusSearch }) => {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src="movies.png" className="d-block w-100" alt="Kép 1" />
+            <img src="movies.jpg" className="d-block w-100" alt="Kép 1" />
           </div>
           <div className="carousel-item">
-            <img src="movies2.jpeg" className="d-block w-100" alt="Kép 2" />
+            <img src="movies2.webp" className="d-block w-100" alt="Kép 2" />
           </div>
           <div className="carousel-item">
             <img src="logo2.png" className="d-block w-100" alt="Kép 3" />
@@ -95,10 +92,10 @@ export const Home = ({ searchTerm, onFocusSearch }) => {
           <div 
             key={film.FilmId} 
             className="film-card"
-            onClick={() => handleFilmClick(film)} // Klikkeléskor meghívódik a funkció
+            onClick={() => handleFilmClick(film)} 
           >
             <img
-              src={FilmekSorozatokKepei[film.cim]?.image || '/placeholder.png'} // Kép megjelenítése
+              src={FilmekSorozatokKepei[film.cim]?.image || '/placeholder.png'} 
               alt={film.cim}
               className="film-image"
             />
