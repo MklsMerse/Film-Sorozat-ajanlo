@@ -278,7 +278,7 @@ export const FilmekSorozatokKepei = {
     image: "https://media.port.hu/images/000/576/102.jpg",
     trailer: "https://www.youtube.com/watch?v=1Fg5iWmQjwk"
   },
-  "Dilibogyók" : {
+  "Dumb és Dumber" : {
     image: "https://www.mafab.hu/static/profiles/2014/293/11/45304_63.jpg",
     trailer: "https://www.youtube.com/watch?v=dmNddThxi4c"
   },
