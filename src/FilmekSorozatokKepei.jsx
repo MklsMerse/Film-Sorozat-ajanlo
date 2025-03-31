@@ -987,4 +987,8 @@ export const FilmekSorozatokKepei = {
     image:"https://m.media-amazon.com/images/I/71vTmwA6j9L._AC_UF1000,1000_QL80_.jpg",
     trailer: "https://www.youtube.com/watch?v=54srZLuYfb0"
   },
+  "Kukori és Kotkoda" : {
+    image: "https://media.port.hu/images/000/524/091.jpg",
+    trailer: "https://www.youtube.com/watch?v=It19h_IRzWc"
+  }
 };

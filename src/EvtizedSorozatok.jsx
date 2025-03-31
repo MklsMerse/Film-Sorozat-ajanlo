@@ -33,6 +33,7 @@ const EvtizedMenu = () => {
       <div className="osszes-sorozatok">
      <h2>Sorozatok évtized Szerint:</h2>
       <div className="year-buttons-container">
+        <button className="year-button" onClick={() => setSelectedYear(1970)}>1970</button>
         <button className="year-button" onClick={() => setSelectedYear(1980)}>1980</button>
         <button className="year-button" onClick={() => setSelectedYear(1990)}>1990</button>
         <button className="year-button" onClick={() => setSelectedYear(2000)}>2000</button>
