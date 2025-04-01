@@ -1,11 +1,10 @@
-/* Overlay background to cover the entire screen */
 .profile-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Darker background */
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +13,6 @@
   animation: fadeIn 0.3s ease-in-out forwards;
 }
 
-/* Modal content box styling */
 .profile-modal-content {
   background-color: #fff;
   padding: 20px;
@@ -27,23 +25,23 @@
   animation: slideIn 0.5s ease-in-out forwards;
 }
 
-/* Profile image within the modal */
+
 .modal-profile-image {
   width: 120px;
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #800020; /* Darker border */
+  border: 2px solid #800020; 
   margin-bottom: 20px;
   transition: transform 0.3s ease;
 }
 
-/* Hover effect for the profile image */
+
 .modal-profile-image:hover {
   transform: scale(1.1);
 }
 
-/* Paragraph styling inside profile details */
+
 .profile-details p {
   margin: 12px 0;
   font-size: 16px;
@@ -52,7 +50,7 @@
   line-height: 1.6;
 }
 
-/* Change picture button styling */
+
 .change-picture-button {
   padding: 0.7rem 1.4rem;
   font-size: 16px;
@@ -67,13 +65,13 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Hover effect for the change picture button */
+
 .change-picture-button:hover {
   background-color: #a03344;
   transform: scale(1.05);
 }
 
-/* Close button (X) inside the modal */
+
 .close-button {
   position: absolute;
   top: 10px;
@@ -86,13 +84,13 @@
   transition: color 0.3s ease;
 }
 
-/* Close button hover effect */
+
 .close-button:hover {
   color: #a03344;
   transform: rotate(45deg);
 }
 
-/* Modal fade-in animation */
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -102,7 +100,7 @@
   }
 }
 
-/* Modal slide-in animation */
+
 @keyframes slideIn {
   0% {
     transform: translateY(-50px);

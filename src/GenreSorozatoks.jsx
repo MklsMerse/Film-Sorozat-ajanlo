@@ -27,7 +27,6 @@ export const GenreSorozatoks = () => {
       .catch(err => console.error('Hiba a sorozatok lekérésekor:', err));
   }, [mufaj, token]);
 
-  // Handle card click event to set selected series for modal
   const handleCardClick = (s) => {
     setSelectedItem({ ...s, tipus: 'Sorozat' });
   };
@@ -62,7 +61,6 @@ export const GenreSorozatoks = () => {
         )}
       </div>
 
-      {/* Conditionally render the DetailModal if a series is selected */}
       {selectedItem && (
         <DetailModal
           item={selectedItem}

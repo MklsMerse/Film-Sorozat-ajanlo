@@ -1,30 +1,27 @@
-/* A modal ablak háttér */
 .quiz-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Sötét háttér */
+    background: rgba(0, 0, 0, 0.7); 
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: fadeIn 0.5s ease-out, bounce 1s ease-out; /* Bejövő animáció és bounce effekt */
+    animation: fadeIn 0.5s ease-out, bounce 1s ease-out; 
   }
   
-  /* A modal tartalma */
   .quiz-content {
-    background: linear-gradient(145deg, #000000 0%, #800020 100%); /* Fade hatás fekete-fehér és piros átmenettel */
+    background: linear-gradient(145deg, #000000 0%, #800020 100%); 
     padding: 20px;
     border-radius: 8px;
     position: relative;
     width: 80%;
     max-width: 600px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Lágy árnyék */
-    animation: slideUp 0.5s ease-out, glow 10s ease-in-out infinite alternate; /* Feljövő animáció és glow hatás */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+    animation: slideUp 0.5s ease-out, glow 10s ease-in-out infinite alternate;
   }
   
-  /* Animációk */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -64,7 +61,6 @@
     }
   }
   
-  /* X gomb - külön stílus */
   .bezar {
     position: absolute;
     top: 10px;
@@ -78,20 +74,20 @@
     transition: transform 0.2s ease, color 0.2s ease, opacity 0.2s ease;
   }
   
-  /* Hover effekt az X gombhoz */
+
   .bezar:hover {
-    color: #ff4d4d; /* Vörös szín a hover hatásra */
-    transform: scale(1.2); /* Nagyítás animáció */
-    opacity: 0.7; /* Tükrözés */
+    color: #ff4d4d; 
+    transform: scale(1.2); 
+    opacity: 0.7; 
   }
   
-  /* A "Zárás" gomb */
+
   .close-btn {
     display: block;
     width: 100%;
     padding: 12px;
-    background-color: #800020; /* Piros háttér */
-    color: #f0f0f0; /* Világosszürke szöveg */
+    background-color: #800020; 
+    color: #f0f0f0; 
     border: none;
     border-radius: 5px;
     font-size: 18px;
@@ -100,12 +96,11 @@
   }
   
   .close-btn:hover {
-    background-color: #b3002d; /* Sötétebb piros hover hatás */
-    transform: scale(1.05); /* Nagyítás a hover hatásra */
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); /* Glowing shadow a hover hatásra */
+    background-color: #b3002d; 
+    transform: scale(1.05); 
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); 
   }
   
-  /* A kérdések és válaszok stílusa */
   .question-container ul {
     list-style: none;
     padding: 0;
@@ -122,20 +117,19 @@
     transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
   }
   
-  /* Hover effekt válaszokhoz */
+
   .question-container li:hover {
-    background-color: #800020; /* Vörös hover háttér */
+    background-color: #800020; 
     color: white;
-    transform: translateX(5px); /* Apró mozgás a válaszokhoz */
+    transform: translateX(5px); 
   }
   
-  /* A válaszok megjelenése */
   .result h2 {
     text-align: center;
     color: white;
     font-size: 24px;
     margin-bottom: 20px;
-    animation: textGlow 1.5s ease-in-out infinite alternate; /* Glow effekt a szövegre */
+    animation: textGlow 1.5s ease-in-out infinite alternate; 
   }
   
   @keyframes textGlow {
@@ -151,7 +145,7 @@
     display: block;
     width: 100%;
     padding: 12px;
-    background-color: #800020; /* Piros háttér */
+    background-color: #800020; 
     color: #f0f0f0;
     border: none;
     border-radius: 5px;
@@ -161,9 +155,9 @@
   }
   
   .result button:hover {
-    background-color: #b3002d; /* Sötétebb piros hover hatás */
+    background-color: #b3002d; 
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); /* Glowing shadow a hover hatásra */
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); 
   }
   
 

@@ -7,7 +7,7 @@ import { DetailModal } from './DetailModal';
 export const GenreFilms = () => {
   const { mufaj } = useParams();
   const [filmek, setFilmek] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null); // New state for selected film
+  const [selectedItem, setSelectedItem] = useState(null); 
 
   const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser') || '{}');
   const token = loggedInUser.token || 'token';
@@ -27,7 +27,6 @@ export const GenreFilms = () => {
       .catch(err => console.error('Hiba a filmek lekérésekor:', err));
   }, [mufaj, token]);
 
-  // Handle card click event to set selected film for modal
   const handleCardClick = (film) => {
     setSelectedItem({ ...film, tipus: 'Film' });
   };
@@ -62,7 +61,6 @@ export const GenreFilms = () => {
         )}
       </div>
 
-      {/* Conditionally render the DetailModal if a film is selected */}
       {selectedItem && (
         <DetailModal
           item={selectedItem}

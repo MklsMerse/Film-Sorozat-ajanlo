@@ -8,11 +8,10 @@ export const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Ellenőrizzük, hogy van-e bejelentkezett felhasználó
     const loggedInUser = localStorage.getItem('loggedInUser');
     if (loggedInUser) {
       setIsLoggedIn(true);
-      navigate('/dashboard'); // Átirányítunk egy dashboard oldalra, ha be van jelentkezve
+      navigate('/dashboard');
     }
   }, [navigate]);
 

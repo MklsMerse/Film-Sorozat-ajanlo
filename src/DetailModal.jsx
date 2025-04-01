@@ -9,7 +9,7 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
   useEffect(() => {
     if (item.cim && FilmekSorozatokKepei[item.cim]) {
       const trailerUrl = FilmekSorozatokKepei[item.cim].trailer;
-      setBackgroundUrl(trailerUrl); // Beállítjuk az előzetes URL-t
+      setBackgroundUrl(trailerUrl); 
     }
   }, [item]);
 
@@ -28,7 +28,6 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-        {/* Trailer videó háttérben, ha elérhető */}
         {backgroundUrl && (
           <div className="modal-trailer-background">
             <iframe 
@@ -44,10 +43,8 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
         )}
 
         <button className="modal-close" onClick={onClose}>×</button>
-        {/*<h2 className="modal-title">{item.cim}</h2>*/}
         
         <div className="modal-content">
-          {/* Bal oldalt a kép */}
           <div className="modal-left">
             <img
               src={FilmekSorozatokKepei[item.cim]?.image || '/placeholder.png'}
@@ -56,7 +53,6 @@ export const DetailModal = ({ item, onClose, onRatingUpdate }) => {
             />
           </div>
           
-          {/* Jobb oldalt az adatok */}
           <div className="modal-right">
             <p><strong>Cím:</strong> {item.cim}</p>
             <p><strong>Leírás:</strong> {item.leiras}</p>

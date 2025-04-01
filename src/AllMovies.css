@@ -1,4 +1,3 @@
-/* Container for all movies */
 .all-movies-container {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +6,7 @@
   gap: 1rem;
 }
 
-/* Movie card styling */
+
 .all-movie-card {
   border: 3px solid #800020;
   border-radius: 8px;
@@ -20,21 +19,21 @@
   animation: float 3s ease-in-out infinite;
 }
 
-/* Hover effect for movie cards */
+
 .all-movie-card:hover {
   transform: scale(1.08);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border-color: #ffcc00; /* Highlight border on hover */
+  border-color: #ffcc00; 
 }
 
-/* Movie image inside cards */
+
 .all-movie-card img {
   width: 100%;
   height: auto;
   border-radius: 4px;
 }
 
-/* Title styling */
+
 .osszes-filmek h2 {
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
@@ -45,7 +44,7 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Film image styling */
+
 .film-kep {
   width: 100%;
   height: auto;
@@ -55,25 +54,24 @@
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* Hover effect for film images */
+
 .film-kep:hover {
   transform: translateY(1px) scale(1.1);
-  opacity: 0.9; /* Slight transparency on hover */
+  opacity: 0.9; 
 }
 
-/* Wrapper for movies */
+
 .movies-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Movie card title */
 .all-movie-card h3 {
   font-size: 1.2rem;
 }
 
-/* Year filter buttons container */
+
 .year-buttons-container {
   display: flex;
   justify-content: center;
@@ -81,7 +79,7 @@
   margin: 20px 0;
 }
 
-/* Styling for the year buttons */
+
 .year-button {
   background-color: #800020;
   color: white;
@@ -99,7 +97,7 @@
   overflow: hidden;
 }
 
-/* Hover effect for year buttons */
+
 .year-button:hover {
   background-color: black;
   border-color: #800020;
@@ -108,19 +106,19 @@
   transform: scale(1.1);
 }
 
-/* Active effect for year buttons */
+
 .year-button:active {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Focus effect for year buttons */
+
 .year-button:focus {
   outline: none;
   box-shadow: 0 0 10px 3px rgba(128, 0, 32, 0.7);
 }
 
-/* Adding animation for the hover effect in buttons */
+
 .year-button::before {
   content: "";
   position: absolute;
@@ -135,14 +133,14 @@
   opacity: 0;
 }
 
-/* Show the animation on hover */
+
 .year-button:hover::before {
   width: 0%;
   height: 0%;
   opacity: 1;
 }
 
-/* Floating animation for movie cards */
+
 @keyframes float {
   0%, 100% {
       transform: translateY(0);
@@ -152,12 +150,12 @@
   }
 }
 
-/* Animating the buttons too */
+
 .year-button {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Styling for when no movies are found */
+
 .NoMovies {
   color: white;
   background-color: rgba(0, 0, 0, 0.7);

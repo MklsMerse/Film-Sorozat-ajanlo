@@ -29,7 +29,7 @@ const QuizModal = ({ closeModal }) => {
     setAnswers([...answers, answer]);
 
     if (step === 0) {
-      setMediaType(answer); // Film vagy Sorozat választása az első kérdésnél
+      setMediaType(answer);
     }
 
     if (step < questions.length - 1) {
@@ -40,18 +40,16 @@ const QuizModal = ({ closeModal }) => {
   };
 
   const evaluateResult = async (answers) => {
-    const genre = answers[1]; // Műfaj
-    const decade = answers[2]; // Évtized
+    const genre = answers[1]; 
+    const decade = answers[2]; 
 
     console.log("SZŰRÉSI PARAMÉTEREK:", { mediaType, genre, decade });
 
     try {
       let url = "";
-      // Ha filmeket keresünk
       if (mediaType === "Film") {
         url = `http://localhost:5104/api/filmek/filtered-films/${token}?mufaj=${genre}&ev=${decade}`;
       }
-      // Ha sorozatokat keresünk
       else if (mediaType === "Sorozat") {
         url = `http://localhost:5104/api/sorozatok/filtered-sorozatoks/${token}?mufaj=${genre}&ev=${decade}`;
       }
@@ -88,8 +86,8 @@ const QuizModal = ({ closeModal }) => {
   const handleCloseModal = () => {
     setIsClosing(true);
     setTimeout(() => {
-      closeModal();  // Modal tényleges bezárása
-    }, 500);  // Várakozás az animációval
+      closeModal();  
+    }, 500);  
   };
 
   return (

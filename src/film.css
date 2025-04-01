@@ -523,12 +523,12 @@ button[type="submit"] {
   width: 80%;
   object-fit: cover;
   border-radius: 15px;
-  transition: transform 0.5s ease, opacity 0.3s ease; /* Animáció hozzáadása */
+  transition: transform 0.5s ease, opacity 0.3s ease;
 }
 
 .carousel-inner img:hover {
-  transform: scale(1.05); /* Felnagyítjuk a képet hover esetén */
-  opacity: 0.9; /* Csökkentett átlátszóság */
+  transform: scale(1.05); 
+  opacity: 0.9; 
 }
 
 .carousel {
@@ -539,19 +539,19 @@ button[type="submit"] {
   height: 40vh;
   border: 3.5px solid #800020;
   border-radius: 15px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Finom árnyék a carouselnek */
-  transition: box-shadow 0.3s ease; /* Box-shadow animáció */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); 
+  transition: box-shadow 0.3s ease; 
 }
 
 .carousel:hover {
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); /* Erősebb árnyék, amikor a carousel fölé viszik az egeret */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4); 
 }
 
 .carousel-inner {
   width: 100%;
   display: flex;
   gap: 0;
-  animation: fadeIn 1s ease-in-out; /* FadeIn animáció a carousel belsejére */
+  animation: fadeIn 1s ease-in-out; 
 }
 
 .carousel .slogan {
@@ -564,15 +564,14 @@ button[type="submit"] {
   background-color: rgba(0, 0, 0, 0.5);
   padding: 5px 10px;
   border-radius: 8px;
-  transition: transform 0.3s ease, opacity 0.3s ease; /* Animáció a szlogennek */
+  transition: transform 0.3s ease, opacity 0.3s ease; 
 }
 
 .carousel .slogan:hover {
-  transform: translateY(-5px); /* Szlogen felemelése hover esetén */
+  transform: translateY(-5px); 
   opacity: 1;
 }
 
-/* FadeIn animáció */
 @keyframes fadeIn {
   from {
     opacity: 0;

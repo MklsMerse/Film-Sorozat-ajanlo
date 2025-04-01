@@ -14,13 +14,11 @@ export const Footer = () => {
         <div className="footer-center">
           <h4>Linkek</h4>
           <ul>
-            {/* A HashLink komponens segítségével a "Filmek" link a home oldalra navigál és gördít a #movies szakaszra */}
             <li>
               <HashLink smooth to="/#movies">
                 Ajánlott Filmeink
               </HashLink>
             </li>
-            {/* Hasonló megoldás a "Sorozatok" linkhez */}
             <li>
               <HashLink smooth to="/#series">
                 Ajánlott Sorozataink

@@ -26,7 +26,6 @@
   border: 5px solid #800020 !important;
 }
 
-/* Modal megjelenési animáció */
 @keyframes modalAppear {
   from {
     opacity: 0 !important;
@@ -58,17 +57,7 @@
   cursor: pointer !important;
 }
 
-/*
-.modal-title {
-  text-align: center !important;
-  font-size: 2rem !important;
-  margin-bottom: 20px !important;
-  color: white !important;
-  background-color: #800020 !important;
-  border-radius: 10px !important;
-  border: 2px solid black !important;
-}
-*/
+
 
 .modal-content {
   display: flex !important;
@@ -79,14 +68,12 @@
   width: 100% !important; 
 }
 
-/* Bal oldali panel: a kép; explicit szélesség, hogy a kép a bal oldalon maradjon */
 .modal-left {
   flex: 0 0 50% !important;
   position: relative !important;
   right: 140px !important;
 }
 
-/* Jobb oldali panel: az adatok; explicit szélesség */
 .modal-right {
   flex: 0 0 110% !important;
   text-align: left !important;
@@ -98,7 +85,7 @@
   border-radius: 10px !important;
 }
 
-/* Bal oldali kép stílusa */
+
 .modal-image {
   width: 150% !important;
   height: 100% !important;
@@ -162,6 +149,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1; /* a tartalom mögé kerül */
-  opacity: 0.8; /* vagy állítsd 1-re, ha teljesen látható legyen */
+  z-index: -1;
+  opacity: 0.8; 
 }

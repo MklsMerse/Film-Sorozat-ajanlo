@@ -1,4 +1,3 @@
-/* Container for all series */
 .all-series-container {
   display: flex;
   flex-wrap: wrap;
@@ -7,7 +6,7 @@
   gap: 1rem;
 }
 
-/* Series card styling */
+
 .all-series-card {
   border: 3px solid #800020;
   border-radius: 8px;
@@ -20,21 +19,21 @@
   animation: float 3s ease-in-out infinite;
 }
 
-/* Hover effect for series cards */
+
 .all-series-card:hover {
   transform: scale(1.08);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border-color: #ffcc00; /* Highlight border on hover */
+  border-color: #ffcc00; 
 }
 
-/* Series image inside cards */
+
 .all-series-card img {
   width: 100%;
   height: auto;
   border-radius: 4px;
 }
 
-/* Title styling for the series */
+
 .osszes-sorozatok h2 {
   color: white;
   background-color: rgba(0, 0, 0, 0.6);
@@ -45,7 +44,7 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-/* Series image styling */
+
 .sorozat-kep {
   width: 100%;
   height: auto;
@@ -55,25 +54,25 @@
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* Hover effect for series images */
+
 .sorozat-kep:hover {
   transform: translateY(1px) scale(1.1);
-  opacity: 0.9; /* Slight transparency on hover */
+  opacity: 0.9;
 }
 
-/* Wrapper for series */
+
 .series-wrapper {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Title inside each series card */
+
 .all-series-card h3 {
   font-size: 1.2rem;
 }
 
-/* Year filter buttons container */
+
 .year-buttons-container {
   display: flex;
   justify-content: center;
@@ -81,7 +80,7 @@
   margin: 20px 0;
 }
 
-/* Styling for the year buttons */
+
 .year-button {
   background-color: #800020;
   color: white;
@@ -99,7 +98,7 @@
   overflow: hidden;
 }
 
-/* Hover effect for year buttons */
+
 .year-button:hover {
   background-color: black;
   border-color: #800020;
@@ -108,19 +107,19 @@
   transform: scale(1.1);
 }
 
-/* Active effect for year buttons */
+
 .year-button:active {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Focus effect for year buttons */
+
 .year-button:focus {
   outline: none;
   box-shadow: 0 0 10px 3px rgba(128, 0, 32, 0.7);
 }
 
-/* Adding animation for the hover effect in buttons */
+
 .year-button::before {
   content: "";
   position: absolute;
@@ -135,14 +134,14 @@
   opacity: 0;
 }
 
-/* Show the animation on hover */
+
 .year-button:hover::before {
   width: 0%;
   height: 0%;
   opacity: 1;
 }
 
-/* Floating animation for series cards */
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0);
@@ -152,12 +151,12 @@
   }
 }
 
-/* Animating the buttons too */
+
 .year-button {
   animation: float 3s ease-in-out infinite;
 }
 
-/* Styling for when no series are found */
+
 .NoSeries {
   color: white;
   background-color: rgba(0, 0, 0, 0.7);

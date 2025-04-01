@@ -31,7 +31,6 @@ export const ProfileModal = ({
             alert('A profilkép maximális mérete 320x320 pixel lehet. Kérlek válassz kisebb képet!');
             return;
           }
-          // Frissítjük a profilképet a Base64 stringgel
           onUpdateProfilePicture(base64String);
         };
         img.src = result;

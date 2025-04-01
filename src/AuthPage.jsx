@@ -5,7 +5,6 @@ import './AuthPage.css';
 
 const isValidEmail = (email) => {
   if (!email || email.trim() === "") return false;
-  // Ez a minta csak olyan e-mailt engedélyez, amely '@' után .com vagy .hu végződéssel zárul.
   const pattern = /^[^@\s]+@[^@\s]+\.(com|hu)$/i;
   return pattern.test(email);
 };
@@ -51,8 +50,7 @@ export const AuthPage = ({ setIsAuthenticated }) => {
       }
       const reader = new FileReader();
       reader.onload = (event) => {
-        const result = event.target.result; // ez a teljes data URL ("data:image/png;base64,...")
-        // Szedd ki belőle csak a Base64 részt
+        const result = event.target.result;
         const base64String = result.split(',')[1];
         const img = new Image();
         img.onload = () => {
@@ -61,8 +59,8 @@ export const AuthPage = ({ setIsAuthenticated }) => {
             setProfilePicture(null);
             setProfilePicturePreview(null);
           } else {
-            setProfilePicture(base64String); // csak a Base64 részt tároljuk
-            setProfilePicturePreview(result); // előnézethez a teljes data URL-t használjuk
+            setProfilePicture(base64String); 
+            setProfilePicturePreview(result); 
           }
         };
         img.src = result;
@@ -72,7 +70,6 @@ export const AuthPage = ({ setIsAuthenticated }) => {
   };
 
   const handleAuth = async () => {
-    // Ellenőrzés, hogy minden szükséges mező ki van-e töltve
     if (!username || !password || (!isLogin && (!fullName || !email || !confirmPassword))) {
       alert('Kérlek töltsd ki az összes mezőt!');
       return;
@@ -103,12 +100,11 @@ export const AuthPage = ({ setIsAuthenticated }) => {
         fullName: fullName,
         username: username,
         email: email,
-        password: password, // A jelszót szerveroldalon hash-eljük
+        password: password, 
         profilePicture: profilePicture || ""
       };
 
       try {
-        // Regisztrációs végpont: módosítsd a backend URL-t, ha szükséges
         const response = await fetch("http://localhost:5104/api/User/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -154,12 +150,11 @@ export const AuthPage = ({ setIsAuthenticated }) => {
           return;
         }
 
-        // Bejelentkezés sikeres: A szerver visszaküldi a felhasználó adatait
         const userData = await response.json();
         localStorage.setItem("loggedInUser", JSON.stringify(userData));
         localStorage.setItem("token", userData.token);
         setIsAuthenticated(true);
-        navigate("/"); // Navigálás a főoldalra (Home.jsx)
+        navigate("/"); 
       } catch (error) {
         alert("Hiba történt: " + error.message);
       }
@@ -169,7 +164,6 @@ export const AuthPage = ({ setIsAuthenticated }) => {
   return (
     <div className="auth-container">
       <h2>{isLogin ? 'Bejelentkezés' : 'Regisztráció'}</h2>
-      {/* Regisztrációs módban jelenik meg a Teljes Név input */}
       {!isLogin && (
         <input 
           type="text" 

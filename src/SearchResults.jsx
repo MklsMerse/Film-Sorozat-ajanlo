@@ -53,7 +53,7 @@ export const SearchResults = () => {
           szereplok: sorozat.szereplok,
           ertekeles: sorozat.ertekeles,
           evadokSzama: sorozat.evadokSzama,
-          megjelenesiDatum: sorozat.megjelenesiDatum, // hozzáadva
+          megjelenesiDatum: sorozat.megjelenesiDatum,
         }));
 
         const combined = [...filmResults, ...seriesResults];
