@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 10. 23:04
+-- Létrehozás ideje: 2025. Ápr 07. 08:53
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -44,7 +44,7 @@ CREATE TABLE `filmek` (
 --
 
 INSERT INTO `filmek` (`film_id`, `cim`, `leiras`, `megjelenesi_datum`, `mufaj`, `rendezo`, `szereplok`, `ertekeles`, `film_url`) VALUES
-(8, 'Eredet', 'A film egy izgalmas sci-fi, ahol a főszereplő egy álommanipulátor, aki különleges küldetést vállal.', '2010-07-16', 'sci-fi', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page', 1, 'https://www.imdb.com/title/tt1375666/'),
+(8, 'Eredet', 'A film egy izgalmas sci-fi, ahol a főszereplő egy álommanipulátor, aki különleges küldetést vállal.', '2010-07-16', 'sci-fi', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page', 5, 'https://www.imdb.com/title/tt1375666/'),
 (9, 'Titanic', 'A híres szerelmi történet a Titanic katasztrófájáról, amely egy fiatal pár szenvedéseit meséli el.', '1997-12-19', 'Romantikus', 'James Cameron', 'Leonardo DiCaprio, Kate Winslet', 0, 'https://www.imdb.com/title/tt0120338/'),
 (10, 'A sötét lovag', 'Batman a Gotham városát fenyegető Joker ellen harcol, miközben a törvény és igazságosság határait feszegeti.', '2008-07-18', 'Akció', 'Christopher Nolan', 'Christian Bale, Heath Ledger', 0, 'https://www.imdb.com/title/tt0468569/'),
 (11, 'Testről és lélekről', 'Két ember próbálja megérteni egymást, miközben különböző kihívásokkal szembesülnek a mindennapi életben.', '2017-02-10', 'Dráma', 'Ildikó Enyedi', 'Alexandra Borbély, Morcsányi Géza', 0, 'https://www.imdb.com/title/tt5762634/'),
@@ -135,7 +135,7 @@ INSERT INTO `filmek` (`film_id`, `cim`, `leiras`, `megjelenesi_datum`, `mufaj`, 
 (100, 'A híres Ron Burgundy legendája', 'Ron Burgundy, San Diego híres hírbemondója versenybe száll egy női hírolvasóval.', '2004-07-09', 'vígjáték', 'Adam McKay', 'Will Ferrell, Christina Applegate, Steve Carell', 0, 'https://www.imdb.com/title/tt0357413/'),
 (101, 'Trópusi vihar', 'Egy háborús filmet forgató színészek valódi háborús helyzetbe kerülnek.', '2008-08-13', 'vígjáték', 'Ben Stiller', 'Ben Stiller, Jack Black, Robert Downey Jr.', 0, 'https://www.imdb.com/title/tt0942385/'),
 (102, 'A Grand Budapest Hotel', 'Egy híres európai szálloda portásának kalandjai a két világháború között.', '2014-03-28', 'vígjáték', 'Wes Anderson', 'Ralph Fiennes, F. Murray Abraham, Mathieu Amalric', 0, 'https://www.imdb.com/title/tt2278388/'),
-(103, 'Dilibogyók', 'Két egyszerű barát vicces kalandokba keveredik, miközben visszajuttatnak egy táskát.', '1994-12-16', 'vígjáték', 'Peter Farrelly', 'Jim Carrey, Jeff Daniels, Lauren Holly', 0, 'https://www.imdb.com/title/tt0109686/'),
+(103, 'Dumb és Dumber', 'Két egyszerű barát vicces kalandokba keveredik, miközben visszajuttatnak egy táskát.', '1994-12-16', 'vígjáték', 'Peter Farrelly', 'Jim Carrey, Jeff Daniels, Lauren Holly', 0, 'https://www.imdb.com/title/tt0109686/'),
 (104, 'Toy Story', 'Egy játékokkal teli szoba életre kel, amikor senki sem figyel.', '1995-11-22', 'animáció', 'John Lasseter', 'Tom Hanks, Tim Allen, Don Rickles', 0, 'https://www.imdb.com/title/tt0114709/'),
 (105, 'Némó Nyomában', 'Egy kis bohóchal eltűnik, és apja elindul megkeresni.', '2003-05-30', 'animáció', 'Andrew Stanton, Lee Unkrich', 'Albert Brooks, Ellen DeGeneres, Alexander Gould', 0, 'https://www.imdb.com/title/tt0266543/'),
 (106, 'Shrek', 'Egy ogre megmenti a hercegnőt, hogy visszaszerezze mocsarát.', '2001-05-18', 'animáció', 'Andrew Adamson, Vicky Jenson', 'Mike Myers, Eddie Murphy, Cameron Diaz', 0, 'https://www.imdb.com/title/tt0126029/'),
@@ -320,7 +320,9 @@ INSERT INTO `sorozatok` (`sorozat_id`, `cim`, `leiras`, `megjelenesi_datum`, `mu
 (99, 'Gravity Falls', 'Két testvér nyári kalandjai egy rejtélyekkel teli városban.', '2012-06-15', 'animáció', 'Alex Hirsch', 'Jason Ritter, Alex Hirsch, Kristen Schaal', 0, 'https://www.imdb.com/title/tt1865718/', 2),
 (100, 'Archer', 'Egy titkosügynök és csapata vicces kémkalandjai.', '2009-09-17', 'animáció', 'Adam Reed', 'H. Jon Benjamin, Judy Greer, Amber Nash', 0, 'https://www.imdb.com/title/tt1486217/', 14),
 (101, 'The Legend of Korra', 'Egy új avatar kalandjai a modernizálódó világban.', '2012-04-14', 'animáció', 'Michael Dante DiMartino, Bryan Konietzko', 'Janet Varney, P.J. Byrne, David Faustino', 0, 'https://www.imdb.com/title/tt1695360/', 4),
-(102, 'Squid Game', '456 játékos, akik pénzügyi nehézségekkel küzdenek, részt vesznek egy halálos játékban, ahol gyermeki játékokban kell versenyezniük, hogy nyerjenek.', '2021-09-17', 'akció', 'Hvang Donghjok', 'I Dzsongdzse, Pak Heszu, Csong Hojon', 0, 'https://www.imdb.com/title/tt10919420/', 3);
+(102, 'Squid Game', '456 játékos, akik pénzügyi nehézségekkel küzdenek, részt vesznek egy halálos játékban, ahol gyermeki játékokban kell versenyezniük, hogy nyerjenek.', '2021-09-17', 'akció', 'Hvang Donghjok', 'I Dzsongdzse, Pak Heszu, Csong Hojon', 0, 'https://www.imdb.com/title/tt10919420/', 3),
+(106, 'Kukori és Kotkoda', 'Kukori és Kotkoda boldog házasságban élnek, azonban Kukori lustasága gyakran bosszantja Kotkodát, és okoz bonyodalmakat.', '1971-04-04', 'animáció', ' Mata János', 'Márkus László, Psota Irén, Szuhay Balázs', 1, 'https://www.imdb.com/title/tt0168342/', 2),
+(107, 'Saturday Night Live', 'A népszerű színészeket és humoristákat felvonultató szkeccs-műsor igazi sziporkázó humorával bevéste magát a televíziózás történetébe.', '1975-10-11', 'Vígjáték', 'Don Pardo', ' Kate McKinnon, Taran Killam, Rob Riggle', 1, 'https://www.imdb.com/title/tt0072562/', 47);
 
 -- --------------------------------------------------------
 
@@ -360,8 +362,14 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Id`, `LoginNev`, `Hash`, `Salt`, `Name`, `PermissionId`, `Active`, `Email`, `ProfilePicturePath`) VALUES
-(54, 'Majkaa', 'b0930cac3b19edb0ecba6c4f7aed3a66831500e6b1b17d774f192acaaaab3ee9', 'f4p3iPLH3Qpxo7X1Sb1FZMIBVgok6Bej6LRkVsRdwZ9Y3Q062i2uDhiT7nrA1p3o', 'Majoros Péter', 1, 1, 'majesz@gmail.com', NULL),
-(55, 'szitai.bence', 'a560dc86ad3caf55e9c4013416462c197409395b9fd379ae32ab54cf87b82700', 'mdTJ9LrEJ9AKBG1epVm9bL2ICcd8f1jpkNIKenSuHbnHzFI7Xf6AclspZqGp8kr4', 'Szitai Bence Márk', 2, 1, 'szitaibence1@gmail.com', NULL);
+(54, 'Majka', 'b0930cac3b19edb0ecba6c4f7aed3a66831500e6b1b17d774f192acaaaab3ee9', 'f4p3iPLH3Qpxo7X1Sb1FZMIBVgok6Bej6LRkVsRdwZ9Y3Q062i2uDhiT7nrA1p3o', 'Majoros Péter', 1, 0, 'majesz1@gmail.com', NULL),
+(55, 'szitai.bence', 'a560dc86ad3caf55e9c4013416462c197409395b9fd379ae32ab54cf87b82700', 'mdTJ9LrEJ9AKBG1epVm9bL2ICcd8f1jpkNIKenSuHbnHzFI7Xf6AclspZqGp8kr4', 'Szitai Bence Márk', 2, 1, 'szitaibence1@gmail.com', NULL),
+(59, 'laci', '1ed904e3ff1f33b0f90756dac92f4f273dfbf65f747a53ea7b01ec176f4e30bf', 'wKhdMf04AVJwQVT29lTzeeyJfUtOd9FH6GgSQr4uSSlBeu0prnhW6SxboBTJ2rQ9', 'Gáspár Laci', 1, 1, 'laci@gmail.com', NULL),
+(73, 'Mkls', 'dfbcab71b96d365dd3ae71e7e517e5e96b4da175de878640458842a063bcc451', 'AQlMGMtesFZJyZ8tZvF32Wy6hCdOjoi3j1RQ8ZknIkaROEIHf8DgHepk4hBGyfJn', 'Miklós Merse', 2, 1, 'mersemiklos12@gmail.com', NULL),
+(74, 'kisgabi', '153299178f9f08a32b9802f7e8ac14a364dc9f2212cfa7eec7f6dc99ba5c94f5', 'LTsYNNjdxv1iDKKRQNcrH1Y09WhiOgsKqTWuV77t7En6IbUTThWFA2BXwpkqd4XQ', 'Kis Gábor', 1, 1, 'kisgabi13@gmail.com', NULL),
+(75, 'Hatalmas Áron', '542fa896d63c22604c1e6f387eb3f5c47d099b5676d65af6aeffd2bb9486384b', 'ChTfLnL2QVfb1eTk7JOZ6RuEKzEcLr8nptjdSy82IhAOSjfX2ZUXJm8NtNIFhGcs', 'Nagy Áron', 1, 1, 'aron174@gmail.com', NULL),
+(77, 'tesztelek', 'e107c980ea693f04a085e7485754a4f9489ca85fdb891c632e3973d766ea7d62', 'N72qI4cQuGA3ucAbRK8MbA9tZXU4b7XKdIz65e1BNVVfFsgUdAcn9stba1w9ZQvP', 'TesztElek', 1, 1, 'tesztelek@gmail.com', ''),
+(78, 'tesztelek123', 'ad84dd390d5cbe911a6cd17367edf2fe5101ecd92f699f70bce8490cee089f47', 'rFEAs27PXulGKHca1obEGkTQpft3pK7OtRshxryAqWhFiVKRTzpQQj3sry9FZblW', 'Teszt Elek', 2, 1, 'tesztelek123@gmail.com', '');
 
 --
 -- Indexek a kiírt táblákhoz
@@ -412,7 +420,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT a táblához `filmek`
 --
 ALTER TABLE `filmek`
-  MODIFY `film_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
+  MODIFY `film_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
 
 --
 -- AUTO_INCREMENT a táblához `film_velemenyek`
@@ -424,7 +432,7 @@ ALTER TABLE `film_velemenyek`
 -- AUTO_INCREMENT a táblához `sorozatok`
 --
 ALTER TABLE `sorozatok`
-  MODIFY `sorozat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `sorozat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT a táblához `sorozat_velemenyek`
@@ -436,7 +444,7 @@ ALTER TABLE `sorozat_velemenyek`
 -- AUTO_INCREMENT a táblához `user`
 --
 ALTER TABLE `user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- Megkötések a kiírt táblákhoz
