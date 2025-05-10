@@ -1,0 +1,90 @@
+﻿using FilmFokuszBackEnd.DTOs;
+using FilmFokuszBackEnd.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace FilmFokuszBackEnd.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LoginController : ControllerBase
+    {
+        [HttpPost("SaltRequest/{loginName}")]
+
+        public async Task<IActionResult> SaltRequest(string loginName)
+        {
+            using (var cx = new FilmfokuszContext())
+            {
+                try
+                {
+                    User response = await cx.Users.FirstOrDefaultAsync(f => f.LoginNev == loginName);
+                    return response == null ? BadRequest("Hiba") : Ok(response.Salt);
+                }
+                catch
+                (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        {
+            using (var cx = new FilmfokuszContext())
+            {
+                try
+                {
+                    string Hash = Program.CreateSHA256(loginDTO.Password);
+                    User loggedUser = await cx.Users.FirstOrDefaultAsync(f => f.LoginNev == loginDTO.Username && f.Hash == Hash);
+                    if (loggedUser != null && loggedUser.Active)
+                    {
+                        bool talalt = false;
+                        int index = 0;
+                        int elemSzam = Program.LoggedInUsers.Count;
+                        while (!talalt && index < elemSzam)
+                        {
+                            if (Program.LoggedInUsers.ElementAt(index).Value.LoginNev.ToUpper() == loginDTO.Username.ToUpper())
+                            {
+                                lock (Program.LoggedInUsers)
+                                {
+                                    Program.LoggedInUsers.Remove(Program.LoggedInUsers.ElementAt(index).Key);
+                                }
+                                talalt = true;
+                            }
+                            index++;
+                        }
+                        string token = Guid.NewGuid().ToString();
+                        lock (Program.LoggedInUsers)
+                        {
+                            Program.LoggedInUsers.Add(token, loggedUser);
+                        }
+                        string profilePictureBase64 = loggedUser.ProfilePicturePath != null
+                            ? Convert.ToBase64String(loggedUser.ProfilePicturePath)
+                            : "";
+
+                        return Ok(new LoggedUser
+                        {
+                            Name = loggedUser.Name,
+                            Email = loggedUser.Email,
+                            Permission = loggedUser.PermissionId,
+                            ProfilePicturePath = profilePictureBase64,
+                            Token = token
+                        });
+                    }
+                    else
+                    {
+                        return BadRequest("Hibás név vagy jelszó/inaktív felhasználó!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new LoggedUser { Permission = -1, Name = ex.Message, ProfilePicturePath = "", Email = "" });
+                }
+            }
+        }
+
+
+    }
+}
