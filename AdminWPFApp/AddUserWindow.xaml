@@ -1,0 +1,71 @@
+﻿<Window x:Class="AdminWPFApp.AddUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminWPFApp"
+        mc:Ignorable="d"
+         Title="Felhasználó hozzáadása" Height="460" Width="400" Background="#F4F4F4">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#A8D08D" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="10" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="200" />
+            <Setter Property="Margin" Value="0,10" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+
+    
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="Teljes Név:" Margin="0,5"/>
+            <TextBox x:Name="FullNameTextBox" Margin="0,5"/>
+
+            <TextBlock Text="Felhasználónév:" Margin="0,5"/>
+            <TextBox x:Name="UsernameTextBox" Margin="0,5"/>
+
+            <TextBlock Text="E-mail cím:" Margin="0,5"/>
+            <TextBox x:Name="EmailTextBox" Margin="0,5"/>
+
+            <TextBlock Text="Jelszó:" Margin="0,5"/>
+            <PasswordBox x:Name="PasswordBox" Margin="0,5"/>
+
+            <TextBlock Text="Jelszó megerősítése:" Margin="0,5"/>
+            <PasswordBox x:Name="ConfirmPasswordBox" Margin="0,5"/>
+
+
+            <Button Content="Felhasználó hozzáadása" Margin="0,10" Click="AddUserButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

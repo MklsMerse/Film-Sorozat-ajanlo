@@ -1,0 +1,204 @@
+﻿<Window x:Class="AdminWPFApp.AdminDashboard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdminWPFApp"
+        mc:Ignorable="d"
+        Title="AdminDashboard" Height="600" Width="1000" Background="#F4F4F4">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#9FE2BF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#4CAF50"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+       
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="Background" Value="#f5f5f5"/>
+            <Setter Property="BorderBrush" Value="#ccc"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RowBackground" Value="#f9f9f9"/>
+            <Setter Property="AlternatingRowBackground" Value="#e9e9e9"/>
+        </Style>
+
+      
+        <Style TargetType="TabControl">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Background" Value="#f0f0f0"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="BorderBrush" Value="#ccc"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Background" Value="#f0f0f0"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#ccc"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+
+    
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+      
+        <Style TargetType="DockPanel">
+            <Setter Property="LastChildFill" Value="True"/>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <DockPanel>
+            
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Background="LightGray" HorizontalAlignment="Right">
+                <TextBlock Name="UsernameTextBlock" Margin="10" VerticalAlignment="Center" FontWeight="Bold" />
+                <Button Content="Kijelentkezés" Margin="10" Click="LogoutButton_Click" />
+            </StackPanel>
+
+            <TabControl x:Name="MainTabControl" SelectionChanged="MainTabControl_SelectionChanged">
+  
+                <TabItem Header="Felhasználó Listázása">
+                    <Grid>
+                        <DataGrid x:Name="UsersDataGrid" AutoGenerateColumns="False" Margin="10" CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" Width="Auto" />
+                                <DataGridTextColumn Header="Név" Binding="{Binding Name}" Width="*" />
+                                <DataGridTextColumn Header="Felhasználónév" Binding="{Binding LoginNev}" Width="*" />
+                                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
+                                <DataGridTextColumn Header="Jogosultság" Binding="{Binding PermissionId}" Width="Auto" />
+                                <DataGridCheckBoxColumn Header="Aktív" Binding="{Binding Active, Mode=TwoWay}" Width="Auto" />
+                                <DataGridTextColumn Header="Hash" Binding="{Binding Hash}" Width="*" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Salt" Binding="{Binding Salt}" Width="*" IsReadOnly="True" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+                            <Button Content="Frissítés" Click="RefreshUsers_Click" Margin="5"/>
+                            <Button Content="Mentés" Click="SaveUsers_Click" Margin="5"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Felhasználó hozzáadása">
+                    <Grid>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Button Content="Új felhasználó hozzáadása" Padding="10" Click="OpenAddUserWindow_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Felhasználó törlése">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Content="Felhasználók törlése" Padding="10" Click="OpenDeleteUserWindow_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Filmek Listázása">
+                    <Grid>
+                        <DataGrid x:Name="FilmsDataGrid" AutoGenerateColumns="False" Margin="10" CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Film ID" Binding="{Binding FilmId}" IsReadOnly="True" Width="Auto" />
+                                <DataGridTextColumn Header="Cím" Binding="{Binding Cim}" Width="*" />
+                                <DataGridTextColumn Header="Leírás" Binding="{Binding Leiras}" Width="2*" />
+                                <DataGridTextColumn Header="Megjelenési dátum" Binding="{Binding MegjelenesiDatum}" Width="Auto" />
+                                <DataGridTextColumn Header="Műfaj" Binding="{Binding Mufaj}" Width="Auto" />
+                                <DataGridTextColumn Header="Rendező" Binding="{Binding Rendezo}" Width="Auto" />
+                                <DataGridTextColumn Header="Szereplők" Binding="{Binding Szereplok}" Width="Auto" />
+                                <DataGridTextColumn Header="Értékelés" Binding="{Binding Ertekeles}" Width="Auto" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Film URL" Binding="{Binding FilmUrl}" Width="2*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+                            <Button Content="Frissítés" Click="RefreshFilms_Click" Margin="5" Width="150" />
+                            <Button Content="Mentés" Click="SaveFilms_Click" Margin="5" Width="150" />
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Filmek hozzáadása">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Content="Új film hozzáadása" Padding="10" Click="OpenAddFilmWindow_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                
+                
+
+                <TabItem Header="Filmek törlése">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Content="Filmek törlése" Padding="10" Click="OpenDeleteFilmWindow_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Sorozatok Listázása">
+                    <Grid>
+                        <DataGrid x:Name="SorozatoksDataGrid" AutoGenerateColumns="False" Margin="10" CanUserAddRows="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sorozat ID" Binding="{Binding SorozatId}" IsReadOnly="True" Width="Auto" />
+                                <DataGridTextColumn Header="Cím" Binding="{Binding Cim}" Width="*" />
+                                <DataGridTextColumn Header="Leírás" Binding="{Binding Leiras}" Width="2*" />
+                                <DataGridTextColumn Header="Megjelenési dátum" Binding="{Binding MegjelenesiDatum}" Width="Auto" />
+                                <DataGridTextColumn Header="Műfaj" Binding="{Binding Mufaj}" Width="Auto" />
+                                <DataGridTextColumn Header="Rendező" Binding="{Binding Rendezo}" Width="Auto" />
+                                <DataGridTextColumn Header="Szereplők" Binding="{Binding Szereplok}" Width="Auto" />
+                                <DataGridTextColumn Header="Értékelés" Binding="{Binding Ertekeles}" Width="Auto" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="Sorozat URL" Binding="{Binding SorozatUrl}" Width="2*" />
+                                <DataGridTextColumn Header="Évadok Száma" Binding="{Binding EvadokSzama}" Width="Auto" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10">
+                            <Button Content="Frissítés" Click="RefreshSeries_Click" Margin="5" Width="150" />
+                            <Button Content="Mentés" Click="SaveSeries_Click" Margin="5" Width="150" />
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Sorozatok hozzáadása">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Content="Új sorozat hozzáadása" Padding="10" Click="OpenAddSorozatWindow_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Sorozatok törlése">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Content="Sorozatok törlése" Click="OpenDeleteSorozatWindow_Click" Width="200" Height="40" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+
+                <TabItem Header="Vélemények">
+                    <TextBlock Text="Vélemények (nem elérhető)" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+    </Grid>
+</Window>
